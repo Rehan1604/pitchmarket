@@ -1,27 +1,67 @@
-# Free scheduler for the market data pipeline (Vercel Hobby crons run once a day).
-# Calls the idempotent tick endpoint every 30 minutes; jobs decide themselves what is due.
-# Each run is billed as at least 1 minute: every 30 min ≈ 1,440 min/month, inside the
-# 2,000 free minutes for PRIVATE repos. Public repos have unlimited free minutes, so you
-# can change the schedule to "*/5 * * * *" there.
-# Requires repository secrets: APP_URL (e.g. https://pitchmarket.vercel.app) and CRON_SECRET.
-# For 1-minute polling during matches, use an external cron (e.g. cron-job.org) instead —
-# see docs/DEPLOYMENT.md. GitHub may delay scheduled runs under load.
-name: Market tick
+# Match-aware wake-up for sleep-on-idle hosts (e.g. Render free).
+#
+# Every hour this checks the public FPL fixture list (falling back to the public
+# GitHub archive) and, only when a Premier League match is within ~100 minutes,
+# live, or just finished, calls the app's idempotent tick endpoint. That wakes
+# the server; its in-process scheduler then polls every minute and keeps itself
+# awake until the match has been settled. The rest of the week the app and the
+# database are allowed to sleep, which keeps both inside their free allowances.
+#
+# Repository secrets: APP_URL (e.g. https://pitchmarket.onrender.com) and CRON_SECRET.
+# Optional repository variable TICK_EVERY_RUN=true: call the endpoint on every run
+# (for hosts without an in-process scheduler, e.g. Vercel Hobby).
+# Each run is billed as ~1 minute: 24/day ≈ 720 min/month — free for public repos and
+# inside the 2,000 free minutes for private ones. GitHub may delay scheduled runs.
+name: Market wake-up
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "7 * * * *"
   workflow_dispatch:
 
 jobs:
-  tick:
+  wake:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 6
     steps:
-      - name: Run scheduler tick
+      - name: Wake the app if a match is near
         env:
           APP_URL: ${{ secrets.APP_URL }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          TICK_EVERY_RUN: ${{ vars.TICK_EVERY_RUN }}
+          FPL_SEASON: ${{ vars.FPL_SEASON || '2026-27' }}
         run: |
-          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET secrets not set"; exit 0; fi
-          curl --fail-with-body -sS -m 90 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/tick"
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET secrets not set; nothing to do."; exit 0; fi
+          near=$(python3 - <<'PY'
+          import csv, io, json, os, urllib.request
+          from datetime import datetime, timedelta, timezone
+          now = datetime.now(timezone.utc)
+          lo, hi = now - timedelta(hours=4), now + timedelta(minutes=100)
+          def get(url):
+              req = urllib.request.Request(url, headers={"User-Agent": "pitchmarket-wake/1.0"})
+              return urllib.request.urlopen(req, timeout=20).read().decode()
+          def near(kickoffs):
+              return any(lo <= k <= hi for k in kickoffs)
+          try:
+              data = json.loads(get("https://fantasy.premierleague.com/api/fixtures/"))
+              ks = [datetime.fromisoformat(f["kickoff_time"].replace("Z", "+00:00")) for f in data if f.get("kickoff_time")]
+              print("yes" if near(ks) else "no"); raise SystemExit
+          except SystemExit: raise
+          except Exception as e:
+              print(f"FPL fixtures unavailable ({e}); using archive", file=__import__("sys").stderr)
+          try:
+              rows = csv.DictReader(io.StringIO(get(f"https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/{os.environ['FPL_SEASON']}/fixtures.csv")))
+              ks = [datetime.fromisoformat(r["kickoff_time"].replace("Z", "+00:00")) for r in rows if r.get("kickoff_time")]
+              print("yes" if near(ks) else "no")
+          except Exception as e:
+              print(f"archive unavailable ({e})", file=__import__("sys").stderr); print("yes")
+          PY
+          )
+          echo "match window: $near"
+          if [ "$near" != "yes" ] && [ "$TICK_EVERY_RUN" != "true" ]; then exit 0; fi
+          # Cold starts on free hosts can take ~1 minute; retry once.
+          for attempt in 1 2; do
+            if curl --fail-with-body -sS -m 150 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/tick"; then echo; exit 0; fi
+            sleep 20
+          done
+          exit 1

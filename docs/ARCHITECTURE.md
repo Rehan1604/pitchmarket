@@ -68,7 +68,7 @@ floating point touches balances.
                           │
      scheduler.ts runSchedulerTick(): decides what's due, Postgres job locks, freshness auto-halt
                           │
-   triggers: /api/cron/tick (Vercel Cron, GitHub Actions, any cron)  ·  npm run worker  ·  admin "Run now"
+   triggers: in-process scheduler (instrumentation.ts)  ·  /api/cron/tick (GitHub Actions wake-up, Vercel Cron, any cron)  ·  npm run worker  ·  admin "Run now"
 ```
 
 * **Adapters** implement `MarketDataProvider` (tradable, with player stats) or

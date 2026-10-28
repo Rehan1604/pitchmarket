@@ -98,10 +98,65 @@ async function cleanup() {
   return { status: "success" };
 }
 
+export interface TickPlan {
+  /** Seconds until the next tick is useful. */
+  delaySec: number;
+  /** True while a match is live, about to start or awaiting settlement (live feed only). */
+  keepAwake: boolean;
+  reason: "live" | "kickoff" | "settling" | "upcoming" | "idle" | "snapshot";
+}
+
+/** Pre-kickoff lead during which a sleep-on-idle host should stay awake. */
+export const KEEP_AWAKE_LEAD_MINUTES = 90;
+
+/**
+ * Decide when the next tick is worth running. Around matches that is every
+ * LIVE_POLL_SECONDS; otherwise we wait until shortly before the next kickoff
+ * (capped by SCHEDULER_IDLE_SECONDS) so the database can scale to zero.
+ */
+export async function planNextTick(entityProvider: string, mode: string, now = Date.now()): Promise<TickPlan> {
+  const e = env();
+  const opts = { idleSec: e.SCHEDULER_IDLE_SECONDS, liveSec: e.LIVE_POLL_SECONDS };
+  if (mode !== "live") return decideNextTick(null, mode, now, opts);
+  const [row] = await db
+    .select({
+      live: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'live')::int`,
+      kickoff: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} between ${new Date(now - 3 * 3600_000)} and ${new Date(now + 20 * 60_000)})::int`,
+      settling: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.kickoffAt} > ${new Date(now - 12 * 3600_000)})::int`,
+      nextKickoff: sql<string | null>`min(${schema.fixtures.kickoffAt}) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} > ${new Date(now)})`,
+    })
+    .from(schema.fixtures)
+    .where(eq(schema.fixtures.provider, entityProvider));
+  return decideNextTick(row ?? null, mode, now, opts);
+}
+
+export interface FixtureWindow {
+  live: number;
+  kickoff: number;
+  settling: number;
+  nextKickoff: string | Date | null;
+}
+
+/** Pure timing policy behind planNextTick (unit-tested). */
+export function decideNextTick(w: FixtureWindow | null, mode: string, now: number, o: { idleSec: number; liveSec: number }): TickPlan {
+  if (mode !== "live") return { delaySec: o.idleSec, keepAwake: false, reason: "snapshot" };
+  if (!w) return { delaySec: o.idleSec, keepAwake: false, reason: "idle" };
+  if (w.live > 0) return { delaySec: o.liveSec, keepAwake: true, reason: "live" };
+  if (w.kickoff > 0) return { delaySec: o.liveSec, keepAwake: true, reason: "kickoff" };
+  if (w.settling > 0) return { delaySec: 300, keepAwake: true, reason: "settling" };
+  if (w.nextKickoff) {
+    const untilSec = (new Date(w.nextKickoff).getTime() - now) / 1000;
+    const delaySec = Math.round(Math.min(o.idleSec, Math.max(o.liveSec, untilSec - 15 * 60)));
+    return { delaySec, keepAwake: untilSec <= KEEP_AWAKE_LEAD_MINUTES * 60, reason: "upcoming" };
+  }
+  return { delaySec: o.idleSec, keepAwake: false, reason: "idle" };
+}
+
 export interface CycleResult {
   provider: string;
   mode: string;
   jobs: Record<string, string>;
+  next: TickPlan;
 }
 
 /** Run every job that is due. Safe to call as often as every few seconds. */
@@ -146,7 +201,8 @@ export async function runSchedulerTick(trigger = "schedule", opts: { force?: boo
   const freshness = await enforceDataFreshness();
   if (freshness.changed) results.freshness = String(freshness.status);
 
-  return { provider: provider.source, mode: provider.mode, jobs: results };
+  const next = await planNextTick(provider.entityProvider, provider.mode);
+  return { provider: provider.source, mode: provider.mode, jobs: results, next };
 }
 
 /** Admin: which jobs ran recently and whether any are failing. */

@@ -128,7 +128,7 @@ Last full run (28 Oct 2026):
 
 * [Architecture, security and sources of truth](docs/ARCHITECTURE.md)
 * [Market mechanics: scoring, pricing, orders, leaderboards](docs/MARKET_MECHANICS.md)
-* [Deployment: Vercel + Neon/Supabase, schedulers, any Node host](docs/DEPLOYMENT.md)
+* [Deployment: Render + Neon (free), Vercel, any Node host; free-tier budgets](docs/DEPLOYMENT.md)
 * [Data sources, licensing and attribution](docs/DATA_LICENSING.md)
 * [Troubleshooting](docs/TROUBLESHOOTING.md)
 
@@ -145,5 +145,7 @@ name "PITCHMARKET" only appears elsewhere in documentation.
   a licensed per-player feed (adapter interface in `src/server/ingestion/providers/types.ts`).
 * Market orders only. Limit orders aren't implemented.
 * Live UI updates poll every 20 s (no websockets), which is suitable for serverless hosting.
-* Vercel Hobby cron runs once a day and the included GitHub workflow every 30
-  minutes; use cron-job.org (every minute) or the worker for live match days.
+* On sleep-on-idle free hosts (Render free) the first visit after a quiet spell
+  takes up to a minute while the server wakes. Around matches the server keeps
+  itself awake; serverless hosts (Vercel) need an external per-minute cron for
+  live pricing (see the deployment guide).

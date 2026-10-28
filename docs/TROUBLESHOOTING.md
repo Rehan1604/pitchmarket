@@ -5,7 +5,9 @@
 | `Invalid server environment: DATABASE_URL…` at startup/build | Missing env var | Copy `.env.example` to `.env` and set `DATABASE_URL`. On Vercel, set it for the Production (and Preview) environment. |
 | `/api/ready` returns 503 with `listedPlayers: 0` | Market not seeded | `npm run db:seed` (or wait for the scheduler's reference job). |
 | Amber "Snapshot data" pill everywhere | The live FPL API isn't reachable from the server | Expected fallback. Admin → Providers shows the error. Run the worker from a host that can reach `fantasy.premierleague.com`, or set `DATA_PROVIDER=fpl` to fail loudly instead of falling back. |
-| Prices never move | No scheduler is calling `/api/cron/tick` | Configure Vercel Cron, the GitHub workflow, cron-job.org or `npm run worker` (docs/DEPLOYMENT.md). Admin → Recent runs shows the last run. |
+| Prices never move | No scheduler is running | Render/VM: set `ENABLE_INPROCESS_SCHEDULER=true` (logs show "in-process scheduler started"). Serverless: call `/api/cron/tick` from cron-job.org or the GitHub workflow (docs/DEPLOYMENT.md). Admin → Recent runs shows the last run. |
+| Live match started but the server was asleep | Sleep-on-idle host with no wake-up before kickoff | Add the `APP_URL` and `CRON_SECRET` repository secrets so the hourly "Market wake-up" workflow can wake it. |
+| Neon compute suspended mid-month | Free 100 CU-hour quota used up | Cap compute at 0.25 CU; make sure nothing polls `/api/cron/tick` every minute around the clock. |
 | `401 Invalid cron credentials` | Header mismatch | Send `Authorization: Bearer <CRON_SECRET>` exactly. |
 | `503 CRON_NOT_CONFIGURED` | `CRON_SECRET` unset | Set `CRON_SECRET` (≥16 characters). |
 | Admin shows a provider "Backoff until …" | Repeated failures or HTTP 429 | Automatic. The provider is retried after the backoff, or use Admin → Re-check live feed. |

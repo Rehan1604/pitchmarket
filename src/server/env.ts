@@ -46,9 +46,28 @@ const schema = z.object({
   API_FOOTBALL_SEASON: z.coerce.number().int().optional(),
 
   CRON_SECRET: z.string().min(16).optional(),
+  /**
+   * Run the scheduler inside the web server process (single-instance hosts such
+   * as Render). Ticks adapt to the fixture list: every LIVE_POLL_SECONDS around
+   * matches, at most every SCHEDULER_IDLE_SECONDS otherwise, so a scale-to-zero
+   * database can sleep between match days.
+   */
+  ENABLE_INPROCESS_SCHEDULER: bool(false),
+  SCHEDULER_IDLE_SECONDS: z.coerce.number().int().min(300).max(6 * 3600).default(3600),
+  /**
+   * Public URL the server pings (GET /api/health, no database) only while a
+   * match is live, imminent or settling, so sleep-on-idle hosts stay awake for
+   * live pricing and still sleep the rest of the week. Defaults to Render's
+   * RENDER_EXTERNAL_URL. Set KEEP_AWAKE_DURING_MATCHES=false to disable.
+   */
+  KEEP_AWAKE_DURING_MATCHES: bool(true),
+  KEEPALIVE_URL: z.string().url().optional(),
+  RENDER_EXTERNAL_URL: z.string().url().optional(),
   RESEND_API_KEY: z.string().optional(),
   EMAIL_FROM: z.string().default("PITCHMARKET <no-reply@pitchmarket.local>"),
   SESSION_TTL_DAYS: z.coerce.number().int().min(1).max(90).default(30),
+  /** Lower-case name of the one header to trust for the client IP (rate limits), e.g. `true-client-ip` on Render. */
+  CLIENT_IP_HEADER: z.string().trim().toLowerCase().regex(/^[a-z0-9-]+$/).optional(),
   SECURE_COOKIES: bool(process.env.NODE_ENV === "production"),
   LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),
 });
@@ -59,7 +78,9 @@ let cached: Env | null = null;
 
 export function env(): Env {
   if (cached) return cached;
-  const parsed = schema.safeParse(process.env);
+  // `KEY=` (empty) means "not set", so a copied .env.example with blank optional keys is valid.
+  const raw = Object.fromEntries(Object.entries(process.env).filter(([, v]) => v !== undefined && v.trim() !== ""));
+  const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     const issues = parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ");
     throw new Error(`Invalid server environment: ${issues}`);

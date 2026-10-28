@@ -1,6 +1,7 @@
 import "server-only";
 import { NextResponse, type NextRequest } from "next/server";
 import { z, ZodError } from "zod";
+import { env } from "./env";
 import { log } from "./log";
 
 export class HttpError extends Error {
@@ -94,11 +95,17 @@ export async function readJson<S extends z.ZodTypeAny>(req: NextRequest, schema:
 }
 
 /**
- * Client IP for rate limiting. Prefers the platform-set `x-real-ip` (Vercel and
- * most reverse proxies overwrite it), then the first `x-forwarded-for` hop.
- * Only trust these headers when the app runs behind such a proxy.
+ * Client IP for rate limiting. With CLIENT_IP_HEADER set (e.g. `true-client-ip`
+ * on Render, whose edge sets it and which otherwise only appends to a
+ * client-supplied `x-forwarded-for`), that header wins. Otherwise it prefers the platform-set `x-real-ip` (Vercel and most reverse proxies
+ * overwrite it), then the first `x-forwarded-for` hop.
  */
 export function clientIp(req: Request): string {
+  const trusted = env().CLIENT_IP_HEADER;
+  const fromTrusted = trusted ? req.headers.get(trusted)?.split(",")[0].trim() : undefined;
+  if (fromTrusted) return fromTrusted;
+  // Header missing (e.g. a request that bypassed the edge): fall back rather than
+  // lumping every such caller into one shared "unknown" rate-limit bucket.
   const real = req.headers.get("x-real-ip");
   if (real) return real.trim();
   const fwd = req.headers.get("x-forwarded-for");

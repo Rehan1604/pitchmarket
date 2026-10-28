@@ -1,0 +1,32 @@
+# Render Blueprint: one free web service; the database is Neon (free).
+# Dashboard → New → Blueprint → pick this repo, then fill the two prompted values.
+# Free web services sleep after 15 idle minutes; the in-process scheduler keeps the
+# service awake only while a match is live, imminent or settling, and the
+# "Market wake-up" GitHub workflow wakes it before kickoffs (see docs/DEPLOYMENT.md).
+services:
+  - type: web
+    name: pitchmarket
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci && npm run db:migrate && npm run build
+    # Run Next directly (no npm wrapper) with a heap cap that fits a 512 MB instance.
+    startCommand: node --max-old-space-size=320 node_modules/next/dist/bin/next start -p $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL # Neon pooled connection string with ?sslmode=require
+        sync: false
+      - key: APP_URL # e.g. https://pitchmarket.onrender.com
+        sync: false
+      - key: CRON_SECRET
+        generateValue: true
+      - key: APP_MODE
+        value: production
+      - key: ENABLE_INPROCESS_SCHEDULER
+        value: "true"
+      - key: CLIENT_IP_HEADER # set by Render's edge; X-Forwarded-For is client-spoofable there
+        value: true-client-ip
+      - key: DB_POOL_MAX
+        value: "5"
