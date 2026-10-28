@@ -639,15 +639,32 @@ async function priceSettledRow(
  * (players whose listing was mis-dated to the sync time). Per player, in kickoff
  * order, still never out of order. Idempotent: priced rows lose their note.
  */
-export async function repriceSkippedRows(note = "before_listing", limitPlayers = 200, now = new Date()) {
-  const players = await db
-    .selectDistinct({ playerId: schema.playerMatchStats.playerId })
-    .from(schema.playerMatchStats)
-    .where(eq(schema.playerMatchStats.pricingNote, note))
-    .limit(limitPlayers);
+export async function repriceSkippedRows(note = "before_listing", opts: { maxMs?: number; batch?: number } = {}, now = new Date()) {
+  const started = Date.now();
+  const maxMs = opts.maxMs ?? 12 * 60_000;
   let priced = 0;
   let outOfOrder = 0;
-  for (const { playerId } of players) {
+  let playersDone = 0;
+  for (;;) {
+    if (Date.now() - started > maxMs) break;
+    const batch = await db
+      .selectDistinct({ playerId: schema.playerMatchStats.playerId })
+      .from(schema.playerMatchStats)
+      .where(eq(schema.playerMatchStats.pricingNote, note))
+      .limit(opts.batch ?? 100);
+    if (batch.length === 0) break;
+    const r = await repriceBatch(batch.map((b) => b.playerId), note, now);
+    priced += r.priced;
+    outOfOrder += r.outOfOrder;
+    playersDone += batch.length;
+  }
+  return { items: priced, status: playersDone ? ("success" as const) : ("skipped" as const), details: { players: playersDone, priced, outOfOrder, ms: Date.now() - started } };
+}
+
+async function repriceBatch(playerIds: number[], note: string, now: Date) {
+  let priced = 0;
+  let outOfOrder = 0;
+  for (const playerId of playerIds) {
     await db.transaction(async (tx) => {
       const version = await lockAndBumpMarketVersion(tx);
       const rows = await tx
@@ -672,7 +689,7 @@ export async function repriceSkippedRows(note = "before_listing", limitPlayers =
       }
     });
   }
-  return { items: priced, status: players.length ? ("success" as const) : ("skipped" as const), details: { players: players.length, priced, outOfOrder } };
+  return { priced, outOfOrder };
 }
 
 /** The stats fingerprint without the minutes component ("m:63|goals:1|…" → "goals:1|…"). */

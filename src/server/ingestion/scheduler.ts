@@ -227,7 +227,7 @@ export async function runSchedulerTick(trigger = "schedule", opts: { force?: boo
   }
 
   // One-off repair for rows an earlier release skipped as "before listing" (no-op once done).
-  await runJob("repair:before-listing", f * 600, () => repriceSkippedRows("before_listing"), results, 900);
+  await runJob("repair:before-listing", f * 600, () => repriceSkippedRows("before_listing"), results, 15 * 60);
   await runJob("snapshots:daily", f * 1800, async () => withRun("snapshots", "internal", trigger, () => takeDailySnapshots(), { gate: false }), results);
   await runJob("cleanup", f * 6 * 3600, cleanup, results);
   const freshness = await enforceDataFreshness();
