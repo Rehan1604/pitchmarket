@@ -1,0 +1,123 @@
+{
+  "ratesPer90": {
+    "GK": {
+      "goals": 0,
+      "assists": 0.00658,
+      "xg": 0.00021,
+      "xa": 0.00184,
+      "shots": 0.01,
+      "shotsOnTarget": 0,
+      "keyPasses": 0.05,
+      "dribbles": 0.01,
+      "tackles": 0.03158,
+      "interceptions": 0.1,
+      "clearances": 0.8,
+      "cbi": 1.22904,
+      "recoveries": 8.15191,
+      "saves": 2.78178,
+      "goalsConceded": 1.37773,
+      "ownGoals": 0.00526,
+      "penaltiesSaved": 0.01447,
+      "penaltiesMissed": 0,
+      "yellowCards": 0.07237,
+      "redCards": 0.00132
+    },
+    "DEF": {
+      "goals": 0.04324,
+      "assists": 0.07481,
+      "xg": 0.05716,
+      "xa": 0.05791,
+      "shots": 0.6,
+      "shotsOnTarget": 0.18,
+      "keyPasses": 0.6,
+      "dribbles": 0.3,
+      "tackles": 1.70612,
+      "interceptions": 1,
+      "clearances": 3.5,
+      "cbi": 5.97915,
+      "recoveries": 3.69633,
+      "saves": 0,
+      "goalsConceded": 1.39141,
+      "ownGoals": 0.00884,
+      "penaltiesSaved": 0,
+      "penaltiesMissed": 0,
+      "yellowCards": 0.1815,
+      "redCards": 0.00821
+    },
+    "MID": {
+      "goals": 0.15022,
+      "assists": 0.16713,
+      "xg": 0.15308,
+      "xa": 0.12615,
+      "shots": 1.3,
+      "shotsOnTarget": 0.45,
+      "keyPasses": 1.1,
+      "dribbles": 0.8,
+      "tackles": 1.83905,
+      "interceptions": 0.8,
+      "clearances": 1,
+      "cbi": 2.31649,
+      "recoveries": 4.42104,
+      "saves": 0,
+      "goalsConceded": 1.36921,
+      "ownGoals": 0.00169,
+      "penaltiesSaved": 0,
+      "penaltiesMissed": 0.00197,
+      "yellowCards": 0.18771,
+      "redCards": 0.00479
+    },
+    "FWD": {
+      "goals": 0.4021,
+      "assists": 0.12692,
+      "xg": 0.40984,
+      "xa": 0.06028,
+      "shots": 2.6,
+      "shotsOnTarget": 1,
+      "keyPasses": 0.9,
+      "dribbles": 1,
+      "tackles": 0.80302,
+      "interceptions": 0.3,
+      "clearances": 0.6,
+      "cbi": 1.644,
+      "recoveries": 2.34857,
+      "saves": 0,
+      "goalsConceded": 1.40558,
+      "ownGoals": 0.00237,
+      "penaltiesSaved": 0,
+      "penaltiesMissed": 0.00949,
+      "yellowCards": 0.14945,
+      "redCards": 0
+    }
+  },
+  "cleanSheetRate": {
+    "GK": 0.255,
+    "DEF": 0.2716,
+    "MID": 0.3032,
+    "FWD": 0.3181
+  },
+  "sigma": {
+    "GK": 2.4458,
+    "DEF": 2.924,
+    "MID": 2.5623,
+    "FWD": 3.0198
+  },
+  "source": {
+    "dataset": "FPL archive 2025-26 (github.com/vaastav/Fantasy-Premier-League, gws/merged_gw.csv)",
+    "appearances": 11498,
+    "appearancesByPosition": {
+      "GK": 767,
+      "DEF": 3950,
+      "MID": 5347,
+      "FWD": 1434
+    },
+    "provisionalStats": [
+      "shots",
+      "shotsOnTarget",
+      "keyPasses",
+      "dribbles",
+      "interceptions",
+      "clearances"
+    ],
+    "generatedAt": "2026-10-28T16:23:54.638Z"
+  }
+}

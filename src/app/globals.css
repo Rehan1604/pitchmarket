@@ -1,26 +1,141 @@
 @import "tailwindcss";
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/big-shoulders-display";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * PITCHMARKET design tokens — "floodlit pitch at night".
+ * Green-black ground, chalk-white type, lime for actions only,
+ * emerald / coral strictly for direction (always paired with ▲ ▼ and a sign).
+ */
+@theme {
+  --color-pitch-950: #050d0a;
+  --color-pitch-900: #08130f;
+  --color-pitch-850: #0b1814;
+  --color-pitch-800: #0f1f1a;
+  --color-pitch-750: #142722;
+  --color-pitch-700: #1b332c;
+  --color-pitch-600: #264339;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-chalk: #f1eee4;
+  --color-chalk-2: #bcc6bf;
+  --color-chalk-3: #82918a;
+  --color-chalk-4: #56655e;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-lime: #d4f55c;
+  --color-lime-dim: #a9c645;
+  --color-gain: #3ddc97;
+  --color-loss: #ff6a5c;
+  --color-amber: #f2b544;
+  --color-sky: #7cc6fe;
+
+  --color-line: rgb(241 238 228 / 0.08);
+  --color-line-strong: rgb(241 238 228 / 0.16);
+
+  --font-sans: "IBM Plex Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Big Shoulders Display Variable", "IBM Plex Sans Variable", ui-sans-serif, sans-serif;
+
+  --radius-panel: 10px;
+  --animate-ticker: ticker 70s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes ticker {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-pitch-900);
+  }
+  body {
+    background: var(--color-pitch-900);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01" on;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: rgb(212 245 92 / 0.35);
+    color: var(--color-chalk);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* Scoreboard numerals: the one loud element, reserved for prices and portfolio value. */
+  .scoreboard {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 0.9;
+    font-variant-numeric: lining-nums;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .panel {
+    background: var(--color-pitch-850);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+  }
+  .hairline-b {
+    border-bottom: 1px solid var(--color-line);
+  }
+  /* Pitch markings motif: the halfway line + centre circle, drawn in chalk at very low contrast. */
+  .pitch-lines {
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 0 139px, rgb(241 238 228 / 0.06) 140px 141px, transparent 142px),
+      linear-gradient(90deg, transparent calc(50% - 0.5px), rgb(241 238 228 / 0.06) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,156 @@
+# Market mechanics
+
+PITCHMARKET is a game played with **virtual Pitch Credits (PC)**. Prices are game
+prices produced by the deterministic engine described here. They are not
+real-world player valuations, and nothing can be deposited, withdrawn or won.
+
+Code: `src/server/market/scoring.ts` (match scoring), `src/server/market/pricing.ts`
+(price engine), `src/server/ingestion/pipeline.ts` (when prices change),
+`src/server/trading/service.ts` (orders), `src/server/leaderboard/service.ts` (rankings).
+
+## 1. Match performance score
+
+Scoring and pricing are separate. For one player in one match the scorer
+produces a points total `s`, the expected total `e` for an average player in
+the same position over the same minutes, and a normalised score
+`z = clamp((s − e) / σ[position], −3, +4)`.
+
+**Missing data is never zero.** A stat the provider does not publish is
+excluded from both `s` and `e`, so it can't help or hurt a player. FPL does not
+publish shots, key passes, dribbles or separate interceptions/clearances; those
+are simply not judged for Premier League players.
+
+Points per unit (`WEIGHTS` in `scoring.ts`):
+
+| Stat | GK | DEF | MID | FWD |
+|---|---|---|---|---|
+| Appearance (1–59′ / 60′+) | 1 / 2 | 1 / 2 | 1 / 2 | 1 / 2 |
+| Goal | 6 | 6 | 5 | 4 |
+| Assist | 3 | 3 | 3 | 3 |
+| xG / xA (per 1.0) | 1.5 | 1.5 | 1.5 | 1.5 |
+| Shot / shot on target | 0.1 / 0.3 | 0.1 / 0.3 | 0.1 / 0.3 | 0.1 / 0.3 |
+| Key pass / successful dribble | 0.4 / 0.3 | 0.4 / 0.3 | 0.4 / 0.3 | 0.4 / 0.3 |
+| Tackle / interception | 0.2 | 0.35 | 0.3 | 0.2 |
+| Clearance | 0.05 | 0.1 | 0.05 | 0.05 |
+| Clearances+blocks+interceptions (combined) | 0.05 | 0.15 | 0.15 | 0.1 |
+| Recovery | 0.03 | 0.06 | 0.06 | 0.06 |
+| Save | 0.5 | – | – | – |
+| Clean sheet (60′+ only) | 4 | 4 | 1 | 0 |
+| Goal conceded | −0.5 | −0.5 | 0 | 0 |
+| Penalty saved / missed | 5 / −2 | 5 / −2 | 5 / −2 | 5 / −2 |
+| Own goal | −2 | −2 | −2 | −2 |
+| Yellow / red card | −1 / −3 | −1 / −3 | −1 / −3 | −1 / −3 |
+
+The combined clearances+blocks+interceptions stat is used only when a provider
+doesn't report interceptions and clearances separately (no double counting).
+
+### Baselines (derived from real data)
+
+`npm run data:derive` computes per-90 rates, the clean-sheet rate and σ from
+**11,498 Premier League appearances in 2025-26** (FPL archive), and writes
+`src/server/market/model-baselines.json`. Selected values:
+
+| Per 90 minutes | GK | DEF | MID | FWD |
+|---|---|---|---|---|
+| Goals | 0.000 | 0.043 | 0.150 | 0.402 |
+| Assists | 0.007 | 0.075 | 0.167 | 0.127 |
+| xG | 0.000 | 0.057 | 0.153 | 0.410 |
+| xA | 0.002 | 0.058 | 0.126 | 0.060 |
+| Saves | 2.782 | 0 | 0 | 0 |
+| Tackles | 0.032 | 1.706 | 1.839 | 0.803 |
+| Clearances+blocks+interceptions | 1.229 | 5.979 | 2.316 | 1.644 |
+| Recoveries | 8.152 | 3.696 | 4.421 | 2.349 |
+| Goals conceded | 1.378 | 1.391 | 1.369 | 1.406 |
+| Clean-sheet rate (60′+) | 0.255 | 0.272 | 0.303 | 0.318 |
+| σ of (score − expected), 60′+ | 2.45 | 2.92 | 2.56 | 3.02 |
+
+Rates for stats FPL doesn't publish (shots, key passes, dribbles, interceptions,
+clearances) are provisional top-flight averages, flagged in the JSON; they only
+matter for future providers that supply those stats.
+
+## 2. Price engine
+
+All state needed to continue a player's price path lives in `player_prices`,
+so the whole history can be replayed from the recorded matches. The integration
+test suite replays every player and checks it matches the stored prices exactly.
+
+```
+m          = √(min(minutes, 90) / 90)                      minutes / sample-size weight
+quality    = (priorQ·priorW + Σ z·m) / (priorW + Σ m + 6)  season quality, shrunk toward average
+form       = EWMA of z·m, half-life 4 matches              recent form with time decay
+role       = (priorRole·priorRoleW + Σ m) / (priorRoleW + team matches)   share of minutes
+fundamental F = base[pos] × e^(1.1 · (0.7·quality + 0.3·form)) × (0.6 + 0.8·role)
+
+per match the player appeared in:
+r       = clamp(0.035 · z · m + 0.12 · ln(F_after / P_before), −8%, +8%)
+P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
+```
+
+* **Base price (demand assumption):** GK 800, DEF 900, MID 1,050, FWD 1,150 PC.
+  Attackers carry a modest premium because they're the most sought-after shares.
+* **Initial price (IPO):** `P0 = F` at season open, using last season's quality and
+  minutes share from `data/priors/fpl-2025-26.json` (keyed by the stable FPL
+  `code`). Last season's quality weight is halved and capped at 15 matches, so a
+  new season can change a player's value quickly. Players without Premier League
+  history start at the positional base with a neutral role. At launch prices
+  range from about 460 to 2,330 PC (Haaland and Bruno Fernandes at the top).
+* **Did not play:** no price step. Only the role count advances, so a long
+  absence can lower fundamental value, which reaches the price gradually through
+  later mean reversion. Absence never crashes a price.
+* **Caps:** at most ±8% per match, plus hard bounds of 50 and 15,000 PC.
+* All constants live in `PRICING` (`pricing.ts`). Change them, rerun the tests,
+  and replay to see the effect.
+
+## 3. When prices change (market integrity)
+
+| Event | What happens |
+|---|---|
+| IPO | Exactly once per player (unique `ipo` tick). Initial listings are dated to season open. |
+| Live match | Each stats refresh recomputes a **provisional** price from the last *settled* state plus the current live stats. Re-polling identical stats changes nothing (no compounding). Recorded as `match_live` ticks. |
+| Full time, stats final | Exactly one `match_final` step per player per fixture (unique index), applied from the settled base. Becomes the new settled state. Fixtures are locked and marked `settled_at` in the same transaction. |
+| Stat corrections after settlement | Not applied. Settled fixtures aren't re-fetched, so a settled price is final, like a closing price. |
+| Halt | Admin (manual) or automatic when a live match has no fresh data for `STALE_LIVE_DATA_HALT_MINUTES`. Automatic halts lift themselves when data recovers; manual ones never auto-lift. |
+
+* **In-play lock (`LIVE_TRADING_POLICY=halt`, default):** a player can't be traded
+  while their team's match is live. Match feeds arrive after TV, so in-play
+  trading would reward whoever watches the fastest stream. Portfolio values still
+  move live.
+* Every price change bumps `market_state.version`. All price writers lock
+  `market_state` first and then `player_prices` (one global lock order, so no deadlocks).
+
+## 4. Orders
+
+* Market orders only, **whole shares only**, at most `MAX_SHARES_PER_ORDER` per order.
+* Fee: `TRADING_FEE_BPS` basis points of gross (default 0), rounded half-up, added to
+  cost basis on buys and deducted from proceeds on sales.
+* The client sends player, side, quantity, an idempotency key and, optionally, the
+  price it displayed. The server reads the price inside the transaction. If the
+  displayed price is stale, the order is rejected with the new price (HTTP 409
+  `PRICE_CHANGED`) and the user confirms again. No client-supplied price, balance
+  or P/L is ever trusted.
+* One transaction: share-lock `market_state` → lock the cash account (serialises a
+  user's orders) → share-lock the price → lock the position → append to `trades`
+  and `cash_entries` → update `cash_accounts` and `positions`.
+* `(user_id, idempotency_key)` is unique: retries and double-clicks return the
+  original receipt; reusing a key for a different order is rejected.
+* Each trade stores execution price, quantity, gross, fee, cash delta, realised
+  P/L, cash and position after, the **market version** it executed against, and a timestamp.
+* Average entry price = cost basis ÷ shares. On a sale the released basis is
+  `basis × sold ÷ held` (exact when closing), so realised P/L = proceeds − released basis.
+
+## 5. Leaderboards
+
+* **Ranking formula:** total portfolio value = cash + Σ shares × current price.
+  Everyone starts with the same balance and there are no deposits or bonuses, so
+  value and return on starting capital rank identically.
+* **Periods:** season (vs starting balance), week and day (vs the user's
+  start-of-day UTC snapshot 7 / 1 days ago, or the starting balance if they
+  joined later).
+* **Ties** share a rank (1, 2, 2, 4) and are listed by username, which is deterministic.
+* **Movement** arrows compare the current rank with the rank implied by today's
+  start-of-day snapshots within the same group.
+* Scopes: global (users can opt out in Settings), friends, and each league.
+  All are computed on read from persisted data, never cached client-side.
+* **Resets** exist only in `APP_MODE=demo` or by an admin. They close holdings at
+  current prices through real (fee-free) ledger trades and restore the starting
+  balance with an audited `reset` cash entry.

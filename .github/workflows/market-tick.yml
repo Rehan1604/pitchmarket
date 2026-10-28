@@ -1,0 +1,24 @@
+# Free scheduler for the market data pipeline (Vercel Hobby crons run once a day).
+# Calls the idempotent tick endpoint every 5 minutes; jobs decide themselves what is due.
+# Requires repository secrets: APP_URL (e.g. https://pitchmarket.vercel.app) and CRON_SECRET.
+# For 1-minute polling during matches, use an external cron (e.g. cron-job.org) instead —
+# see docs/DEPLOYMENT.md. GitHub may delay scheduled runs under load.
+name: Market tick
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Run scheduler tick
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET secrets not set"; exit 0; fi
+          curl --fail-with-body -sS -m 90 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/tick"

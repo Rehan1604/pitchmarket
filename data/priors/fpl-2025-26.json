@@ -1,0 +1,7576 @@
+{
+ "season": "2025-26",
+ "source": "FPL archive 2025-26 (github.com/vaastav/Fantasy-Premier-League, gws/merged_gw.csv)",
+ "generatedAt": "2026-10-28T16:23:54.638Z",
+ "players": {
+  "15157": {
+   "name": "James Milner",
+   "position": "MID",
+   "quality": -0.1746,
+   "weight": 11.666,
+   "role": 0.307,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "17761": {
+   "name": "James Tarkowski",
+   "position": "DEF",
+   "quality": 0.1663,
+   "weight": 37,
+   "role": 0.9737,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "19236": {
+   "name": "John Ruddy",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 27,
+   "appearances": 0
+  },
+  "21205": {
+   "name": "Tom Heaton",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "37096": {
+   "name": "Lukasz Fabianski",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 35,
+   "appearances": 0
+  },
+  "40383": {
+   "name": "Fraser Forster",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "44699": {
+   "name": "Ashley Barnes",
+   "position": "FWD",
+   "quality": -0.0979,
+   "weight": 1.671,
+   "role": 0.044,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "49262": {
+   "name": "Jason Steele",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "50175": {
+   "name": "Danny Welbeck",
+   "position": "FWD",
+   "quality": 0.0038,
+   "weight": 29.04,
+   "role": 0.7642,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "51943": {
+   "name": "Václav Hladký",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "54469": {
+   "name": "Adam Smith",
+   "position": "DEF",
+   "quality": 0.1605,
+   "weight": 14.024,
+   "role": 0.3691,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "56979": {
+   "name": "Jordan Henderson",
+   "position": "MID",
+   "quality": -0.2669,
+   "weight": 24.725,
+   "role": 0.6507,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "57328": {
+   "name": "Nathaniel Clyne",
+   "position": "DEF",
+   "quality": -0.287,
+   "weight": 7.658,
+   "role": 0.2015,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "58621": {
+   "name": "Kyle Walker",
+   "position": "DEF",
+   "quality": -0.5101,
+   "weight": 34.902,
+   "role": 0.9185,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "59735": {
+   "name": "Karl Darlow",
+   "position": "GK",
+   "quality": -0.0019,
+   "weight": 22,
+   "role": 0.5789,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "59859": {
+   "name": "İlkay Gündoğan",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "59949": {
+   "name": "Séamus Coleman",
+   "position": "DEF",
+   "quality": -0.0062,
+   "weight": 0.934,
+   "role": 0.0246,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "60307": {
+   "name": "Pascal Groß",
+   "position": "MID",
+   "quality": 0.0288,
+   "weight": 18.443,
+   "role": 0.9707,
+   "roleMatches": 19,
+   "appearances": 19
+  },
+  "60689": {
+   "name": "Chris Wood",
+   "position": "FWD",
+   "quality": -0.1776,
+   "weight": 11.851,
+   "role": 0.3119,
+   "roleMatches": 38,
+   "appearances": 15
+  },
+  "61256": {
+   "name": "Carlos Henrique Casimiro",
+   "position": "MID",
+   "quality": 0.44,
+   "weight": 30.878,
+   "role": 0.8126,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "67089": {
+   "name": "Martin Dúbravka",
+   "position": "GK",
+   "quality": -0.1934,
+   "weight": 35,
+   "role": 0.9211,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "69752": {
+   "name": "Norberto Murara Neto",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "72147": {
+   "name": "Marco Bizot",
+   "position": "GK",
+   "quality": -0.2853,
+   "weight": 6.707,
+   "role": 0.1765,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "74854": {
+   "name": "Simon Moore",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "75115": {
+   "name": "Callum Wilson",
+   "position": "FWD",
+   "quality": -0.0402,
+   "weight": 19.462,
+   "role": 0.5122,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "76357": {
+   "name": "Tom Cairney",
+   "position": "MID",
+   "quality": -0.1853,
+   "weight": 12.774,
+   "role": 0.3362,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "77794": {
+   "name": "Kieran Trippier",
+   "position": "DEF",
+   "quality": -0.234,
+   "weight": 18.708,
+   "role": 0.4923,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "78916": {
+   "name": "Dan Burn",
+   "position": "DEF",
+   "quality": -0.0649,
+   "weight": 25.752,
+   "role": 0.6777,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "79602": {
+   "name": "Daniel Bentley",
+   "position": "GK",
+   "quality": -0.6948,
+   "weight": 3,
+   "role": 0.0789,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "80201": {
+   "name": "Bernd Leno",
+   "position": "GK",
+   "quality": -0.1125,
+   "weight": 38,
+   "role": 1,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "80801": {
+   "name": "Idrissa Gana Gueye",
+   "position": "MID",
+   "quality": -0.193,
+   "weight": 23.912,
+   "role": 0.6293,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "81441": {
+   "name": "Mark Gillespie",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "82143": {
+   "name": "Wes Foderingham",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "83299": {
+   "name": "Lewis Dunk",
+   "position": "DEF",
+   "quality": -0.1993,
+   "weight": 31.856,
+   "role": 0.8383,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "84182": {
+   "name": "Alphonse Areola",
+   "position": "GK",
+   "quality": -0.2472,
+   "weight": 20,
+   "role": 0.5263,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "84450": {
+   "name": "Granit Xhaka",
+   "position": "MID",
+   "quality": -0.2034,
+   "weight": 32.89,
+   "role": 0.8655,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "85633": {
+   "name": "Matz Sels",
+   "position": "GK",
+   "quality": 0.0921,
+   "weight": 30.072,
+   "role": 0.7914,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "85971": {
+   "name": "Son Heung-min",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "86873": {
+   "name": "Benjamin Lecomte",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "87835": {
+   "name": "Matt Doherty",
+   "position": "DEF",
+   "quality": -0.4437,
+   "weight": 9.726,
+   "role": 0.256,
+   "roleMatches": 38,
+   "appearances": 11
+  },
+  "88248": {
+   "name": "Stefan Ortega Moreno",
+   "position": "GK",
+   "quality": 0.0241,
+   "weight": 3,
+   "role": 0.0789,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "88894": {
+   "name": "Ross Barkley",
+   "position": "MID",
+   "quality": 0.1307,
+   "weight": 13.137,
+   "role": 0.3457,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "90585": {
+   "name": "Willy Boly",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "91651": {
+   "name": "Mateo Kovačić",
+   "position": "MID",
+   "quality": 0.0978,
+   "weight": 2.654,
+   "role": 0.0698,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "91889": {
+   "name": "Niclas Füllkrug",
+   "position": "FWD",
+   "quality": -0.4854,
+   "weight": 5.734,
+   "role": 0.1509,
+   "roleMatches": 38,
+   "appearances": 8
+  },
+  "95658": {
+   "name": "Harry Maguire",
+   "position": "DEF",
+   "quality": 0.1719,
+   "weight": 19.677,
+   "role": 0.5178,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "97032": {
+   "name": "Virgil van Dijk",
+   "position": "DEF",
+   "quality": 0.202,
+   "weight": 38,
+   "role": 1,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "97299": {
+   "name": "John Stones",
+   "position": "DEF",
+   "quality": -0.3678,
+   "weight": 5.814,
+   "role": 0.153,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "97846": {
+   "name": "Alex Cairns",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "98747": {
+   "name": "Nick Pope",
+   "position": "GK",
+   "quality": 0.1421,
+   "weight": 26.919,
+   "role": 0.7084,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "98980": {
+   "name": "Emiliano Martínez Romero",
+   "position": "GK",
+   "quality": 0.1002,
+   "weight": 31.707,
+   "role": 0.8344,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "101148": {
+   "name": "Jamaal Lascelles",
+   "position": "DEF",
+   "quality": -0.1144,
+   "weight": 0.638,
+   "role": 0.0168,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "101178": {
+   "name": "James Ward-Prowse",
+   "position": "MID",
+   "quality": -0.3893,
+   "weight": 13.91,
+   "role": 0.366,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "101188": {
+   "name": "Lucas Digne",
+   "position": "DEF",
+   "quality": 0.2235,
+   "weight": 23.847,
+   "role": 0.6276,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "101982": {
+   "name": "Sam Johnstone",
+   "position": "GK",
+   "quality": -0.4829,
+   "weight": 12,
+   "role": 0.3158,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "102057": {
+   "name": "Raúl Jiménez Rodríguez",
+   "position": "FWD",
+   "quality": 0.0271,
+   "weight": 28.173,
+   "role": 0.7414,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "105717": {
+   "name": "Arthur Masuaku",
+   "position": "DEF",
+   "quality": -0.1972,
+   "weight": 1.932,
+   "role": 0.0508,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "106468": {
+   "name": "Álex Moreno Lopera",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "106611": {
+   "name": "Michael Keane",
+   "position": "DEF",
+   "quality": 0.1375,
+   "weight": 29.47,
+   "role": 0.7755,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "106617": {
+   "name": "Patrick Bamford",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "106760": {
+   "name": "Luke Shaw",
+   "position": "DEF",
+   "quality": -0.1477,
+   "weight": 36.724,
+   "role": 0.9664,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "107265": {
+   "name": "Angus Gunn",
+   "position": "GK",
+   "quality": -0.1396,
+   "weight": 0.707,
+   "role": 0.0186,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "108413": {
+   "name": "Will Hughes",
+   "position": "MID",
+   "quality": -0.3578,
+   "weight": 21.628,
+   "role": 0.5692,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "109345": {
+   "name": "Solly March",
+   "position": "MID",
+   "quality": -0.021,
+   "weight": 1.052,
+   "role": 0.0277,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "109533": {
+   "name": "Emerson Palmieri dos Santos",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "109646": {
+   "name": "Tosin Adarabioyo",
+   "position": "DEF",
+   "quality": -0.0455,
+   "weight": 10.508,
+   "role": 0.2765,
+   "roleMatches": 38,
+   "appearances": 16
+  },
+  "109745": {
+   "name": "Kepa Arrizabalaga Revuelta",
+   "position": "GK",
+   "quality": -0.4713,
+   "weight": 1,
+   "role": 0.0263,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "110504": {
+   "name": "Bertrand Traoré",
+   "position": "MID",
+   "quality": -0.1188,
+   "weight": 8.907,
+   "role": 0.2545,
+   "roleMatches": 35,
+   "appearances": 12
+  },
+  "110735": {
+   "name": "Adam Webster",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "111234": {
+   "name": "Jordan Pickford",
+   "position": "GK",
+   "quality": 0.0545,
+   "weight": 38,
+   "role": 1,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "111317": {
+   "name": "David Brooks",
+   "position": "MID",
+   "quality": -0.0257,
+   "weight": 18.73,
+   "role": 0.4929,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "111452": {
+   "name": "Odysseas Vlachodimos",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "111478": {
+   "name": "Joël Veltman",
+   "position": "DEF",
+   "quality": 0.031,
+   "weight": 14.793,
+   "role": 0.3893,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "111773": {
+   "name": "Emil Krafth",
+   "position": "DEF",
+   "quality": -0.5391,
+   "weight": 0.707,
+   "role": 0.0186,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "113564": {
+   "name": "Sam Byram",
+   "position": "DEF",
+   "quality": -0.087,
+   "weight": 0.384,
+   "role": 0.0101,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "114243": {
+   "name": "Jacob Murphy",
+   "position": "MID",
+   "quality": -0.0715,
+   "weight": 23.077,
+   "role": 0.6073,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "114283": {
+   "name": "Jack Grealish",
+   "position": "MID",
+   "quality": -0.0003,
+   "weight": 18.737,
+   "role": 0.4931,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "115556": {
+   "name": "Ben Davies",
+   "position": "DEF",
+   "quality": 0.8114,
+   "weight": 2.017,
+   "role": 0.0531,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "116216": {
+   "name": "Leandro Trossard",
+   "position": "MID",
+   "quality": 0.3156,
+   "weight": 25.495,
+   "role": 0.6709,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "116535": {
+   "name": "Alisson Becker",
+   "position": "GK",
+   "quality": -0.0054,
+   "weight": 26,
+   "role": 0.6842,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "118748": {
+   "name": "Mohamed Salah",
+   "position": "MID",
+   "quality": 0.3811,
+   "weight": 25.053,
+   "role": 0.6593,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "119471": {
+   "name": "Fabian Schär",
+   "position": "DEF",
+   "quality": 0.1055,
+   "weight": 13.072,
+   "role": 0.344,
+   "roleMatches": 38,
+   "appearances": 16
+  },
+  "121160": {
+   "name": "Ederson Santana de Moraes",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "121709": {
+   "name": "Walter Benítez",
+   "position": "GK",
+   "quality": 1.5444,
+   "weight": 1,
+   "role": 0.0263,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "122074": {
+   "name": "Marcus Bettinelli",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "122798": {
+   "name": "Andrew Robertson",
+   "position": "DEF",
+   "quality": 0.0666,
+   "weight": 16.312,
+   "role": 0.4293,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "122806": {
+   "name": "John McGinn",
+   "position": "MID",
+   "quality": -0.0002,
+   "weight": 26.215,
+   "role": 0.6899,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "124165": {
+   "name": "Patrick Roberts",
+   "position": "MID",
+   "quality": -0.2548,
+   "weight": 0.548,
+   "role": 0.0144,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "126184": {
+   "name": "Nathan Aké",
+   "position": "DEF",
+   "quality": -0.0013,
+   "weight": 9.746,
+   "role": 0.2565,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "128295": {
+   "name": "Christian Nørgaard",
+   "position": "MID",
+   "quality": -0.029,
+   "weight": 2.46,
+   "role": 0.0647,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "135720": {
+   "name": "Kevin Danso",
+   "position": "DEF",
+   "quality": -0.1055,
+   "weight": 18.158,
+   "role": 0.4778,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "138001": {
+   "name": "Tom King",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "141746": {
+   "name": "Bruno Borges Fernandes",
+   "position": "MID",
+   "quality": 0.9252,
+   "weight": 34.467,
+   "role": 0.907,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "149065": {
+   "name": "José Malheiro de Sá",
+   "position": "GK",
+   "quality": -0.1762,
+   "weight": 23,
+   "role": 0.6053,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "149484": {
+   "name": "Tyrone Mings",
+   "position": "DEF",
+   "quality": -0.2514,
+   "weight": 15.417,
+   "role": 0.4057,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "149519": {
+   "name": "Maxwel Cornet",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "151589": {
+   "name": "Leander Dendoncker",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "152551": {
+   "name": "Jefferson Lerma Solís",
+   "position": "MID",
+   "quality": -0.1579,
+   "weight": 22.495,
+   "role": 0.592,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "153127": {
+   "name": "Isaac Hayden",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "153133": {
+   "name": "Alex Iwobi",
+   "position": "MID",
+   "quality": -0.2336,
+   "weight": 27.85,
+   "role": 0.7329,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "153366": {
+   "name": "Harrison Reed",
+   "position": "MID",
+   "quality": -0.1701,
+   "weight": 2.061,
+   "role": 0.0542,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "153682": {
+   "name": "Harry Wilson",
+   "position": "MID",
+   "quality": 0.35,
+   "weight": 32.193,
+   "role": 0.8472,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "154296": {
+   "name": "João Maria Lobo Alves Palhares Costa Palhinha Gonçalves",
+   "position": "MID",
+   "quality": 0.2315,
+   "weight": 27.439,
+   "role": 0.7221,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "154561": {
+   "name": "David Raya Martín",
+   "position": "GK",
+   "quality": 0.3061,
+   "weight": 37,
+   "role": 0.9737,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "154566": {
+   "name": "Dominic Solanke-Mitchell",
+   "position": "FWD",
+   "quality": -0.2329,
+   "weight": 12.43,
+   "role": 0.3271,
+   "roleMatches": 38,
+   "appearances": 15
+  },
+  "155405": {
+   "name": "Kalvin Phillips",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "155408": {
+   "name": "Lewis Cook",
+   "position": "MID",
+   "quality": -0.2796,
+   "weight": 11.359,
+   "role": 0.2989,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "155503": {
+   "name": "Freddie Woodman",
+   "position": "GK",
+   "quality": -0.189,
+   "weight": 2.596,
+   "role": 0.0683,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "155511": {
+   "name": "Adam Armstrong",
+   "position": "FWD",
+   "quality": -0.4239,
+   "weight": 13.288,
+   "role": 0.9491,
+   "roleMatches": 14,
+   "appearances": 14
+  },
+  "156074": {
+   "name": "Rob Holding",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "156689": {
+   "name": "Andreas Hoelgebaum Pereira",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "158499": {
+   "name": "Ryan Christie",
+   "position": "MID",
+   "quality": -0.0081,
+   "weight": 16.105,
+   "role": 0.4238,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "158534": {
+   "name": "Kyle Walker-Peters",
+   "position": "DEF",
+   "quality": -0.1098,
+   "weight": 17.222,
+   "role": 0.4532,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "158983": {
+   "name": "Endo Wataru",
+   "position": "MID",
+   "quality": 0.1902,
+   "weight": 3.118,
+   "role": 0.0821,
+   "roleMatches": 38,
+   "appearances": 8
+  },
+  "159506": {
+   "name": "Ola Aina",
+   "position": "DEF",
+   "quality": 0.0978,
+   "weight": 17.807,
+   "role": 0.4686,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "159533": {
+   "name": "Adama Traoré Diarra",
+   "position": "MID",
+   "quality": -0.2774,
+   "weight": 8.243,
+   "role": 0.2169,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "165809": {
+   "name": "Bernardo Mota Veiga de Carvalho e Silva",
+   "position": "MID",
+   "quality": -0.2515,
+   "weight": 34.226,
+   "role": 0.9007,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "166477": {
+   "name": "Timothy Castagne",
+   "position": "DEF",
+   "quality": -0.2328,
+   "weight": 22.41,
+   "role": 0.5897,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "166989": {
+   "name": "Youri Tielemans",
+   "position": "MID",
+   "quality": -0.1599,
+   "weight": 22.19,
+   "role": 0.5839,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "167074": {
+   "name": "Kenny Tete",
+   "position": "DEF",
+   "quality": 0.2111,
+   "weight": 20.612,
+   "role": 0.5424,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "167512": {
+   "name": "Luke O'Nien",
+   "position": "DEF",
+   "quality": -0.0636,
+   "weight": 7.457,
+   "role": 0.1962,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "167887": {
+   "name": "Josh Laurent",
+   "position": "MID",
+   "quality": -0.3934,
+   "weight": 23.654,
+   "role": 0.6225,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "168636": {
+   "name": "Enes Ünal",
+   "position": "FWD",
+   "quality": -0.019,
+   "weight": 6.507,
+   "role": 0.1712,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "168991": {
+   "name": "Philip Billing",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "169359": {
+   "name": "Matt Targett",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "169528": {
+   "name": "Antonee Robinson",
+   "position": "DEF",
+   "quality": 0.1286,
+   "weight": 18.294,
+   "role": 0.4814,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "169593": {
+   "name": "Remi Matthews",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "171287": {
+   "name": "Joe Gomez",
+   "position": "DEF",
+   "quality": 0.0003,
+   "weight": 10.165,
+   "role": 0.2675,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "171314": {
+   "name": "Rúben dos Santos Gato Alves Dias",
+   "position": "DEF",
+   "quality": 0.2981,
+   "weight": 24.453,
+   "role": 0.6435,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "171422": {
+   "name": "Alan Browne",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "172567": {
+   "name": "Josh Cullen",
+   "position": "MID",
+   "quality": -0.1425,
+   "weight": 17.355,
+   "role": 0.4567,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "172649": {
+   "name": "Dean Henderson",
+   "position": "GK",
+   "quality": 0.0766,
+   "weight": 37,
+   "role": 0.9737,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "172780": {
+   "name": "James Maddison",
+   "position": "MID",
+   "quality": -0.0153,
+   "weight": 1.017,
+   "role": 0.0268,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "173879": {
+   "name": "Tammy Abraham",
+   "position": "FWD",
+   "quality": -0.0319,
+   "weight": 5.377,
+   "role": 0.3585,
+   "roleMatches": 15,
+   "appearances": 12
+  },
+  "174592": {
+   "name": "Marcus Edwards",
+   "position": "MID",
+   "quality": -0.1821,
+   "weight": 14.893,
+   "role": 0.3919,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "174594": {
+   "name": "Lukas Nmecha",
+   "position": "FWD",
+   "quality": 0.0992,
+   "weight": 17.251,
+   "role": 0.454,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "174874": {
+   "name": "Joachim Andersen",
+   "position": "DEF",
+   "quality": -0.0704,
+   "weight": 32.428,
+   "role": 0.8534,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "176297": {
+   "name": "Marcus Rashford",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "177815": {
+   "name": "Dominic Calvert-Lewin",
+   "position": "FWD",
+   "quality": 0.0165,
+   "weight": 31.949,
+   "role": 0.8635,
+   "roleMatches": 37,
+   "appearances": 35
+  },
+  "178186": {
+   "name": "Jarrod Bowen",
+   "position": "FWD",
+   "quality": 0.0273,
+   "weight": 37.92,
+   "role": 0.9979,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "178301": {
+   "name": "Ollie Watkins",
+   "position": "FWD",
+   "quality": 0.1113,
+   "weight": 33.823,
+   "role": 0.8901,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "179268": {
+   "name": "Marc Cucurella Saseta",
+   "position": "DEF",
+   "quality": 0.0215,
+   "weight": 31.529,
+   "role": 0.8297,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "179458": {
+   "name": "Jacob Bruun Larsen",
+   "position": "MID",
+   "quality": -0.212,
+   "weight": 16.553,
+   "role": 0.4356,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "180135": {
+   "name": "Sean Longstaff",
+   "position": "MID",
+   "quality": 0.0938,
+   "weight": 13.696,
+   "role": 0.3604,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "180736": {
+   "name": "Trevoh Chalobah",
+   "position": "DEF",
+   "quality": 0.1242,
+   "weight": 31.894,
+   "role": 0.8393,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "180804": {
+   "name": "Axel Tuanzebe",
+   "position": "DEF",
+   "quality": -0.3578,
+   "weight": 13.626,
+   "role": 0.3586,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "180974": {
+   "name": "Joelinton Cássio Apolinário de Lira",
+   "position": "MID",
+   "quality": -0.2808,
+   "weight": 23.605,
+   "role": 0.6212,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "181284": {
+   "name": "Gonçalo Manuel Ganchinho Guedes",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "183656": {
+   "name": "Josh Dasilva",
+   "position": "MID",
+   "quality": 0.0238,
+   "weight": 0.211,
+   "role": 0.0075,
+   "roleMatches": 28,
+   "appearances": 2
+  },
+  "183751": {
+   "name": "Manuel Benson Hedilazio",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "184029": {
+   "name": "Martin Ødegaard",
+   "position": "MID",
+   "quality": 0.0659,
+   "weight": 18.214,
+   "role": 0.4793,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "184254": {
+   "name": "Guglielmo Vicario",
+   "position": "GK",
+   "quality": -0.1372,
+   "weight": 31,
+   "role": 0.8158,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "184341": {
+   "name": "Mason Mount",
+   "position": "MID",
+   "quality": 0.1142,
+   "weight": 14.668,
+   "role": 0.386,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "184349": {
+   "name": "Ryan Sessegnon",
+   "position": "MID",
+   "quality": 0.1266,
+   "weight": 22.281,
+   "role": 0.5863,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "184667": {
+   "name": "Victor Lindelöf",
+   "position": "DEF",
+   "quality": -0.4264,
+   "weight": 11.912,
+   "role": 0.3403,
+   "roleMatches": 35,
+   "appearances": 17
+  },
+  "184754": {
+   "name": "Hwang Hee-chan",
+   "position": "MID",
+   "quality": -0.3201,
+   "weight": 19.388,
+   "role": 0.5102,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "191866": {
+   "name": "Kristoffer Ajer",
+   "position": "DEF",
+   "quality": -0.0412,
+   "weight": 22.077,
+   "role": 0.581,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "192290": {
+   "name": "Connor Roberts",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "194010": {
+   "name": "Rico Henry",
+   "position": "DEF",
+   "quality": -0.1318,
+   "weight": 17.784,
+   "role": 0.468,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "195384": {
+   "name": "Mikel Merino Zazón",
+   "position": "MID",
+   "quality": 0.4847,
+   "weight": 14.669,
+   "role": 0.386,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "195546": {
+   "name": "Emiliano Buendía Stati",
+   "position": "MID",
+   "quality": 0.01,
+   "weight": 24.949,
+   "role": 0.6565,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "197024": {
+   "name": "Guido Rodríguez",
+   "position": "MID",
+   "quality": -0.4305,
+   "weight": 2.983,
+   "role": 0.0785,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "198869": {
+   "name": "Benjamin White",
+   "position": "DEF",
+   "quality": 0.5864,
+   "weight": 9.171,
+   "role": 0.2413,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "199598": {
+   "name": "Ethan Ampadu",
+   "position": "MID",
+   "quality": -0.243,
+   "weight": 34.823,
+   "role": 0.9164,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "199670": {
+   "name": "Odsonne Édouard",
+   "position": "FWD",
+   "quality": 0.0442,
+   "weight": 0.149,
+   "role": 0.0039,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "199796": {
+   "name": "Matty Cash",
+   "position": "DEF",
+   "quality": 0.0038,
+   "weight": 34.162,
+   "role": 0.899,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "199798": {
+   "name": "Ezri Konsa Ngoyo",
+   "position": "DEF",
+   "quality": -0.2906,
+   "weight": 33.85,
+   "role": 0.8908,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "200089": {
+   "name": "Joe Willock",
+   "position": "MID",
+   "quality": -0.2384,
+   "weight": 14.571,
+   "role": 0.3834,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "200617": {
+   "name": "Daniel James",
+   "position": "MID",
+   "quality": -0.2589,
+   "weight": 9.764,
+   "role": 0.2569,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "200641": {
+   "name": "Reiss Nelson",
+   "position": "MID",
+   "quality": 0.1091,
+   "weight": 3.142,
+   "role": 0.0827,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "200720": {
+   "name": "Caoimhín Kelleher",
+   "position": "GK",
+   "quality": 0.2252,
+   "weight": 37,
+   "role": 0.9737,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "200785": {
+   "name": "Tyler Adams",
+   "position": "MID",
+   "quality": -0.1544,
+   "weight": 21.516,
+   "role": 0.5662,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "200834": {
+   "name": "Nordi Mukiele",
+   "position": "DEF",
+   "quality": 0.3502,
+   "weight": 31.253,
+   "role": 0.8447,
+   "roleMatches": 37,
+   "appearances": 32
+  },
+  "201595": {
+   "name": "Lucas Estella Perri",
+   "position": "GK",
+   "quality": -0.3675,
+   "weight": 16,
+   "role": 0.4211,
+   "roleMatches": 38,
+   "appearances": 16
+  },
+  "201658": {
+   "name": "Marcus Tavernier",
+   "position": "MID",
+   "quality": 0.1603,
+   "weight": 31.739,
+   "role": 0.8352,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "201666": {
+   "name": "Harvey Barnes",
+   "position": "MID",
+   "quality": 0.0551,
+   "weight": 26.979,
+   "role": 0.71,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "201895": {
+   "name": "Omar Alderete",
+   "position": "DEF",
+   "quality": 0.0716,
+   "weight": 31.829,
+   "role": 0.8376,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "202641": {
+   "name": "André Onana",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "202993": {
+   "name": "Rodrigo Bentancur",
+   "position": "MID",
+   "quality": -0.1821,
+   "weight": 22.88,
+   "role": 0.6021,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "204120": {
+   "name": "Olivier Boscagli",
+   "position": "DEF",
+   "quality": 0.1878,
+   "weight": 9.642,
+   "role": 0.2537,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "204214": {
+   "name": "Pervis Estupiñán Tenorio",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "204480": {
+   "name": "Declan Rice",
+   "position": "MID",
+   "quality": 0.2968,
+   "weight": 35.033,
+   "role": 0.9219,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "204580": {
+   "name": "Vitaly Janelt",
+   "position": "MID",
+   "quality": -0.0349,
+   "weight": 18.73,
+   "role": 0.4929,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "204646": {
+   "name": "Donyell Malen",
+   "position": "MID",
+   "quality": 0.3036,
+   "weight": 11.173,
+   "role": 0.294,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "204716": {
+   "name": "Ibrahima Konaté",
+   "position": "DEF",
+   "quality": -0.0455,
+   "weight": 35.101,
+   "role": 0.9237,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "204822": {
+   "name": "Omar Richards",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "204936": {
+   "name": "Gianluigi Donnarumma",
+   "position": "GK",
+   "quality": 0.2576,
+   "weight": 34,
+   "role": 0.9714,
+   "roleMatches": 35,
+   "appearances": 34
+  },
+  "204968": {
+   "name": "Ryan Yates",
+   "position": "MID",
+   "quality": -0.1117,
+   "weight": 10.902,
+   "role": 0.2869,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "205533": {
+   "name": "Eddie Nketiah",
+   "position": "FWD",
+   "quality": -0.0297,
+   "weight": 7.193,
+   "role": 0.1893,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "205651": {
+   "name": "Gabriel Fernando de Jesus",
+   "position": "FWD",
+   "quality": 0.0007,
+   "weight": 7.708,
+   "role": 0.2028,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "206325": {
+   "name": "Oleksandr Zinchenko",
+   "position": "DEF",
+   "quality": -0.4604,
+   "weight": 4.217,
+   "role": 0.111,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "206915": {
+   "name": "Curtis Jones",
+   "position": "MID",
+   "quality": -0.1456,
+   "weight": 25.56,
+   "role": 0.6726,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "207189": {
+   "name": "Sander Berge",
+   "position": "MID",
+   "quality": -0.4717,
+   "weight": 33.381,
+   "role": 0.8784,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "207283": {
+   "name": "Mathias Jensen",
+   "position": "MID",
+   "quality": -0.1873,
+   "weight": 28.06,
+   "role": 0.7384,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "208706": {
+   "name": "Bruno Guimarães Rodriguez Moura",
+   "position": "MID",
+   "quality": 0.5032,
+   "weight": 27.988,
+   "role": 0.7365,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "208912": {
+   "name": "Joe Worrall",
+   "position": "DEF",
+   "quality": -0.2724,
+   "weight": 6.792,
+   "role": 0.1787,
+   "roleMatches": 38,
+   "appearances": 11
+  },
+  "209036": {
+   "name": "Marc Guéhi",
+   "position": "DEF",
+   "quality": 0.4446,
+   "weight": 35,
+   "role": 0.9211,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "209041": {
+   "name": "Angel Gomes",
+   "position": "MID",
+   "quality": -0.404,
+   "weight": 6.845,
+   "role": 0.4889,
+   "roleMatches": 14,
+   "appearances": 12
+  },
+  "209046": {
+   "name": "Callum Hudson-Odoi",
+   "position": "MID",
+   "quality": -0.1192,
+   "weight": 24.039,
+   "role": 0.6326,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "209243": {
+   "name": "Jadon Sancho",
+   "position": "MID",
+   "quality": -0.2045,
+   "weight": 13.718,
+   "role": 0.361,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "209244": {
+   "name": "Phil Foden",
+   "position": "MID",
+   "quality": 0.3673,
+   "weight": 26.028,
+   "role": 0.6849,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "209288": {
+   "name": "Tom McGill",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "209289": {
+   "name": "Emile Smith Rowe",
+   "position": "MID",
+   "quality": -0.123,
+   "weight": 26.521,
+   "role": 0.6979,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "209365": {
+   "name": "Matthijs de Ligt",
+   "position": "DEF",
+   "quality": -0.1958,
+   "weight": 13,
+   "role": 0.3421,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "209400": {
+   "name": "Daichi Kamada",
+   "position": "MID",
+   "quality": -0.2067,
+   "weight": 23.533,
+   "role": 0.6193,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "210156": {
+   "name": "Taiwo Awoniyi",
+   "position": "FWD",
+   "quality": 0.3372,
+   "weight": 8.757,
+   "role": 0.2304,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "210462": {
+   "name": "Ibrahim Sangaré",
+   "position": "MID",
+   "quality": -0.118,
+   "weight": 24.655,
+   "role": 0.6488,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "210494": {
+   "name": "Nayef Aguerd",
+   "position": "DEF",
+   "quality": -1.018,
+   "weight": 2,
+   "role": 0.0526,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "211975": {
+   "name": "Manuel Akanji",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "212314": {
+   "name": "Saša Lukić",
+   "position": "MID",
+   "quality": -0.1273,
+   "weight": 21.493,
+   "role": 0.5656,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "212319": {
+   "name": "Richarlison de Andrade",
+   "position": "FWD",
+   "quality": 0.1774,
+   "weight": 25.26,
+   "role": 0.6647,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "213198": {
+   "name": "Christopher Nkunku",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "213999": {
+   "name": "Edson Álvarez Velázquez",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "214048": {
+   "name": "Maximilian Kilman",
+   "position": "DEF",
+   "quality": -0.5889,
+   "weight": 17.91,
+   "role": 0.4713,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "214225": {
+   "name": "Joe Rodon",
+   "position": "DEF",
+   "quality": -0.1934,
+   "weight": 33.367,
+   "role": 0.8781,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "214285": {
+   "name": "Konstantinos Tsimikas",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "214572": {
+   "name": "Brandon Austin",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "214590": {
+   "name": "Aaron Wan-Bissaka",
+   "position": "DEF",
+   "quality": -0.335,
+   "weight": 23.881,
+   "role": 0.6284,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "215059": {
+   "name": "Robert Lynch Sánchez",
+   "position": "GK",
+   "quality": 0.0279,
+   "weight": 34.067,
+   "role": 0.8965,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "215136": {
+   "name": "Neco Williams",
+   "position": "DEF",
+   "quality": 0.1089,
+   "weight": 36.182,
+   "role": 0.9522,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "215379": {
+   "name": "Elliot Anderson",
+   "position": "MID",
+   "quality": 0.0562,
+   "weight": 37.453,
+   "role": 0.9856,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "215413": {
+   "name": "Kiernan Dewsbury-Hall",
+   "position": "MID",
+   "quality": 0.2961,
+   "weight": 29.883,
+   "role": 0.7864,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "215439": {
+   "name": "Tomáš Souček",
+   "position": "MID",
+   "quality": 0.0124,
+   "weight": 27.47,
+   "role": 0.7229,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "215460": {
+   "name": "Ian Poveda-Ocampo",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "215711": {
+   "name": "Leon Bailey",
+   "position": "MID",
+   "quality": 0.0348,
+   "weight": 7.578,
+   "role": 0.1994,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "216051": {
+   "name": "Diogo Dalot Teixeira",
+   "position": "DEF",
+   "quality": 0.0585,
+   "weight": 30.836,
+   "role": 0.8115,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "216055": {
+   "name": "Florentino Ibrain Morris Luís",
+   "position": "MID",
+   "quality": -0.2057,
+   "weight": 25.999,
+   "role": 0.7428,
+   "roleMatches": 35,
+   "appearances": 31
+  },
+  "216094": {
+   "name": "Jeremie Frimpong",
+   "position": "DEF",
+   "quality": 0.1308,
+   "weight": 14.362,
+   "role": 0.3779,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "216646": {
+   "name": "Yoane Wissa",
+   "position": "FWD",
+   "quality": -0.1081,
+   "weight": 9.477,
+   "role": 0.2494,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "218328": {
+   "name": "Samuel Chukwueze",
+   "position": "MID",
+   "quality": 0.1258,
+   "weight": 15.691,
+   "role": 0.4483,
+   "roleMatches": 35,
+   "appearances": 23
+  },
+  "218364": {
+   "name": "Borna Sosa",
+   "position": "DEF",
+   "quality": -0.1561,
+   "weight": 2.183,
+   "role": 0.0574,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "219168": {
+   "name": "Alexander Isak",
+   "position": "FWD",
+   "quality": -0.0725,
+   "weight": 9.778,
+   "role": 0.2573,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "219249": {
+   "name": "Matt O'Riley",
+   "position": "MID",
+   "quality": 0.5179,
+   "weight": 2.9,
+   "role": 0.0763,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "219847": {
+   "name": "Kai Havertz",
+   "position": "FWD",
+   "quality": 0.2189,
+   "weight": 8.528,
+   "role": 0.2244,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "219924": {
+   "name": "Issa Diop",
+   "position": "DEF",
+   "quality": -0.2379,
+   "weight": 9.915,
+   "role": 0.2609,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "219937": {
+   "name": "Rhys Williams",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "220237": {
+   "name": "Sven Botman",
+   "position": "DEF",
+   "quality": 0.0833,
+   "weight": 21.588,
+   "role": 0.5681,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "220362": {
+   "name": "Axel Disasi",
+   "position": "DEF",
+   "quality": -0.0802,
+   "weight": 13.966,
+   "role": 0.9976,
+   "roleMatches": 14,
+   "appearances": 14
+  },
+  "220566": {
+   "name": "Rodrigo 'Rodri' Hernandez Cascante",
+   "position": "MID",
+   "quality": -0.1197,
+   "weight": 18.019,
+   "role": 0.4742,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "220598": {
+   "name": "Michael Obafemi",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "220627": {
+   "name": "James Justin",
+   "position": "DEF",
+   "quality": 0.2655,
+   "weight": 22.888,
+   "role": 0.6358,
+   "roleMatches": 36,
+   "appearances": 29
+  },
+  "220684": {
+   "name": "Aji Alese",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "220695": {
+   "name": "Paris Maghoma",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "221389": {
+   "name": "John Victor Maciel Furtado",
+   "position": "GK",
+   "quality": -0.5712,
+   "weight": 4.925,
+   "role": 0.1407,
+   "roleMatches": 35,
+   "appearances": 5
+  },
+  "221399": {
+   "name": "Jack Harrison",
+   "position": "MID",
+   "quality": -0.1765,
+   "weight": 5.26,
+   "role": 0.1384,
+   "roleMatches": 38,
+   "appearances": 11
+  },
+  "221466": {
+   "name": "Marcos Senesi Barón",
+   "position": "DEF",
+   "quality": 0.2556,
+   "weight": 36.748,
+   "role": 0.9671,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "221632": {
+   "name": "Cristian Romero",
+   "position": "DEF",
+   "quality": 0.2491,
+   "weight": 21.644,
+   "role": 0.5696,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "221820": {
+   "name": "Lisandro Martínez",
+   "position": "DEF",
+   "quality": -0.0079,
+   "weight": 14.885,
+   "role": 0.3917,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "222531": {
+   "name": "Morgan Gibbs-White",
+   "position": "MID",
+   "quality": 0.3387,
+   "weight": 35.515,
+   "role": 0.9346,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "222683": {
+   "name": "Justin Kluivert",
+   "position": "MID",
+   "quality": -0.1876,
+   "weight": 13.791,
+   "role": 0.3629,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "222690": {
+   "name": "Tyrell Malacia",
+   "position": "DEF",
+   "quality": 0.0747,
+   "weight": 0.683,
+   "role": 0.018,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "222694": {
+   "name": "Pascal Struijk",
+   "position": "DEF",
+   "quality": -0.154,
+   "weight": 33.034,
+   "role": 0.8693,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "223094": {
+   "name": "Erling Haaland",
+   "position": "FWD",
+   "quality": 0.7925,
+   "weight": 33.681,
+   "role": 0.8864,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "223336": {
+   "name": "Dan Neil",
+   "position": "MID",
+   "quality": -0.0604,
+   "weight": 0.56,
+   "role": 0.0147,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "223340": {
+   "name": "Bukayo Saka",
+   "position": "MID",
+   "quality": 0.596,
+   "weight": 27.008,
+   "role": 0.7107,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "223434": {
+   "name": "Igor Julio dos Santos de Paulo",
+   "position": "DEF",
+   "quality": -0.3608,
+   "weight": 1.62,
+   "role": 0.0426,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "223541": {
+   "name": "Federico Chiesa",
+   "position": "MID",
+   "quality": 0.1069,
+   "weight": 8.624,
+   "role": 0.227,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "223827": {
+   "name": "Daniel Ballard",
+   "position": "DEF",
+   "quality": 0.2076,
+   "weight": 25.578,
+   "role": 0.6731,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "223911": {
+   "name": "Chris Mepham",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "224024": {
+   "name": "Lucas Tolentino Coelho de Lima",
+   "position": "MID",
+   "quality": 0.0019,
+   "weight": 17.373,
+   "role": 0.4572,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "224068": {
+   "name": "Matt Turner",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "224117": {
+   "name": "Viktor Gyökeres",
+   "position": "FWD",
+   "quality": 0.0415,
+   "weight": 28.685,
+   "role": 0.7549,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "224967": {
+   "name": "Vitalii Mykolenko",
+   "position": "DEF",
+   "quality": -0.2203,
+   "weight": 32.938,
+   "role": 0.8668,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "224995": {
+   "name": "Luis Sinisterra Lucumí",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "225321": {
+   "name": "Aaron Ramsdale",
+   "position": "GK",
+   "quality": -0.4687,
+   "weight": 11.38,
+   "role": 0.2995,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "225796": {
+   "name": "Reece James",
+   "position": "DEF",
+   "quality": 0.5178,
+   "weight": 24.17,
+   "role": 0.6361,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "226182": {
+   "name": "Jayden Bogle",
+   "position": "DEF",
+   "quality": -0.0673,
+   "weight": 32.165,
+   "role": 0.8465,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "226597": {
+   "name": "Gabriel dos Santos Magalhães",
+   "position": "DEF",
+   "quality": 0.8083,
+   "weight": 31.086,
+   "role": 0.818,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "226944": {
+   "name": "Boubacar Kamara",
+   "position": "MID",
+   "quality": -0.1801,
+   "weight": 16.492,
+   "role": 0.434,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "226956": {
+   "name": "Mads Roerslev Rasmussen",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "227127": {
+   "name": "Yves Bissouma",
+   "position": "MID",
+   "quality": -0.4005,
+   "weight": 8.312,
+   "role": 0.2187,
+   "roleMatches": 38,
+   "appearances": 11
+  },
+  "227444": {
+   "name": "Nikola Milenković",
+   "position": "DEF",
+   "quality": -0.2504,
+   "weight": 37.707,
+   "role": 0.9923,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "229384": {
+   "name": "Andy Irving",
+   "position": "MID",
+   "quality": -0.2594,
+   "weight": 2.856,
+   "role": 0.0752,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "229600": {
+   "name": "Mark Travers",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "230001": {
+   "name": "Noussair Mazraoui",
+   "position": "DEF",
+   "quality": 0.1961,
+   "weight": 13.5,
+   "role": 0.3553,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "230046": {
+   "name": "Douglas Luiz Soares de Paulo",
+   "position": "MID",
+   "quality": -0.1325,
+   "weight": 13.311,
+   "role": 0.3598,
+   "roleMatches": 37,
+   "appearances": 21
+  },
+  "230376": {
+   "name": "Jhon Arias",
+   "position": "MID",
+   "quality": -0.0552,
+   "weight": 15.711,
+   "role": 0.4134,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "231057": {
+   "name": "Jean-Ricner Bellegarde",
+   "position": "MID",
+   "quality": -0.2618,
+   "weight": 18.077,
+   "role": 0.4757,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "231065": {
+   "name": "Ethan Pinnock",
+   "position": "DEF",
+   "quality": -0.2168,
+   "weight": 3.756,
+   "role": 0.0988,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "231416": {
+   "name": "Ferdi Kadıoğlu",
+   "position": "DEF",
+   "quality": -0.0787,
+   "weight": 35.611,
+   "role": 0.9371,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "231480": {
+   "name": "Santiago Ignacio Bueno",
+   "position": "DEF",
+   "quality": -0.0853,
+   "weight": 28.603,
+   "role": 0.7527,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "231747": {
+   "name": "Jean-Philippe Mateta",
+   "position": "FWD",
+   "quality": -0.0157,
+   "weight": 27.386,
+   "role": 0.7207,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "232112": {
+   "name": "Manuel Ugarte Ribeiro",
+   "position": "MID",
+   "quality": -0.1079,
+   "weight": 13.119,
+   "role": 0.3452,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "232185": {
+   "name": "Ismaïla Sarr",
+   "position": "MID",
+   "quality": 0.3494,
+   "weight": 25.636,
+   "role": 0.6746,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "232356": {
+   "name": "Jenson Jones",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 21,
+   "appearances": 0
+  },
+  "232413": {
+   "name": "Eberechi Eze",
+   "position": "MID",
+   "quality": 0.2249,
+   "weight": 25.293,
+   "role": 0.6656,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "232571": {
+   "name": "Anthony Patterson",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "232653": {
+   "name": "Jacob Ramsey",
+   "position": "MID",
+   "quality": -0.153,
+   "weight": 19.664,
+   "role": 0.5175,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "232787": {
+   "name": "Conor Gallagher",
+   "position": "MID",
+   "quality": -0.2979,
+   "weight": 14.206,
+   "role": 0.8357,
+   "roleMatches": 17,
+   "appearances": 16
+  },
+  "232792": {
+   "name": "Tariq Lamptey",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "232820": {
+   "name": "Joe Anderson",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "232826": {
+   "name": "Anthony Gordon",
+   "position": "MID",
+   "quality": 0.2341,
+   "weight": 22.276,
+   "role": 0.5862,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "232859": {
+   "name": "Djed Spence",
+   "position": "DEF",
+   "quality": -0.0302,
+   "weight": 24.793,
+   "role": 0.6524,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "232892": {
+   "name": "Calvin Bassey",
+   "position": "DEF",
+   "quality": -0.0777,
+   "weight": 28.509,
+   "role": 0.7502,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "232928": {
+   "name": "James Garner",
+   "position": "MID",
+   "quality": 0.0128,
+   "weight": 37.96,
+   "role": 0.999,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "233963": {
+   "name": "Konstantinos Mavropanos",
+   "position": "DEF",
+   "quality": 0.0579,
+   "weight": 28.869,
+   "role": 0.7597,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "235448": {
+   "name": "Ellery Balcombe",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "235674": {
+   "name": "Manor Solomon",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "235826": {
+   "name": "Joël Piroe",
+   "position": "FWD",
+   "quality": -0.2242,
+   "weight": 5.587,
+   "role": 0.147,
+   "roleMatches": 38,
+   "appearances": 16
+  },
+  "240299": {
+   "name": "Joe Hodge",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "240514": {
+   "name": "Kjell Scherpen",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "241231": {
+   "name": "Jordan Beyer",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "242880": {
+   "name": "Benoît Badiashile Mukinayi",
+   "position": "DEF",
+   "quality": -0.3417,
+   "weight": 6.246,
+   "role": 0.1644,
+   "roleMatches": 38,
+   "appearances": 8
+  },
+  "242882": {
+   "name": "Bafodé Diakité",
+   "position": "DEF",
+   "quality": -0.1732,
+   "weight": 15.052,
+   "role": 0.3961,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "242898": {
+   "name": "Brennan Johnson",
+   "position": "MID",
+   "quality": -0.2686,
+   "weight": 23.448,
+   "role": 0.617,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "243016": {
+   "name": "Alexis Mac Allister",
+   "position": "MID",
+   "quality": -0.2331,
+   "weight": 32.157,
+   "role": 0.8462,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "243298": {
+   "name": "Cody Gakpo",
+   "position": "MID",
+   "quality": 0.1022,
+   "weight": 32.539,
+   "role": 0.8563,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "243345": {
+   "name": "Lewis O'Brien",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "243526": {
+   "name": "Gabriel Gudmundsson",
+   "position": "DEF",
+   "quality": -0.3438,
+   "weight": 30.385,
+   "role": 0.7996,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "243571": {
+   "name": "Nathan Patterson",
+   "position": "DEF",
+   "quality": 0.6926,
+   "weight": 3.313,
+   "role": 0.0872,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "244042": {
+   "name": "Rodrigo Muniz Carvalho",
+   "position": "FWD",
+   "quality": -0.3777,
+   "weight": 14.487,
+   "role": 0.3812,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "244723": {
+   "name": "Tyrick Mitchell",
+   "position": "DEF",
+   "quality": 0.1663,
+   "weight": 36.931,
+   "role": 0.9719,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "244731": {
+   "name": "Luis Díaz Marulanda",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "244850": {
+   "name": "Morgan Rogers",
+   "position": "MID",
+   "quality": 0.1496,
+   "weight": 36.713,
+   "role": 0.9661,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "244851": {
+   "name": "Cole Palmer",
+   "position": "MID",
+   "quality": 0.2373,
+   "weight": 23.457,
+   "role": 0.6173,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "244858": {
+   "name": "Fábio Freitas Gouveia Carvalho",
+   "position": "MID",
+   "quality": -0.2524,
+   "weight": 1.71,
+   "role": 0.045,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "244954": {
+   "name": "Pau Torres",
+   "position": "DEF",
+   "quality": -0.0841,
+   "weight": 19.438,
+   "role": 0.5115,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "246301": {
+   "name": "Jorge Cuenca Barreno",
+   "position": "DEF",
+   "quality": -0.1687,
+   "weight": 11.264,
+   "role": 0.2964,
+   "roleMatches": 38,
+   "appearances": 15
+  },
+  "247245": {
+   "name": "Hannes Delcroix",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "247348": {
+   "name": "Daniel Muñoz Mejía",
+   "position": "DEF",
+   "quality": 0.5635,
+   "weight": 27.544,
+   "role": 0.7248,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "247412": {
+   "name": "Jørgen Strand Larsen",
+   "position": "FWD",
+   "quality": -0.4427,
+   "weight": 29.65,
+   "role": 0.7803,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "247632": {
+   "name": "Pedro Lomba Neto",
+   "position": "MID",
+   "quality": -0.0466,
+   "weight": 31.077,
+   "role": 0.8178,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "247670": {
+   "name": "Valentín Castellanos",
+   "position": "FWD",
+   "quality": -0.1465,
+   "weight": 16.583,
+   "role": 0.9213,
+   "roleMatches": 18,
+   "appearances": 18
+  },
+  "247693": {
+   "name": "Randal Kolo Muani",
+   "position": "FWD",
+   "quality": -0.4515,
+   "weight": 22.643,
+   "role": 0.647,
+   "roleMatches": 35,
+   "appearances": 30
+  },
+  "247955": {
+   "name": "Lutsharel Geertruida",
+   "position": "DEF",
+   "quality": -0.259,
+   "weight": 21.206,
+   "role": 0.6059,
+   "roleMatches": 35,
+   "appearances": 28
+  },
+  "248056": {
+   "name": "Tanaka Ao",
+   "position": "MID",
+   "quality": -0.1092,
+   "weight": 18.357,
+   "role": 0.4831,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "248857": {
+   "name": "Noni Madueke",
+   "position": "MID",
+   "quality": 0.1044,
+   "weight": 17.56,
+   "role": 0.4621,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "248875": {
+   "name": "Jérémy Doku",
+   "position": "MID",
+   "quality": 0.4617,
+   "weight": 23.361,
+   "role": 0.6148,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "248937": {
+   "name": "Sam Greenwood",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "249231": {
+   "name": "Keane Lewis-Potter",
+   "position": "DEF",
+   "quality": 0.2648,
+   "weight": 25.788,
+   "role": 0.6786,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "250199": {
+   "name": "Nicolás Domínguez",
+   "position": "MID",
+   "quality": -0.0539,
+   "weight": 17.246,
+   "role": 0.4538,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "250735": {
+   "name": "Darko Churlinov",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "424044": {
+   "name": "Hamed Traorè",
+   "position": "MID",
+   "quality": 1.2111,
+   "weight": 0.422,
+   "role": 0.0111,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "424876": {
+   "name": "Dominik Szoboszlai",
+   "position": "MID",
+   "quality": 0.0168,
+   "weight": 35.955,
+   "role": 0.9462,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "427623": {
+   "name": "Chris Richards",
+   "position": "DEF",
+   "quality": 0.1491,
+   "weight": 31.917,
+   "role": 0.8399,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "427637": {
+   "name": "Brenden Aaronson",
+   "position": "MID",
+   "quality": 0.1209,
+   "weight": 30.788,
+   "role": 0.8102,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "428580": {
+   "name": "Frank Onyeka",
+   "position": "MID",
+   "quality": 0.4256,
+   "weight": 2.282,
+   "role": 0.06,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "428971": {
+   "name": "Steven Benda",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "429414": {
+   "name": "Saša Kalajdžić",
+   "position": "FWD",
+   "quality": -0.0959,
+   "weight": 0.394,
+   "role": 0.0104,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "430871": {
+   "name": "Matheus Santos Carneiro da Cunha",
+   "position": "MID",
+   "quality": 0.2803,
+   "weight": 29.723,
+   "role": 0.7822,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "431248": {
+   "name": "Ladislav Krejcí",
+   "position": "DEF",
+   "quality": -0.2635,
+   "weight": 27.002,
+   "role": 0.7501,
+   "roleMatches": 36,
+   "appearances": 28
+  },
+  "431639": {
+   "name": "Zian Flemming",
+   "position": "FWD",
+   "quality": 0.0239,
+   "weight": 22.314,
+   "role": 0.5872,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "432422": {
+   "name": "Sandro Tonali",
+   "position": "MID",
+   "quality": -0.4303,
+   "weight": 30.323,
+   "role": 0.798,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "432714": {
+   "name": "James McAtee",
+   "position": "MID",
+   "quality": -0.1714,
+   "weight": 5.703,
+   "role": 0.1501,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "432720": {
+   "name": "James Trafford",
+   "position": "GK",
+   "quality": 0.1614,
+   "weight": 4,
+   "role": 0.1053,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "432830": {
+   "name": "Nathan Collins",
+   "position": "DEF",
+   "quality": 0.0282,
+   "weight": 33.706,
+   "role": 0.887,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "433036": {
+   "name": "Tijjani Reijnders",
+   "position": "MID",
+   "quality": 0.1396,
+   "weight": 21.383,
+   "role": 0.5627,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "433154": {
+   "name": "Dwight McNeil",
+   "position": "MID",
+   "quality": -0.0781,
+   "weight": 15.48,
+   "role": 0.4074,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "433312": {
+   "name": "Marshall Munetsi",
+   "position": "MID",
+   "quality": -0.0553,
+   "weight": 10.741,
+   "role": 0.2827,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "433952": {
+   "name": "Largie Ramazani",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "434399": {
+   "name": "Reinildo Mandava",
+   "position": "DEF",
+   "quality": -0.078,
+   "weight": 22.834,
+   "role": 0.6009,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "434752": {
+   "name": "Jaka Bijol",
+   "position": "DEF",
+   "quality": 0.1489,
+   "weight": 22.254,
+   "role": 0.5856,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "435973": {
+   "name": "Lyle Foster",
+   "position": "FWD",
+   "quality": -0.3017,
+   "weight": 18.906,
+   "role": 0.4975,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "435997": {
+   "name": "Noah Okafor",
+   "position": "MID",
+   "quality": 0.3709,
+   "weight": 21.087,
+   "role": 0.5699,
+   "roleMatches": 37,
+   "appearances": 28
+  },
+  "436234": {
+   "name": "Bryan Gil Salvatierra",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "436416": {
+   "name": "Christos Mandas",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 15,
+   "appearances": 0
+  },
+  "436893": {
+   "name": "Julián Araujo Zúñiga",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "437495": {
+   "name": "Illan Meslier",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "437499": {
+   "name": "Maxence Lacroix",
+   "position": "DEF",
+   "quality": 0.1652,
+   "weight": 34.598,
+   "role": 0.9105,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "437505": {
+   "name": "Wilson Isidor",
+   "position": "FWD",
+   "quality": -0.1023,
+   "weight": 18.354,
+   "role": 0.483,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "437730": {
+   "name": "Antoine Semenyo",
+   "position": "MID",
+   "quality": 0.547,
+   "weight": 36.212,
+   "role": 0.9529,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "437738": {
+   "name": "Sebastiaan Bornauw",
+   "position": "DEF",
+   "quality": 0.2166,
+   "weight": 5.879,
+   "role": 0.1547,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "437742": {
+   "name": "Albert Sambi Lokonga",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "437748": {
+   "name": "Mike Trésor Ndayishimiye",
+   "position": "MID",
+   "quality": -0.0433,
+   "weight": 1.466,
+   "role": 0.0386,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "438098": {
+   "name": "Fábio Ferreira Vieira",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "438234": {
+   "name": "Omar Marmoush",
+   "position": "MID",
+   "quality": 0.4433,
+   "weight": 11.11,
+   "role": 0.2924,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "438464": {
+   "name": "Cheick Doucouré",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "439135": {
+   "name": "Eiran Cashin",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "440089": {
+   "name": "Mikkel Damsgaard",
+   "position": "MID",
+   "quality": 0.1392,
+   "weight": 26.235,
+   "role": 0.6904,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "440148": {
+   "name": "Tyler Morton",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "440323": {
+   "name": "Armando Broja",
+   "position": "FWD",
+   "quality": -0.2915,
+   "weight": 13.256,
+   "role": 0.3488,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "440854": {
+   "name": "Jakub Kiwior",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "440955": {
+   "name": "Nazarii Rusyn",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "440993": {
+   "name": "Iliman Ndiaye",
+   "position": "MID",
+   "quality": 0.071,
+   "weight": 31.415,
+   "role": 0.8267,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "441024": {
+   "name": "Harrison Ashby",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "441164": {
+   "name": "Pedro Porro Sauceda",
+   "position": "DEF",
+   "quality": 0.0813,
+   "weight": 32.142,
+   "role": 0.8458,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "441191": {
+   "name": "Tino Livramento",
+   "position": "DEF",
+   "quality": 0.0791,
+   "weight": 15.601,
+   "role": 0.4106,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "441192": {
+   "name": "Jeremy Sarmiento Morante",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "441240": {
+   "name": "Romain Faivre",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "441264": {
+   "name": "Brian Brobbey",
+   "position": "FWD",
+   "quality": -0.2774,
+   "weight": 24.734,
+   "role": 0.7067,
+   "roleMatches": 35,
+   "appearances": 31
+  },
+  "441266": {
+   "name": "Ryan Gravenberch",
+   "position": "MID",
+   "quality": -0.0413,
+   "weight": 34.288,
+   "role": 0.9023,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "441271": {
+   "name": "Ki-Jana Hoever",
+   "position": "DEF",
+   "quality": -0.4045,
+   "weight": 5.865,
+   "role": 0.1544,
+   "roleMatches": 38,
+   "appearances": 8
+  },
+  "441302": {
+   "name": "Ian Maatsen",
+   "position": "DEF",
+   "quality": -0.1679,
+   "weight": 21.192,
+   "role": 0.5577,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "444102": {
+   "name": "Francisco Evanilson de Lima Barbosa",
+   "position": "FWD",
+   "quality": -0.1783,
+   "weight": 32.808,
+   "role": 0.8634,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "444145": {
+   "name": "Gabriel Martinelli Silva",
+   "position": "MID",
+   "quality": -0.0158,
+   "weight": 17.443,
+   "role": 0.459,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "444172": {
+   "name": "Will Dennis",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "444180": {
+   "name": "Jaidon Anthony",
+   "position": "MID",
+   "quality": 0.0298,
+   "weight": 32.585,
+   "role": 0.8575,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "444463": {
+   "name": "Wesley Fofana",
+   "position": "DEF",
+   "quality": -0.0986,
+   "weight": 21.287,
+   "role": 0.5602,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "444765": {
+   "name": "Sepp van den Berg",
+   "position": "DEF",
+   "quality": -0.0331,
+   "weight": 31.066,
+   "role": 0.8175,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "444884": {
+   "name": "Harvey Elliott",
+   "position": "MID",
+   "quality": -0.2234,
+   "weight": 2.248,
+   "role": 0.0592,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "445044": {
+   "name": "Dejan Kulusevski",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "445122": {
+   "name": "Jurriën Timber",
+   "position": "DEF",
+   "quality": 0.5452,
+   "weight": 28.332,
+   "role": 0.7456,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "446008": {
+   "name": "Bryan Mbeumo",
+   "position": "MID",
+   "quality": 0.2913,
+   "weight": 30.63,
+   "role": 0.806,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "447203": {
+   "name": "Darwin Núñez Ribeiro",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "447325": {
+   "name": "Harry Tyrer",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "447715": {
+   "name": "Aaron Ramsey",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "448047": {
+   "name": "Enzo Fernández",
+   "position": "MID",
+   "quality": 0.2411,
+   "weight": 35.213,
+   "role": 0.9267,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "448089": {
+   "name": "João Victor Gomes da Silva",
+   "position": "MID",
+   "quality": -0.2984,
+   "weight": 32.644,
+   "role": 0.859,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "448104": {
+   "name": "Piero Hincapié",
+   "position": "DEF",
+   "quality": 0.1659,
+   "weight": 21.537,
+   "role": 0.6153,
+   "roleMatches": 35,
+   "appearances": 25
+  },
+  "448514": {
+   "name": "Rayan Aït-Nouri",
+   "position": "DEF",
+   "quality": 0.4488,
+   "weight": 12.404,
+   "role": 0.3264,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "449027": {
+   "name": "Giorgi Mamardashvili",
+   "position": "GK",
+   "quality": 0.2068,
+   "weight": 9.796,
+   "role": 0.2578,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "449434": {
+   "name": "Anthony Elanga",
+   "position": "MID",
+   "quality": -0.3816,
+   "weight": 19.827,
+   "role": 0.5218,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "449871": {
+   "name": "Amadou Onana",
+   "position": "MID",
+   "quality": -0.123,
+   "weight": 21.325,
+   "role": 0.5612,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "449988": {
+   "name": "Fábio Soares Silva",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "450070": {
+   "name": "Crysencio Summerville",
+   "position": "MID",
+   "quality": -0.0461,
+   "weight": 28.809,
+   "role": 0.7581,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "450072": {
+   "name": "Shurandy Sambo",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "450535": {
+   "name": "Malcolm Ebiowei",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "450539": {
+   "name": "Myles Peart-Harris",
+   "position": "MID",
+   "quality": -0.0114,
+   "weight": 0.105,
+   "role": 0.0028,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "450542": {
+   "name": "Jesurun Rak-Sakyi",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "451302": {
+   "name": "Altay Bayındır",
+   "position": "GK",
+   "quality": -0.6583,
+   "weight": 6,
+   "role": 0.1579,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "451340": {
+   "name": "Mitoma Kaoru",
+   "position": "MID",
+   "quality": -0.255,
+   "weight": 21.209,
+   "role": 0.5581,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "451432": {
+   "name": "David Mota Veiga Teixeira do Carmo",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "456512": {
+   "name": "Dan Ndoye",
+   "position": "MID",
+   "quality": -0.1622,
+   "weight": 16.336,
+   "role": 0.4299,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "457569": {
+   "name": "Đorđe Petrović",
+   "position": "GK",
+   "quality": 0.0057,
+   "weight": 38,
+   "role": 1,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "458249": {
+   "name": "Joshua Zirkzee",
+   "position": "FWD",
+   "quality": -0.0623,
+   "weight": 10.838,
+   "role": 0.2852,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "458297": {
+   "name": "Pierre Ekwah Elimby",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "460028": {
+   "name": "Levi Samuels Colwill",
+   "position": "DEF",
+   "quality": -0.3203,
+   "weight": 2.707,
+   "role": 0.0712,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "460842": {
+   "name": "Mohammed Kudus",
+   "position": "MID",
+   "quality": 0.1057,
+   "weight": 17.843,
+   "role": 0.4695,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "461188": {
+   "name": "Bashir Humphreys",
+   "position": "DEF",
+   "quality": -0.3731,
+   "weight": 18.125,
+   "role": 0.477,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "461195": {
+   "name": "Dennis Cirkin",
+   "position": "DEF",
+   "quality": 0.0667,
+   "weight": 4.691,
+   "role": 0.1235,
+   "roleMatches": 38,
+   "appearances": 8
+  },
+  "461199": {
+   "name": "Romaine Mundle",
+   "position": "MID",
+   "quality": -0.2596,
+   "weight": 7.376,
+   "role": 0.1941,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "461421": {
+   "name": "Lewis Dobbin",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "461446": {
+   "name": "Tyler Onyango",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 37,
+   "appearances": 0
+  },
+  "461484": {
+   "name": "Joe White",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "461537": {
+   "name": "Dermot Mee",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "461567": {
+   "name": "Owen Dodgson",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "462116": {
+   "name": "Jean-Clair Todibo",
+   "position": "DEF",
+   "quality": -0.4906,
+   "weight": 20.995,
+   "role": 0.5525,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "462381": {
+   "name": "Filip Marschall",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "462424": {
+   "name": "William Saliba",
+   "position": "DEF",
+   "quality": 0.3141,
+   "weight": 29.625,
+   "role": 0.7796,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "462492": {
+   "name": "Joe Gauci",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "462635": {
+   "name": "Joe Gelhardt",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "463034": {
+   "name": "Liam Delap",
+   "position": "FWD",
+   "quality": -0.2968,
+   "weight": 16.78,
+   "role": 0.4416,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "463067": {
+   "name": "Georginio Rutter",
+   "position": "MID",
+   "quality": -0.0061,
+   "weight": 23.71,
+   "role": 0.624,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "463748": {
+   "name": "Karl Hein",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "463936": {
+   "name": "Jamie Bynoe-Gittens",
+   "position": "MID",
+   "quality": 0.0238,
+   "weight": 8.609,
+   "role": 0.2266,
+   "roleMatches": 38,
+   "appearances": 16
+  },
+  "463981": {
+   "name": "James Hill",
+   "position": "DEF",
+   "quality": 0.1998,
+   "weight": 24.67,
+   "role": 0.6492,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "465247": {
+   "name": "Senne Lammens",
+   "position": "GK",
+   "quality": -0.0657,
+   "weight": 32,
+   "role": 0.9143,
+   "roleMatches": 35,
+   "appearances": 32
+  },
+  "465351": {
+   "name": "Matheus Nunes",
+   "position": "DEF",
+   "quality": 0.358,
+   "weight": 32.69,
+   "role": 0.8603,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "465527": {
+   "name": "Hannibal Mejbri",
+   "position": "MID",
+   "quality": -0.1811,
+   "weight": 17.324,
+   "role": 0.4559,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "465642": {
+   "name": "Malick Thiaw",
+   "position": "DEF",
+   "quality": 0.0035,
+   "weight": 33.616,
+   "role": 0.8846,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "465680": {
+   "name": "Arnaud Kalimuendo",
+   "position": "FWD",
+   "quality": -0.1092,
+   "weight": 2.54,
+   "role": 0.0686,
+   "roleMatches": 37,
+   "appearances": 9
+  },
+  "465694": {
+   "name": "Nico González Iglesias",
+   "position": "MID",
+   "quality": -0.2198,
+   "weight": 19.855,
+   "role": 0.5225,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "465702": {
+   "name": "Timothée Pembélé",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "465730": {
+   "name": "Maxim De Cuyper",
+   "position": "DEF",
+   "quality": 0.1872,
+   "weight": 19.844,
+   "role": 0.5222,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "465920": {
+   "name": "Mykhailo Mudryk",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "466052": {
+   "name": "Rayan Cherki",
+   "position": "MID",
+   "quality": 0.5992,
+   "weight": 24.193,
+   "role": 0.6367,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "466075": {
+   "name": "Riccardo Calafiori",
+   "position": "DEF",
+   "quality": 0.5695,
+   "weight": 21.313,
+   "role": 0.5609,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "466117": {
+   "name": "Naouirou Ahamada",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "466525": {
+   "name": "Anton Stach",
+   "position": "MID",
+   "quality": 0.2562,
+   "weight": 27.412,
+   "role": 0.7214,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "467169": {
+   "name": "Antony dos Santos",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "467189": {
+   "name": "Mads Hermansen",
+   "position": "GK",
+   "quality": 0.3132,
+   "weight": 18,
+   "role": 0.4737,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "467779": {
+   "name": "Mats Wieffer",
+   "position": "MID",
+   "quality": 0.0756,
+   "weight": 22.879,
+   "role": 0.6021,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "469130": {
+   "name": "Lorenzo Lucca",
+   "position": "FWD",
+   "quality": 0.1162,
+   "weight": 2.173,
+   "role": 0.1449,
+   "roleMatches": 15,
+   "appearances": 4
+  },
+  "469142": {
+   "name": "Jan Paul van Hecke",
+   "position": "DEF",
+   "quality": 0.1426,
+   "weight": 35.816,
+   "role": 0.9425,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "469247": {
+   "name": "Samuel Iling-Junior",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "469272": {
+   "name": "Loum Tchaouna",
+   "position": "MID",
+   "quality": -0.2258,
+   "weight": 18.56,
+   "role": 0.4884,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "470294": {
+   "name": "Darko Gyabi",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "470313": {
+   "name": "Nick Woltemade",
+   "position": "FWD",
+   "quality": 0.0526,
+   "weight": 24.991,
+   "role": 0.714,
+   "roleMatches": 35,
+   "appearances": 33
+  },
+  "470315": {
+   "name": "Luca Netz",
+   "position": "DEF",
+   "quality": -0.2513,
+   "weight": 4.977,
+   "role": 0.3555,
+   "roleMatches": 14,
+   "appearances": 7
+  },
+  "471798": {
+   "name": "Gabriel Słonina",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "472713": {
+   "name": "Aaron Hickey",
+   "position": "DEF",
+   "quality": -0.0693,
+   "weight": 10.962,
+   "role": 0.2885,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "472739": {
+   "name": "Carl Rushworth",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "472769": {
+   "name": "Nico O'Reilly",
+   "position": "DEF",
+   "quality": 0.7124,
+   "weight": 31.072,
+   "role": 0.8177,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "474120": {
+   "name": "Julio Enciso Espínola",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "474907": {
+   "name": "Reece Welch",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "475123": {
+   "name": "Carlos Miguel dos Santos Pereira",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "475168": {
+   "name": "João Pedro Junqueira de Jesus",
+   "position": "FWD",
+   "quality": 0.2886,
+   "weight": 31.779,
+   "role": 0.8363,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "476502": {
+   "name": "Boubacar Traoré",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "476887": {
+   "name": "Dilane Bakwa",
+   "position": "MID",
+   "quality": -0.1204,
+   "weight": 8.636,
+   "role": 0.2468,
+   "roleMatches": 35,
+   "appearances": 14
+  },
+  "477064": {
+   "name": "Rico Lewis",
+   "position": "DEF",
+   "quality": -0.1741,
+   "weight": 5.944,
+   "role": 0.1564,
+   "roleMatches": 38,
+   "appearances": 11
+  },
+  "477424": {
+   "name": "Joško Gvardiol",
+   "position": "DEF",
+   "quality": 0.4442,
+   "weight": 16.263,
+   "role": 0.428,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "477547": {
+   "name": "Leo Fuhr Hjelde",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "477555": {
+   "name": "Oscar Bobb",
+   "position": "MID",
+   "quality": -0.1537,
+   "weight": 15.23,
+   "role": 0.4008,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "477580": {
+   "name": "Illia Zabarnyi",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "477717": {
+   "name": "Maxime Estève",
+   "position": "DEF",
+   "quality": -0.4445,
+   "weight": 33.099,
+   "role": 0.871,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "477851": {
+   "name": "Abdoullah Ba",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "478969": {
+   "name": "Hjalmar Ekdal",
+   "position": "DEF",
+   "quality": -0.3458,
+   "weight": 17.482,
+   "role": 0.46,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "480455": {
+   "name": "Jarrad Branthwaite",
+   "position": "DEF",
+   "quality": 0.1514,
+   "weight": 8.229,
+   "role": 0.2165,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "481283": {
+   "name": "James Wright",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "481655": {
+   "name": "Martín Zubimendi Ibáñez",
+   "position": "MID",
+   "quality": -0.0252,
+   "weight": 34.95,
+   "role": 0.9197,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "482442": {
+   "name": "Pape Matar Sarr",
+   "position": "MID",
+   "quality": 0.0262,
+   "weight": 18.39,
+   "role": 0.4839,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "482609": {
+   "name": "Malo Gusto",
+   "position": "DEF",
+   "quality": 0.0618,
+   "weight": 28.319,
+   "role": 0.7452,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "482973": {
+   "name": "Igor Jesus Maciel da Cruz",
+   "position": "FWD",
+   "quality": -0.1412,
+   "weight": 29.678,
+   "role": 0.781,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "483081": {
+   "name": "Rodrigo Martins Gomes",
+   "position": "DEF",
+   "quality": -0.0729,
+   "weight": 14.182,
+   "role": 0.3732,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "483364": {
+   "name": "Krisztián Hegyi",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "484420": {
+   "name": "Enzo Le Fée",
+   "position": "MID",
+   "quality": 0.1575,
+   "weight": 33.674,
+   "role": 0.8862,
+   "roleMatches": 38,
+   "appearances": 36
+  },
+  "485047": {
+   "name": "Felipe Rodrigues da Silva",
+   "position": "DEF",
+   "quality": -0.1675,
+   "weight": 15.984,
+   "role": 0.4206,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "485055": {
+   "name": "Antonín Kinský",
+   "position": "GK",
+   "quality": -0.2516,
+   "weight": 7,
+   "role": 0.1842,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "485337": {
+   "name": "Evann Guessand",
+   "position": "MID",
+   "quality": 0.0038,
+   "weight": 13.527,
+   "role": 0.356,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "485711": {
+   "name": "Benjamin Sesko",
+   "position": "FWD",
+   "quality": 0.0892,
+   "weight": 22.186,
+   "role": 0.5839,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "486385": {
+   "name": "Norberto Bercique Gomes Betuncal",
+   "position": "FWD",
+   "quality": 0.0818,
+   "weight": 22.946,
+   "role": 0.6039,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "486520": {
+   "name": "Ilia Gruev",
+   "position": "MID",
+   "quality": -0.2396,
+   "weight": 17.11,
+   "role": 0.4503,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "486672": {
+   "name": "Moisés Caicedo Corozo",
+   "position": "MID",
+   "quality": -0.2569,
+   "weight": 31.899,
+   "role": 0.8394,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "487053": {
+   "name": "Destiny Udogie",
+   "position": "DEF",
+   "quality": -0.4714,
+   "weight": 16.717,
+   "role": 0.4399,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "487117": {
+   "name": "Evan Ferguson",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "487676": {
+   "name": "Trai Hume",
+   "position": "DEF",
+   "quality": -0.0964,
+   "weight": 35.188,
+   "role": 0.926,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "487702": {
+   "name": "Luca Koleosho",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "487838": {
+   "name": "Lewis Hall",
+   "position": "DEF",
+   "quality": -0.0859,
+   "weight": 25.929,
+   "role": 0.6823,
+   "roleMatches": 38,
+   "appearances": 30
+  },
+  "488024": {
+   "name": "Yéremy Pino Santos",
+   "position": "MID",
+   "quality": -0.1184,
+   "weight": 27.09,
+   "role": 0.7525,
+   "roleMatches": 36,
+   "appearances": 34
+  },
+  "488213": {
+   "name": "Tolu Arokodare",
+   "position": "FWD",
+   "quality": -0.27,
+   "weight": 20.296,
+   "role": 0.5799,
+   "roleMatches": 35,
+   "appearances": 33
+  },
+  "489571": {
+   "name": "Etienne Green",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "489580": {
+   "name": "Calvin Ramsay",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "489639": {
+   "name": "Bart Verbruggen",
+   "position": "GK",
+   "quality": 0.0455,
+   "weight": 38,
+   "role": 1,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "489706": {
+   "name": "Justin Devenny",
+   "position": "MID",
+   "quality": -0.2351,
+   "weight": 11.653,
+   "role": 0.3066,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "489888": {
+   "name": "Amine Adli",
+   "position": "MID",
+   "quality": 0.2963,
+   "weight": 17.54,
+   "role": 0.474,
+   "roleMatches": 37,
+   "appearances": 31
+  },
+  "490000": {
+   "name": "Blondy Nna Noukeu",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "490094": {
+   "name": "Tim Iroegbunam",
+   "position": "MID",
+   "quality": -0.1264,
+   "weight": 19.775,
+   "role": 0.5204,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "490142": {
+   "name": "Freddie Potts",
+   "position": "MID",
+   "quality": -0.2889,
+   "weight": 16.025,
+   "role": 0.4217,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "490145": {
+   "name": "Dane Scarlett",
+   "position": "FWD",
+   "quality": -0.027,
+   "weight": 0.385,
+   "role": 0.0101,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "490721": {
+   "name": "Hugo Bueno López",
+   "position": "DEF",
+   "quality": -0.059,
+   "weight": 28.915,
+   "role": 0.7609,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "490881": {
+   "name": "Toby Collyer",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "490885": {
+   "name": "George Earthy",
+   "position": "MID",
+   "quality": -0.0853,
+   "weight": 0.298,
+   "role": 0.0078,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "491007": {
+   "name": "Dário Luís Essugo",
+   "position": "MID",
+   "quality": -0.0803,
+   "weight": 0.838,
+   "role": 0.0221,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "491012": {
+   "name": "Youssef Ramalho Chermiti",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "491279": {
+   "name": "Micky van de Ven",
+   "position": "DEF",
+   "quality": -0.1131,
+   "weight": 34.285,
+   "role": 0.9022,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "491287": {
+   "name": "Enzo Barrenechea",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "491460": {
+   "name": "Alfie Brooks",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 6,
+   "appearances": 0
+  },
+  "491501": {
+   "name": "James McConnell",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "491557": {
+   "name": "Jenson Metcalfe",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "491745": {
+   "name": "Elijah Campbell",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 37,
+   "appearances": 0
+  },
+  "492066": {
+   "name": "Niall Huggins",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "492368": {
+   "name": "Isaac Schmidt",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "492777": {
+   "name": "Conor Bradley",
+   "position": "DEF",
+   "quality": 0.1336,
+   "weight": 12.124,
+   "role": 0.3191,
+   "roleMatches": 38,
+   "appearances": 15
+  },
+  "492831": {
+   "name": "Zeki Amdouni",
+   "position": "FWD",
+   "quality": -0.1663,
+   "weight": 1.732,
+   "role": 0.0456,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "492859": {
+   "name": "Wilfried Gnonto",
+   "position": "MID",
+   "quality": 0.0067,
+   "weight": 10.474,
+   "role": 0.2756,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "493105": {
+   "name": "Alejandro Garnacho Ferreyra",
+   "position": "MID",
+   "quality": 0.0019,
+   "weight": 17.429,
+   "role": 0.4587,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "493125": {
+   "name": "Radu Drăgușin",
+   "position": "DEF",
+   "quality": -0.3957,
+   "weight": 6.349,
+   "role": 0.1671,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "493250": {
+   "name": "Amad Diallo",
+   "position": "MID",
+   "quality": -0.0664,
+   "weight": 28.166,
+   "role": 0.7412,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "493362": {
+   "name": "Xavi Simons",
+   "position": "MID",
+   "quality": -0.0429,
+   "weight": 22.467,
+   "role": 0.6419,
+   "roleMatches": 35,
+   "appearances": 28
+  },
+  "493837": {
+   "name": "Jay Matete",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "494307": {
+   "name": "Max Alleyne",
+   "position": "DEF",
+   "quality": -0.1388,
+   "weight": 1.707,
+   "role": 0.0948,
+   "roleMatches": 18,
+   "appearances": 2
+  },
+  "494521": {
+   "name": "Adrien Truffert",
+   "position": "DEF",
+   "quality": 0.2335,
+   "weight": 37.749,
+   "role": 0.9934,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "494556": {
+   "name": "Ollie Shield",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 11,
+   "appearances": 0
+  },
+  "494595": {
+   "name": "Florian Wirtz",
+   "position": "MID",
+   "quality": 0.1029,
+   "weight": 28.92,
+   "role": 0.761,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "494960": {
+   "name": "Quilindschy Hartman",
+   "position": "DEF",
+   "quality": -0.0353,
+   "weight": 20.619,
+   "role": 0.5426,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "495145": {
+   "name": "Alex Paulsen",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "495161": {
+   "name": "Marko Stamenić",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "496178": {
+   "name": "Roman Dixon",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "496208": {
+   "name": "Ben Gannon-Doak",
+   "position": "MID",
+   "quality": 0.1296,
+   "weight": 2.892,
+   "role": 0.0741,
+   "roleMatches": 39,
+   "appearances": 8
+  },
+  "496221": {
+   "name": "Adam Wharton",
+   "position": "MID",
+   "quality": -0.0401,
+   "weight": 30.601,
+   "role": 0.8053,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "496279": {
+   "name": "Isaac Heath",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "496661": {
+   "name": "Tyler Dibling",
+   "position": "MID",
+   "quality": -0.249,
+   "weight": 6.244,
+   "role": 0.1734,
+   "roleMatches": 36,
+   "appearances": 14
+  },
+  "497606": {
+   "name": "Tawanda Chirewa",
+   "position": "MID",
+   "quality": -0.0292,
+   "weight": 0.694,
+   "role": 0.0183,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "497894": {
+   "name": "Rasmus Højlund",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "497949": {
+   "name": "David Møller Wolfe",
+   "position": "DEF",
+   "quality": -0.4026,
+   "weight": 14.174,
+   "role": 0.373,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "498016": {
+   "name": "Robin Roefs",
+   "position": "GK",
+   "quality": 0.1518,
+   "weight": 35,
+   "role": 0.9211,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "499167": {
+   "name": "Josh Nichols",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "499169": {
+   "name": "Myles Lewis-Skelly",
+   "position": "DEF",
+   "quality": -0.1799,
+   "weight": 10.742,
+   "role": 0.2827,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "499175": {
+   "name": "Ethan Nwaneri",
+   "position": "MID",
+   "quality": -0.2204,
+   "weight": 2.917,
+   "role": 0.0768,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "499300": {
+   "name": "Adam Aznou",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "499309": {
+   "name": "Marc Guiu Paz",
+   "position": "FWD",
+   "quality": -0.2441,
+   "weight": 4.962,
+   "role": 0.1306,
+   "roleMatches": 38,
+   "appearances": 10
+  },
+  "499604": {
+   "name": "Rayan Vitor Simplício Rocha",
+   "position": "MID",
+   "quality": 0.3531,
+   "weight": 13.391,
+   "role": 0.8927,
+   "roleMatches": 15,
+   "appearances": 15
+  },
+  "499716": {
+   "name": "James Rowswell",
+   "position": "DEF",
+   "quality": -0.0055,
+   "weight": 0.105,
+   "role": 0.0038,
+   "roleMatches": 28,
+   "appearances": 1
+  },
+  "499717": {
+   "name": "Jayden Meghoma",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "499721": {
+   "name": "Mikey Moore",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "499726": {
+   "name": "Callum Olusesi",
+   "position": "MID",
+   "quality": -0.1068,
+   "weight": 0.394,
+   "role": 0.0104,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "499857": {
+   "name": "Teddy Sharman-Lowe",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 16,
+   "appearances": 0
+  },
+  "500040": {
+   "name": "Cristhian Mosquera",
+   "position": "DEF",
+   "quality": 0.0723,
+   "weight": 13.502,
+   "role": 0.3553,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "500058": {
+   "name": "Jayden Danns",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "500151": {
+   "name": "Nicolò Savona",
+   "position": "DEF",
+   "quality": 0.1016,
+   "weight": 12.322,
+   "role": 0.3521,
+   "roleMatches": 35,
+   "appearances": 14
+  },
+  "500696": {
+   "name": "Nectarios Triantis",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "501837": {
+   "name": "Yerson Mosquera Valdelamar",
+   "position": "DEF",
+   "quality": -0.3166,
+   "weight": 24.812,
+   "role": 0.6529,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "502500": {
+   "name": "Igor Thiago Nascimento Rodrigues",
+   "position": "FWD",
+   "quality": 0.2561,
+   "weight": 37.115,
+   "role": 0.9767,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "502697": {
+   "name": "Carlos Alcaraz Durán",
+   "position": "MID",
+   "quality": -0.2699,
+   "weight": 10.341,
+   "role": 0.2721,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "502988": {
+   "name": "Danny Imray",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 17,
+   "appearances": 0
+  },
+  "503139": {
+   "name": "Alex Scott",
+   "position": "MID",
+   "quality": -0.0657,
+   "weight": 33.651,
+   "role": 0.8856,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "503300": {
+   "name": "Matthew Cox",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "503301": {
+   "name": "Omari Hutchinson",
+   "position": "MID",
+   "quality": -0.0295,
+   "weight": 22.589,
+   "role": 0.6105,
+   "roleMatches": 37,
+   "appearances": 31
+  },
+  "503714": {
+   "name": "Lesley Ugochukwu",
+   "position": "MID",
+   "quality": -0.2408,
+   "weight": 29.226,
+   "role": 0.7691,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "504296": {
+   "name": "Coby Ebere",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "505079": {
+   "name": "Alfie McNally",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "507433": {
+   "name": "Hákon Rafn Valdimarsson",
+   "position": "GK",
+   "quality": -1.1582,
+   "weight": 1,
+   "role": 0.0263,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "508395": {
+   "name": "Yehor Yarmoliuk",
+   "position": "MID",
+   "quality": -0.2529,
+   "weight": 32.147,
+   "role": 0.846,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "508479": {
+   "name": "Filip Jörgensen",
+   "position": "GK",
+   "quality": -0.5054,
+   "weight": 4.482,
+   "role": 0.118,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "509291": {
+   "name": "André Trindade da Costa Neto",
+   "position": "MID",
+   "quality": -0.4879,
+   "weight": 32.326,
+   "role": 0.8507,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "509416": {
+   "name": "Yasin Ayari",
+   "position": "MID",
+   "quality": 0.1155,
+   "weight": 23.441,
+   "role": 0.6169,
+   "roleMatches": 38,
+   "appearances": 29
+  },
+  "510281": {
+   "name": "Sávio Moreira de Oliveira",
+   "position": "MID",
+   "quality": -0.0407,
+   "weight": 13.122,
+   "role": 0.3453,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "510362": {
+   "name": "Toti Gomes",
+   "position": "DEF",
+   "quality": -0.465,
+   "weight": 16.795,
+   "role": 0.442,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "510500": {
+   "name": "João Pedro Ferreira da Silva",
+   "position": "MID",
+   "quality": 0.1674,
+   "weight": 0.35,
+   "role": 0.0092,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "510663": {
+   "name": "Hugo Ekitiké",
+   "position": "FWD",
+   "quality": 0.3239,
+   "weight": 22.837,
+   "role": 0.601,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "511499": {
+   "name": "Mathys Tel",
+   "position": "MID",
+   "quality": 0.037,
+   "weight": 19.44,
+   "role": 0.5116,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "512462": {
+   "name": "Jake O'Brien",
+   "position": "DEF",
+   "quality": -0.0779,
+   "weight": 35.372,
+   "role": 0.9308,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "513418": {
+   "name": "Kevin Schade",
+   "position": "MID",
+   "quality": 0.0862,
+   "weight": 32.433,
+   "role": 0.8535,
+   "roleMatches": 38,
+   "appearances": 35
+  },
+  "513433": {
+   "name": "Brajan Gruda",
+   "position": "MID",
+   "quality": -0.1834,
+   "weight": 10.848,
+   "role": 0.2855,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "513466": {
+   "name": "Merlin Röhl",
+   "position": "MID",
+   "quality": 0.0324,
+   "weight": 9.773,
+   "role": 0.2792,
+   "roleMatches": 35,
+   "appearances": 16
+  },
+  "513834": {
+   "name": "Andrew Moran",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "514254": {
+   "name": "Diego Gómez Amarilla",
+   "position": "MID",
+   "quality": 0.0989,
+   "weight": 26.813,
+   "role": 0.7056,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "514315": {
+   "name": "Lino da Cruz Sousa",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "514356": {
+   "name": "Roméo Lavia",
+   "position": "MID",
+   "quality": -0.2212,
+   "weight": 6.593,
+   "role": 0.1735,
+   "roleMatches": 38,
+   "appearances": 12
+  },
+  "514362": {
+   "name": "Temple Ojinnaka",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 20,
+   "appearances": 0
+  },
+  "514613": {
+   "name": "Zak Johnson",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "515024": {
+   "name": "Luke Harris",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "515046": {
+   "name": "Melker Ellborg",
+   "position": "GK",
+   "quality": 0.435,
+   "weight": 3,
+   "role": 0.2143,
+   "roleMatches": 14,
+   "appearances": 3
+  },
+  "515597": {
+   "name": "Lamare Bogarde",
+   "position": "DEF",
+   "quality": -0.3127,
+   "weight": 15.475,
+   "role": 0.4072,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "515621": {
+   "name": "Chadi Riad Dnanou",
+   "position": "DEF",
+   "quality": -0.208,
+   "weight": 7.216,
+   "role": 0.1899,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "516211": {
+   "name": "Abdallah Sima",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "516234": {
+   "name": "Charlie Gray",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "516875": {
+   "name": "Ronnie Hollingshead",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 25,
+   "appearances": 0
+  },
+  "516895": {
+   "name": "Kobbie Mainoo",
+   "position": "MID",
+   "quality": -0.1753,
+   "weight": 21.02,
+   "role": 0.5532,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "516939": {
+   "name": "Emmanuel Agbadou",
+   "position": "DEF",
+   "quality": -0.4271,
+   "weight": 12.908,
+   "role": 0.3397,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "517052": {
+   "name": "Nicolas Jackson",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "517179": {
+   "name": "Alfie Pond",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "518030": {
+   "name": "Max Weiß",
+   "position": "GK",
+   "quality": -0.3132,
+   "weight": 3,
+   "role": 0.0789,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "518335": {
+   "name": "Max Merrick",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "518438": {
+   "name": "Kaelan Casey",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "518442": {
+   "name": "Lewis Orford",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "518906": {
+   "name": "Owen Bevan",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "519440": {
+   "name": "Wellity Lucky",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 23,
+   "appearances": 0
+  },
+  "519634": {
+   "name": "Jenson Seelt",
+   "position": "DEF",
+   "quality": -0.2653,
+   "weight": 1.709,
+   "role": 0.045,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "519895": {
+   "name": "Oliver Sonne",
+   "position": "DEF",
+   "quality": -0.0717,
+   "weight": 3.171,
+   "role": 0.0834,
+   "roleMatches": 38,
+   "appearances": 7
+  },
+  "519913": {
+   "name": "Tyler Fletcher",
+   "position": "MID",
+   "quality": -0.1094,
+   "weight": 0.527,
+   "role": 0.0251,
+   "roleMatches": 21,
+   "appearances": 2
+  },
+  "523705": {
+   "name": "Jackson Tchatchoua",
+   "position": "DEF",
+   "quality": -0.3342,
+   "weight": 23.558,
+   "role": 0.6367,
+   "roleMatches": 37,
+   "appearances": 31
+  },
+  "530121": {
+   "name": "Zain Silcott-Duberry",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "530318": {
+   "name": "Kaden Rodney",
+   "position": "MID",
+   "quality": -0.0342,
+   "weight": 0.183,
+   "role": 0.0048,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "530335": {
+   "name": "Pablo Felipe Pereira de Jesus",
+   "position": "FWD",
+   "quality": -0.3316,
+   "weight": 10.925,
+   "role": 0.575,
+   "roleMatches": 19,
+   "appearances": 14
+  },
+  "531363": {
+   "name": "Nathan Fraser",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "531989": {
+   "name": "David Ozoh",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "532529": {
+   "name": "Jack Hinshelwood",
+   "position": "MID",
+   "quality": 0.1288,
+   "weight": 21.961,
+   "role": 0.5779,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "532605": {
+   "name": "Andrey Nascimento dos Santos",
+   "position": "MID",
+   "quality": -0.2092,
+   "weight": 17.918,
+   "role": 0.4715,
+   "roleMatches": 38,
+   "appearances": 27
+  },
+  "533463": {
+   "name": "Dango Ouattara",
+   "position": "MID",
+   "quality": 0.3983,
+   "weight": 27.627,
+   "role": 0.727,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "533710": {
+   "name": "Iwan Morgan",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "534836": {
+   "name": "Travis Patterson",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 36,
+   "appearances": 0
+  },
+  "535017": {
+   "name": "Julian Eyestone",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "535301": {
+   "name": "Carlos Baleba",
+   "position": "MID",
+   "quality": -0.2998,
+   "weight": 22.554,
+   "role": 0.5935,
+   "roleMatches": 38,
+   "appearances": 31
+  },
+  "535818": {
+   "name": "Simon Adingra",
+   "position": "MID",
+   "quality": -0.0536,
+   "weight": 9.384,
+   "role": 0.247,
+   "roleMatches": 38,
+   "appearances": 14
+  },
+  "535928": {
+   "name": "Stefan Bajčetić Maquieira",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "536109": {
+   "name": "Ollie Scarles",
+   "position": "DEF",
+   "quality": -0.1406,
+   "weight": 8.92,
+   "role": 0.2347,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "536119": {
+   "name": "Charlie Crew",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "536134": {
+   "name": "Rio Kyerematen",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 15,
+   "appearances": 0
+  },
+  "536241": {
+   "name": "Martin Sherif",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "536661": {
+   "name": "Nilson Angulo",
+   "position": "MID",
+   "quality": -0.3932,
+   "weight": 5.511,
+   "role": 0.3936,
+   "roleMatches": 14,
+   "appearances": 8
+  },
+  "536694": {
+   "name": "Matheus França de Oliveira",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "536916": {
+   "name": "Facundo Buonanotte",
+   "position": "MID",
+   "quality": -0.2114,
+   "weight": 1.767,
+   "role": 0.0465,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "537403": {
+   "name": "Kadan Young",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "538207": {
+   "name": "William Osula",
+   "position": "FWD",
+   "quality": 0.2264,
+   "weight": 12.536,
+   "role": 0.3299,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "541462": {
+   "name": "Matai Akinmboni",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "543295": {
+   "name": "Antoni Milambo",
+   "position": "MID",
+   "quality": -0.2257,
+   "weight": 0.707,
+   "role": 0.0186,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "544877": {
+   "name": "Milos Kerkez",
+   "position": "DEF",
+   "quality": -0.0944,
+   "weight": 27.815,
+   "role": 0.732,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "545477": {
+   "name": "Alex Murphy",
+   "position": "DEF",
+   "quality": 0.0495,
+   "weight": 0.364,
+   "role": 0.0096,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "547027": {
+   "name": "Habib Diarra",
+   "position": "MID",
+   "quality": -0.0701,
+   "weight": 17.182,
+   "role": 0.4522,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "547037": {
+   "name": "Jack Fletcher",
+   "position": "MID",
+   "quality": -0.1598,
+   "weight": 1.849,
+   "role": 0.0487,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "547410": {
+   "name": "Harrison Jones",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "547671": {
+   "name": "Riley Owen",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 7,
+   "appearances": 0
+  },
+  "547676": {
+   "name": "Tyler Fredricson",
+   "position": "DEF",
+   "quality": 0.0916,
+   "weight": 0.149,
+   "role": 0.0039,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "547701": {
+   "name": "Archie Gray",
+   "position": "MID",
+   "quality": -0.1866,
+   "weight": 18.482,
+   "role": 0.4864,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "547719": {
+   "name": "Lewis Miley",
+   "position": "MID",
+   "quality": -0.0457,
+   "weight": 18.29,
+   "role": 0.4813,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "547720": {
+   "name": "Charlie Tasker",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "547801": {
+   "name": "Callum Bates",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "548308": {
+   "name": "Ashley Phillips",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "549067": {
+   "name": "Zach Abbott",
+   "position": "DEF",
+   "quality": -0.3298,
+   "weight": 2.327,
+   "role": 0.0612,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "549074": {
+   "name": "Tom Watson",
+   "position": "MID",
+   "quality": -0.1503,
+   "weight": 1.758,
+   "role": 0.0463,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "549329": {
+   "name": "Lucas Pires Silva",
+   "position": "DEF",
+   "quality": -0.4622,
+   "weight": 16.953,
+   "role": 0.4461,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "549912": {
+   "name": "Chemsdine Talbi",
+   "position": "MID",
+   "quality": -0.0425,
+   "weight": 21.023,
+   "role": 0.5532,
+   "roleMatches": 38,
+   "appearances": 28
+  },
+  "549939": {
+   "name": "Mike Penders",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "550090": {
+   "name": "Diego Coppola",
+   "position": "DEF",
+   "quality": -0.1578,
+   "weight": 2.597,
+   "role": 0.0683,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "550141": {
+   "name": "Adrian Mazilu",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "550596": {
+   "name": "Dominic Sadi",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "550615": {
+   "name": "Tyrique George",
+   "position": "MID",
+   "quality": -0.2425,
+   "weight": 6.973,
+   "role": 0.1835,
+   "roleMatches": 38,
+   "appearances": 15
+  },
+  "550839": {
+   "name": "Wilson Odobert",
+   "position": "MID",
+   "quality": -0.2017,
+   "weight": 15.052,
+   "role": 0.3961,
+   "roleMatches": 38,
+   "appearances": 24
+  },
+  "550864": {
+   "name": "Leny Yoro",
+   "position": "DEF",
+   "quality": -0.2213,
+   "weight": 23.045,
+   "role": 0.6064,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "551153": {
+   "name": "Luís Hemir Silva Semedo",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "551206": {
+   "name": "Jaydon Banel",
+   "position": "MID",
+   "quality": -0.1025,
+   "weight": 0.316,
+   "role": 0.0083,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "551210": {
+   "name": "Jorrel Hato",
+   "position": "DEF",
+   "quality": -0.4689,
+   "weight": 15.519,
+   "role": 0.4084,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "551221": {
+   "name": "Tommy Setford",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "551226": {
+   "name": "Mateus Gonçalo Espanha Fernandes",
+   "position": "MID",
+   "quality": -0.1142,
+   "weight": 34.574,
+   "role": 0.9604,
+   "roleMatches": 36,
+   "appearances": 36
+  },
+  "551483": {
+   "name": "Álex Jiménez Sánchez",
+   "position": "DEF",
+   "quality": -0.0921,
+   "weight": 27.646,
+   "role": 0.7899,
+   "roleMatches": 35,
+   "appearances": 31
+  },
+  "552427": {
+   "name": "Will Lankshear",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "553299": {
+   "name": "Takai Kōta",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "553742": {
+   "name": "Finlay Herrick",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 8,
+   "appearances": 0
+  },
+  "553746": {
+   "name": "Leo Shahar",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "554197": {
+   "name": "Chris Rigg",
+   "position": "MID",
+   "quality": -0.1611,
+   "weight": 10.794,
+   "role": 0.2841,
+   "roleMatches": 38,
+   "appearances": 18
+  },
+  "556637": {
+   "name": "Nehemiah Oriola",
+   "position": "MID",
+   "quality": -0.0114,
+   "weight": 0.105,
+   "role": 0.0034,
+   "roleMatches": 31,
+   "appearances": 1
+  },
+  "556639": {
+   "name": "Jayce Fitzgerald",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "559610": {
+   "name": "Luka Bentt",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 15,
+   "appearances": 0
+  },
+  "559684": {
+   "name": "Jack Moorhouse",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "559962": {
+   "name": "Jamaldeen Jimoh-Aloba",
+   "position": "MID",
+   "quality": -0.0677,
+   "weight": 0.298,
+   "role": 0.0078,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "560248": {
+   "name": "Bastien Meupiyou Menadjou",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "560262": {
+   "name": "Junior Kroupi",
+   "position": "FWD",
+   "quality": 0.2296,
+   "weight": 25.782,
+   "role": 0.5486,
+   "roleMatches": 47,
+   "appearances": 39
+  },
+  "560441": {
+   "name": "Luis Eduardo Soares da Silva",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 35,
+   "appearances": 0
+  },
+  "560552": {
+   "name": "Kevin Santos Lopes de Macedo",
+   "position": "MID",
+   "quality": -0.0366,
+   "weight": 16.444,
+   "role": 0.4698,
+   "roleMatches": 35,
+   "appearances": 26
+  },
+  "563324": {
+   "name": "Brayden Clarke",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "564406": {
+   "name": "Eliezer Mayenda Dossou",
+   "position": "FWD",
+   "quality": -0.2304,
+   "weight": 11.285,
+   "role": 0.297,
+   "roleMatches": 38,
+   "appearances": 20
+  },
+  "564505": {
+   "name": "Sam Proctor",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 37,
+   "appearances": 0
+  },
+  "564510": {
+   "name": "Garang Kuol",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "564940": {
+   "name": "Soungoutou Magassa",
+   "position": "MID",
+   "quality": -0.1399,
+   "weight": 14.077,
+   "role": 0.4022,
+   "roleMatches": 35,
+   "appearances": 22
+  },
+  "565297": {
+   "name": "Mateo Joseph Fernández-Regatillo",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "565431": {
+   "name": "Callum Marshall",
+   "position": "FWD",
+   "quality": -0.2434,
+   "weight": 1.135,
+   "role": 0.0299,
+   "roleMatches": 38,
+   "appearances": 2
+  },
+  "565863": {
+   "name": "Sam Chambers",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "566164": {
+   "name": "Sverre Nypan",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "566213": {
+   "name": "Stephen Mfuni",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 35,
+   "appearances": 0
+  },
+  "567119": {
+   "name": "Shumaira Mheuka",
+   "position": "FWD",
+   "quality": 0.0221,
+   "weight": 0.105,
+   "role": 0.0527,
+   "roleMatches": 2,
+   "appearances": 1
+  },
+  "567121": {
+   "name": "Joe Knight",
+   "position": "MID",
+   "quality": -0.0114,
+   "weight": 0.105,
+   "role": 0.0028,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "568159": {
+   "name": "Archie Whitehall",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "568791": {
+   "name": "Callan McKenna",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "569014": {
+   "name": "Eric da Silva Moreira",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "569577": {
+   "name": "Triston Rowe",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 37,
+   "appearances": 0
+  },
+  "570241": {
+   "name": "Kim Ji-soo",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "570526": {
+   "name": "Lucas Bergvall",
+   "position": "MID",
+   "quality": -0.0472,
+   "weight": 14.172,
+   "role": 0.3729,
+   "roleMatches": 38,
+   "appearances": 23
+  },
+  "570929": {
+   "name": "Jack Whittaker",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 9,
+   "appearances": 0
+  },
+  "571087": {
+   "name": "Jaydon Jones",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 9,
+   "appearances": 0
+  },
+  "572702": {
+   "name": "Keiber Lamadrid",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 16,
+   "appearances": 0
+  },
+  "573062": {
+   "name": "Martial Godo",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "574398": {
+   "name": "Franco Umeh-Chibueze",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "574458": {
+   "name": "Mamadou Sarr",
+   "position": "DEF",
+   "quality": -0.3856,
+   "weight": 1.46,
+   "role": 0.0384,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "575034": {
+   "name": "Ethan Wheatley",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "575204": {
+   "name": "Claudio Echeverri",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "575458": {
+   "name": "Jair Paula da Cunha Filho",
+   "position": "DEF",
+   "quality": -0.3049,
+   "weight": 6.878,
+   "role": 0.181,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "575476": {
+   "name": "Murillo Costa dos Santos",
+   "position": "DEF",
+   "quality": -0.0687,
+   "weight": 24.208,
+   "role": 0.6371,
+   "roleMatches": 38,
+   "appearances": 25
+  },
+  "575901": {
+   "name": "Julio Soler Barreto",
+   "position": "DEF",
+   "quality": -0.1536,
+   "weight": 0.957,
+   "role": 0.0252,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "576323": {
+   "name": "Oluwaseun Adewumi",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "576620": {
+   "name": "Bendito Mantato",
+   "position": "MID",
+   "quality": -0.165,
+   "weight": 0.408,
+   "role": 0.0186,
+   "roleMatches": 22,
+   "appearances": 1
+  },
+  "576628": {
+   "name": "Shea Lacey",
+   "position": "MID",
+   "quality": -0.1239,
+   "weight": 1.074,
+   "role": 0.0398,
+   "roleMatches": 27,
+   "appearances": 3
+  },
+  "576634": {
+   "name": "Jim Thwaites",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 6,
+   "appearances": 0
+  },
+  "576637": {
+   "name": "Godwill Kukonki",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "576756": {
+   "name": "Zépiqueno Redmond",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "576980": {
+   "name": "Zach Marsh",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "577016": {
+   "name": "Josh Acheampong",
+   "position": "DEF",
+   "quality": 0.0472,
+   "weight": 9.663,
+   "role": 0.2543,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "577114": {
+   "name": "Luis Guilherme Lira dos Santos",
+   "position": "MID",
+   "quality": -0.2056,
+   "weight": 2.514,
+   "role": 0.0662,
+   "roleMatches": 38,
+   "appearances": 5
+  },
+  "577285": {
+   "name": "George Hemmings",
+   "position": "MID",
+   "quality": -0.1218,
+   "weight": 0.733,
+   "role": 0.0271,
+   "roleMatches": 27,
+   "appearances": 2
+  },
+  "577669": {
+   "name": "Noah Sadiki",
+   "position": "MID",
+   "quality": -0.5927,
+   "weight": 32.538,
+   "role": 0.8563,
+   "roleMatches": 38,
+   "appearances": 33
+  },
+  "577725": {
+   "name": "Josh King",
+   "position": "MID",
+   "quality": -0.1148,
+   "weight": 20.171,
+   "role": 0.5308,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "577731": {
+   "name": "Ben Broggio",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "577974": {
+   "name": "Harry Amass",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "577978": {
+   "name": "Rhys Chadwick",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "578153": {
+   "name": "Abdukodir Khusanov",
+   "position": "DEF",
+   "quality": 0.1461,
+   "weight": 17.616,
+   "role": 0.4636,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "578512": {
+   "name": "Miodrag Pivaš",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "578614": {
+   "name": "Enock Agyei",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "579075": {
+   "name": "Asher Agbinone",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "580921": {
+   "name": "Reigan Heskey",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "586268": {
+   "name": "Ármin Pécsi",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "586309": {
+   "name": "Thierno Barry",
+   "position": "FWD",
+   "quality": -0.1966,
+   "weight": 26.59,
+   "role": 0.6997,
+   "roleMatches": 38,
+   "appearances": 38
+  },
+  "587178": {
+   "name": "Yasin Özcan",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "587433": {
+   "name": "Conor McManus",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 8,
+   "appearances": 0
+  },
+  "588555": {
+   "name": "Elyh Harrison",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "588793": {
+   "name": "Maldini Kacurri",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "588796": {
+   "name": "Ismeal Kabia",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "589100": {
+   "name": "Jacob Slater",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "589121": {
+   "name": "Ethan Sutherland",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 20,
+   "appearances": 0
+  },
+  "589507": {
+   "name": "Leon Chiwome",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "590012": {
+   "name": "Caleb Kporha",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "590014": {
+   "name": "Rio Cardines",
+   "position": "MID",
+   "quality": -0.7101,
+   "weight": 1,
+   "role": 0.0263,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "590035": {
+   "name": "Yusuf Akhamrich",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 28,
+   "appearances": 0
+  },
+  "590039": {
+   "name": "Divine Mukasa",
+   "position": "MID",
+   "quality": -0.0652,
+   "weight": 0.742,
+   "role": 0.0212,
+   "roleMatches": 35,
+   "appearances": 2
+  },
+  "590040": {
+   "name": "Jimmy Sinclair",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "590760": {
+   "name": "Daniel Adu-Adjei",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "591357": {
+   "name": "Ryan Trevitt",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "591384": {
+   "name": "George King",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 18,
+   "appearances": 0
+  },
+  "591385": {
+   "name": "Samuel Amissah",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "591386": {
+   "name": "Trey Nyoni",
+   "position": "MID",
+   "quality": 0.0432,
+   "weight": 1.085,
+   "role": 0.0285,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "592031": {
+   "name": "Yankuba Minteh",
+   "position": "MID",
+   "quality": 0.1433,
+   "weight": 29.263,
+   "role": 0.7701,
+   "roleMatches": 38,
+   "appearances": 34
+  },
+  "592740": {
+   "name": "Alfie Cresswell",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 2,
+   "appearances": 0
+  },
+  "593001": {
+   "name": "Enso González Medina",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "593174": {
+   "name": "Kaye Furo",
+   "position": "FWD",
+   "quality": -0.011,
+   "weight": 0.105,
+   "role": 0.0062,
+   "roleMatches": 17,
+   "appearances": 1
+  },
+  "596042": {
+   "name": "Kieran Morrison",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 30,
+   "appearances": 0
+  },
+  "596047": {
+   "name": "Chido Obi",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "596054": {
+   "name": "Tom Edozie",
+   "position": "MID",
+   "quality": 0.8528,
+   "weight": 0.599,
+   "role": 0.0158,
+   "roleMatches": 38,
+   "appearances": 3
+  },
+  "596777": {
+   "name": "Patrick Dorgu",
+   "position": "DEF",
+   "quality": 0.5687,
+   "weight": 18.787,
+   "role": 0.4944,
+   "roleMatches": 38,
+   "appearances": 26
+  },
+  "597320": {
+   "name": "Harry Howell",
+   "position": "MID",
+   "quality": -0.429,
+   "weight": 1.578,
+   "role": 0.0877,
+   "roleMatches": 18,
+   "appearances": 3
+  },
+  "599303": {
+   "name": "Sean Neave",
+   "position": "FWD",
+   "quality": -0.128,
+   "weight": 0.38,
+   "role": 0.01,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "600882": {
+   "name": "Harry Gray",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 34,
+   "appearances": 0
+  },
+  "601956": {
+   "name": "Saheed Olagunju",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "602903": {
+   "name": "Ezra Mayers",
+   "position": "DEF",
+   "quality": -0.1098,
+   "weight": 2.455,
+   "role": 0.0847,
+   "roleMatches": 29,
+   "appearances": 6
+  },
+  "604211": {
+   "name": "Tymur Tutierov",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 21,
+   "appearances": 0
+  },
+  "604988": {
+   "name": "Freddie Simmonds",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "605319": {
+   "name": "Luke Rawlings",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "606689": {
+   "name": "Romelle Donovan",
+   "position": "MID",
+   "quality": -0.0904,
+   "weight": 1.202,
+   "role": 0.0316,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "606745": {
+   "name": "Ayden Heaven",
+   "position": "DEF",
+   "quality": -0.1315,
+   "weight": 11.754,
+   "role": 0.3093,
+   "roleMatches": 38,
+   "appearances": 17
+  },
+  "606774": {
+   "name": "Remy Rees-Dottin",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "606775": {
+   "name": "Ben Winterburn",
+   "position": "MID",
+   "quality": -0.0683,
+   "weight": 0.258,
+   "role": 0.0068,
+   "roleMatches": 38,
+   "appearances": 1
+  },
+  "606798": {
+   "name": "Andrés García",
+   "position": "DEF",
+   "quality": 0.0053,
+   "weight": 1.879,
+   "role": 0.0494,
+   "roleMatches": 38,
+   "appearances": 6
+  },
+  "606921": {
+   "name": "Romain Esse",
+   "position": "MID",
+   "quality": -0.0166,
+   "weight": 1.233,
+   "role": 0.0324,
+   "roleMatches": 38,
+   "appearances": 4
+  },
+  "607464": {
+   "name": "Michael Kayode",
+   "position": "DEF",
+   "quality": -0.1174,
+   "weight": 36.581,
+   "role": 0.9627,
+   "roleMatches": 38,
+   "appearances": 37
+  },
+  "608181": {
+   "name": "Stefanos Tzimas",
+   "position": "FWD",
+   "quality": 0.2246,
+   "weight": 3.439,
+   "role": 0.0905,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "609873": {
+   "name": "Harrison Armstrong",
+   "position": "MID",
+   "quality": -0.3158,
+   "weight": 7.619,
+   "role": 0.2005,
+   "roleMatches": 38,
+   "appearances": 13
+  },
+  "610799": {
+   "name": "Luka Vušković",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "611134": {
+   "name": "Kendry Páez Andrade",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "611695": {
+   "name": "Malick Yalcouyé",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "611912": {
+   "name": "Landon Emenalo",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 32,
+   "appearances": 0
+  },
+  "611917": {
+   "name": "Lucá Williams-Barnett",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "611922": {
+   "name": "Rio Ngumoha",
+   "position": "MID",
+   "quality": 0.055,
+   "weight": 9.589,
+   "role": 0.2523,
+   "roleMatches": 38,
+   "appearances": 19
+  },
+  "611926": {
+   "name": "Amara Nallo",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "611975": {
+   "name": "Ahmed Abdullahi",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "612534": {
+   "name": "Benjamin Fredrick",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "613232": {
+   "name": "James Wilson",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 12,
+   "appearances": 0
+  },
+  "613804": {
+   "name": "El Hadji Malick Diouf",
+   "position": "DEF",
+   "quality": -0.0103,
+   "weight": 30.839,
+   "role": 0.8115,
+   "roleMatches": 38,
+   "appearances": 32
+  },
+  "614574": {
+   "name": "Alex Tóth",
+   "position": "MID",
+   "quality": -0.2475,
+   "weight": 2.819,
+   "role": 0.1762,
+   "roleMatches": 16,
+   "appearances": 9
+  },
+  "616065": {
+   "name": "Marli Salmon",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 24,
+   "appearances": 0
+  },
+  "616077": {
+   "name": "Max Dowman",
+   "position": "MID",
+   "quality": 0.447,
+   "weight": 2.885,
+   "role": 0.078,
+   "roleMatches": 37,
+   "appearances": 6
+  },
+  "616221": {
+   "name": "João Victor de Souza Menezes",
+   "position": "DEF",
+   "quality": -0.3515,
+   "weight": 2.422,
+   "role": 0.1615,
+   "roleMatches": 15,
+   "appearances": 4
+  },
+  "616222": {
+   "name": "Vitor de Oliveira Nunes dos Reis",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "616286": {
+   "name": "Ryan Kavuma-McQueen",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "616288": {
+   "name": "Ryan McAidoo",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 33,
+   "appearances": 0
+  },
+  "618027": {
+   "name": "TJ Carroll",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "618873": {
+   "name": "Sékou Koné",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "619536": {
+   "name": "Seth Ridgeon",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "619734": {
+   "name": "Jesse Derry",
+   "position": "MID",
+   "quality": -0.2783,
+   "weight": 0.707,
+   "role": 0.1179,
+   "roleMatches": 6,
+   "appearances": 1
+  },
+  "620487": {
+   "name": "Veljko Milosavljevic",
+   "position": "DEF",
+   "quality": -0.0799,
+   "weight": 4.447,
+   "role": 0.127,
+   "roleMatches": 35,
+   "appearances": 7
+  },
+  "622536": {
+   "name": "Benjamin Arthur",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "622758": {
+   "name": "Aarón Anselmino",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "623095": {
+   "name": "Yang Min-hyeok",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "623110": {
+   "name": "Seung-Soo Park",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "624773": {
+   "name": "Estêvão Almeida de Oliveira Gonçalves",
+   "position": "MID",
+   "quality": 0.2426,
+   "weight": 13.368,
+   "role": 0.3518,
+   "roleMatches": 38,
+   "appearances": 22
+  },
+  "626464": {
+   "name": "Gustavo Nunes Fernandes Gomes",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "626844": {
+   "name": "Milan Aleksić",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "627888": {
+   "name": "Josh Gracey",
+   "position": "GK",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 4,
+   "appearances": 0
+  },
+  "628204": {
+   "name": "Yunus Emre Konak",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "629068": {
+   "name": "Braiden Graham",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 20,
+   "appearances": 0
+  },
+  "630699": {
+   "name": "Mohamadou Kanté",
+   "position": "MID",
+   "quality": -0.1,
+   "weight": 2.515,
+   "role": 0.1006,
+   "roleMatches": 25,
+   "appearances": 11
+  },
+  "631106": {
+   "name": "Ben Casey",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 20,
+   "appearances": 0
+  },
+  "631786": {
+   "name": "Jonah Kusi-Asare",
+   "position": "FWD",
+   "quality": -0.0992,
+   "weight": 1.805,
+   "role": 0.0516,
+   "roleMatches": 35,
+   "appearances": 7
+  },
+  "640108": {
+   "name": "Antoñito Cordero Campillo",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "640419": {
+   "name": "Jun'ai Byfield",
+   "position": "DEF",
+   "quality": -0.0055,
+   "weight": 0.105,
+   "role": 0.0034,
+   "roleMatches": 31,
+   "appearances": 1
+  },
+  "641221": {
+   "name": "Pedro Cardoso de Lima",
+   "position": "DEF",
+   "quality": -0.2358,
+   "weight": 4.092,
+   "role": 0.1077,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "643135": {
+   "name": "Fer López González",
+   "position": "MID",
+   "quality": -0.1502,
+   "weight": 4.424,
+   "role": 0.1164,
+   "roleMatches": 38,
+   "appearances": 9
+  },
+  "643426": {
+   "name": "Dean Benamar",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 21,
+   "appearances": 0
+  },
+  "643473": {
+   "name": "Airidas Golambeckis",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 28,
+   "appearances": 0
+  },
+  "643970": {
+   "name": "Jayden Lienou",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "644593": {
+   "name": "Kian McMahon-Brown",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 10,
+   "appearances": 0
+  },
+  "645618": {
+   "name": "Bradley Burrowes",
+   "position": "MID",
+   "quality": -0.1588,
+   "weight": 0.422,
+   "role": 0.0114,
+   "roleMatches": 37,
+   "appearances": 1
+  },
+  "646243": {
+   "name": "Andre Harriman-Annous",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 36,
+   "appearances": 0
+  },
+  "647671": {
+   "name": "Mateus Mané",
+   "position": "FWD",
+   "quality": -0.2965,
+   "weight": 22.116,
+   "role": 0.7898,
+   "roleMatches": 28,
+   "appearances": 27
+  },
+  "647681": {
+   "name": "Giovanni Leoni",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 37,
+   "appearances": 0
+  },
+  "647850": {
+   "name": "Charalampos Kostoulas",
+   "position": "FWD",
+   "quality": 0.1133,
+   "weight": 7.872,
+   "role": 0.2071,
+   "roleMatches": 38,
+   "appearances": 21
+  },
+  "647960": {
+   "name": "Oliver Pimlott",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 20,
+   "appearances": 0
+  },
+  "649240": {
+   "name": "Joshua Stephenson",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 8,
+   "appearances": 0
+  },
+  "651426": {
+   "name": "Jaydee Canvot",
+   "position": "DEF",
+   "quality": 0.1665,
+   "weight": 16.059,
+   "role": 0.4588,
+   "roleMatches": 35,
+   "appearances": 20
+  },
+  "653481": {
+   "name": "Alysson Edward Franco da Rocha dos Santos",
+   "position": "MID",
+   "quality": -0.1539,
+   "weight": 1.18,
+   "role": 0.0656,
+   "roleMatches": 18,
+   "appearances": 3
+  },
+  "658013": {
+   "name": "Charlie Stevens",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 17,
+   "appearances": 0
+  },
+  "660392": {
+   "name": "Christantus Uche",
+   "position": "FWD",
+   "quality": -0.0188,
+   "weight": 4.635,
+   "role": 0.1324,
+   "roleMatches": 35,
+   "appearances": 14
+  },
+  "661712": {
+   "name": "Diego León Blanco",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 38,
+   "appearances": 0
+  },
+  "664015": {
+   "name": "Leon Routh",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 22,
+   "appearances": 0
+  },
+  "666607": {
+   "name": "Sam Alabi",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 21,
+   "appearances": 0
+  },
+  "671606": {
+   "name": "Mathis Eboué",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 3,
+   "appearances": 0
+  },
+  "672492": {
+   "name": "Joél Drakes-Thomas",
+   "position": "MID",
+   "quality": 0.0375,
+   "weight": 0.393,
+   "role": 0.0179,
+   "roleMatches": 22,
+   "appearances": 2
+  },
+  "677945": {
+   "name": "Will Wright",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 5,
+   "appearances": 0
+  },
+  "678552": {
+   "name": "Malcom DaCosta",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 25,
+   "appearances": 0
+  },
+  "685628": {
+   "name": "Jerome Abbey",
+   "position": "MID",
+   "quality": -0.0066,
+   "weight": 0.422,
+   "role": 0.0281,
+   "roleMatches": 15,
+   "appearances": 1
+  },
+  "687076": {
+   "name": "Lamin Sillah",
+   "position": "FWD",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 1,
+   "appearances": 0
+  },
+  "699989": {
+   "name": "Djiamgone Jocelin Ta Bi",
+   "position": "MID",
+   "quality": -0.2455,
+   "weight": 0.65,
+   "role": 0.0406,
+   "roleMatches": 16,
+   "appearances": 1
+  },
+  "704232": {
+   "name": "George Brierley",
+   "position": "MID",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 19,
+   "appearances": 0
+  },
+  "718875": {
+   "name": "Talla Ndiaye",
+   "position": "DEF",
+   "quality": 0,
+   "weight": 0,
+   "role": 0,
+   "roleMatches": 4,
+   "appearances": 0
+  }
+ }
+}
