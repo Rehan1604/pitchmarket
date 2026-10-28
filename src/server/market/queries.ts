@@ -122,9 +122,10 @@ export async function sparklines(playerIds: number[], points = 12) {
   const out = new Map<number, number[]>();
   if (playerIds.length === 0) return out;
   const res = await db.execute<{ player_id: number; prices: string[] }>(sql`
-    SELECT player_id, array_agg(price_cents ORDER BY effective_at) AS prices FROM (
-      SELECT player_id, price_cents, effective_at,
-             row_number() OVER (PARTITION BY player_id ORDER BY effective_at DESC, id DESC) AS rn
+    SELECT player_id, array_agg(price_cents ORDER BY k) AS prices FROM (
+      SELECT player_id, price_cents,
+             CASE WHEN reason = 'ipo' THEN '-infinity'::timestamptz ELSE effective_at END AS k,
+             row_number() OVER (PARTITION BY player_id ORDER BY CASE WHEN reason = 'ipo' THEN '-infinity'::timestamptz ELSE effective_at END DESC, id DESC) AS rn
       FROM price_ticks
       WHERE player_id IN (${sql.join(playerIds.map((id) => sql`${id}`), sql`, `)}) AND reason IN ('ipo', 'match_final')
     ) t WHERE rn <= ${points} GROUP BY player_id`);
@@ -186,7 +187,13 @@ export async function getPlayerDetail(slug: string, viewerId?: string | null) {
     })
     .from(schema.priceTicks)
     .where(and(eq(schema.priceTicks.playerId, p.id), inArray(schema.priceTicks.reason, ["ipo", "match_final", "admin"])))
-    .orderBy(asc(schema.priceTicks.effectiveAt), asc(schema.priceTicks.id));
+    .orderBy(asc(sql`CASE WHEN ${schema.priceTicks.reason} = 'ipo' THEN '-infinity'::timestamptz ELSE ${schema.priceTicks.effectiveAt} END`), asc(schema.priceTicks.id));
+  // The listing is always the first point of a path. If it was recorded after
+  // matches that were priced later (a squad listed mid-backfill), show it just
+  // before the first priced match so the chart reads correctly.
+  if (history.length > 1 && history[0].reason === "ipo" && history[1].effectiveAt < history[0].effectiveAt) {
+    history[0] = { ...history[0], effectiveAt: new Date(history[1].effectiveAt.getTime() - 24 * 3600_000) };
+  }
 
   const liveTicks = row.price.liveFixtureId
     ? await db

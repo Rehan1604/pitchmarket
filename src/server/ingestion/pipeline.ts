@@ -329,15 +329,17 @@ export async function ipoMissingPlayers(competitionId: number, entityProvider: s
     .where(and(eq(schema.players.competitionId, competitionId), isNull(schema.playerPrices.playerId)));
   if (missing.length === 0) return 0;
 
-  const [{ count: existingIpos }] = await db
+  // Initial listing (nothing in this competition settled yet) is dated to season open so
+  // price history starts there; players added once matches have been priced are dated now.
+  // (Counting existing IPO ticks instead would misfire when one player was first listed
+  // through another competition, e.g. a squad overlap between two ESPN leagues.)
+  const [{ count: settledCount }] = await db
     .select({ count: sql<number>`count(*)::int` })
-    .from(schema.priceTicks)
-    .innerJoin(schema.players, eq(schema.players.id, schema.priceTicks.playerId))
-    .where(and(eq(schema.priceTicks.reason, "ipo"), eq(schema.players.competitionId, competitionId)));
+    .from(schema.fixtures)
+    .where(and(eq(schema.fixtures.competitionId, competitionId), sql`${schema.fixtures.settledAt} IS NOT NULL`));
   const open = await seasonOpenAt(competitionId);
   const now = new Date();
-  // Initial listing is dated to season open so price history starts there; later listings are dated now.
-  const effectiveAt = existingIpos === 0 && open && open < now ? open : now;
+  const effectiveAt = settledCount === 0 && open && open < now ? open : now;
 
   await db.transaction(async (tx) => {
     const version = await lockAndBumpMarketVersion(tx);
@@ -555,73 +557,122 @@ export async function settleFixture(fixtureId: number, now = new Date()): Promis
     // Price paths are strictly chronological: a match older than the player's
     // latest priced match (e.g. a backfilled cup tie from another feed) is kept
     // as stats but not priced, so replaying the path always reproduces the price.
-    // Likewise a match played before the player was listed (IPO) isn't priced:
-    // the price path starts at the listing.
-    const lastPriced = new Map<number, number>();
-    const listedAt = new Map<number, number>();
-    if (kickoff && rows.length) {
-      const ids = sql.join(rows.map((r) => sql`${r.price.playerId}`), sql`, `);
-      const res = await tx.execute<{ player_id: number; last: Date }>(sql`
-        SELECT pt.player_id, max(f.kickoff_at) AS last FROM price_ticks pt JOIN fixtures f ON f.id = pt.fixture_id
-        WHERE pt.reason = 'match_final' AND pt.player_id IN (${ids})
-        GROUP BY pt.player_id`);
-      for (const r of res.rows) if (r.last) lastPriced.set(Number(r.player_id), new Date(r.last).getTime());
-      const ipo = await tx.execute<{ player_id: number; at: Date }>(sql`
-        SELECT player_id, effective_at AS at FROM price_ticks WHERE reason = 'ipo' AND player_id IN (${ids})`);
-      for (const r of ipo.rows) listedAt.set(Number(r.player_id), new Date(r.at).getTime());
-    }
+    const lastPriced = await lastPricedKickoffs(tx, rows.map((r) => r.price.playerId));
     let outOfOrder = 0;
 
     for (const { stats, price, position } of rows) {
       const last = lastPriced.get(price.playerId);
-      const listed = listedAt.get(price.playerId);
-      const note = !kickoff ? null : last !== undefined && last > kickoff.getTime() ? "out_of_order" : listed !== undefined && listed > kickoff.getTime() ? "before_listing" : null;
-      if (note) {
+      if (kickoff && last !== undefined && last > kickoff.getTime()) {
         outOfOrder++;
-        await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: note }).where(eq(schema.playerMatchStats.id, stats.id));
+        await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: "out_of_order" }).where(eq(schema.playerMatchStats.id, stats.id));
         continue;
       }
-      const settled = settledStateFromRow(price, position as Position);
-      const scored = scoreMatch(stats, position as Position);
-      const step = applyMatch(settled, scored.z, stats.minutes);
-      const after = step.state.priceCents;
-      await tx
-        .update(schema.playerPrices)
-        .set({
-          priceCents: after,
-          previousPriceCents: step.played ? settled.priceCents : price.previousPriceCents,
-          settledPriceCents: after,
-          fundamentalCents: step.fundamentalCents,
-          qualityIndex: step.quality,
-          ...stateColumns(step.state),
-          liveFixtureId: price.liveFixtureId === fixtureId ? null : price.liveFixtureId,
-          marketVersion: version,
-          updatedAt: now,
-        })
-        .where(eq(schema.playerPrices.playerId, price.playerId));
-      if (step.played) {
-        await tx.insert(schema.priceTicks).values({
-          playerId: price.playerId,
-          fixtureId,
-          reason: "match_final",
-          priceCents: after,
-          previousPriceCents: settled.priceCents,
-          performanceScore: scored.score,
-          zScore: scored.z,
-          marketVersion: version,
-          statsHash: stats.statsHash,
-          effectiveAt,
-        });
-        moves.push({ playerId: price.playerId, before: settled.priceCents, after, ret: step.ret });
-      }
-      if (!stats.isFinal) {
-        await tx.update(schema.playerMatchStats).set({ isFinal: true }).where(eq(schema.playerMatchStats.id, stats.id));
-      }
+      const move = await priceSettledRow(tx, { stats, price, position: position as Position, fixtureId, version, effectiveAt, now });
+      if (move) moves.push(move);
     }
     await tx.update(schema.fixtures).set({ settledAt: now, updatedAt: now }).where(eq(schema.fixtures.id, fixtureId));
     await audit({ actor: "system", action: "market.fixture_settled", entityType: "fixture", entityId: fixtureId, metadata: { version, priced: moves.length, outOfOrder } }, tx);
     return { version, moves };
   });
+}
+
+type StatsRow = typeof schema.playerMatchStats.$inferSelect;
+type PriceRow = typeof schema.playerPrices.$inferSelect;
+
+/** Latest kickoff among each player's priced (match_final) fixtures. */
+async function lastPricedKickoffs(tx: Tx, playerIds: number[]) {
+  const out = new Map<number, number>();
+  if (playerIds.length === 0) return out;
+  const res = await tx.execute<{ player_id: number; last: Date }>(sql`
+    SELECT pt.player_id, max(f.kickoff_at) AS last FROM price_ticks pt JOIN fixtures f ON f.id = pt.fixture_id
+    WHERE pt.reason = 'match_final' AND pt.player_id IN (${sql.join(playerIds.map((id) => sql`${id}`), sql`, `)})
+    GROUP BY pt.player_id`);
+  for (const r of res.rows) if (r.last) out.set(Number(r.player_id), new Date(r.last).getTime());
+  return out;
+}
+
+/** Apply one final stats row to a player's settled state (one match_final tick if he played). */
+async function priceSettledRow(
+  tx: Tx,
+  a: { stats: StatsRow; price: PriceRow; position: Position; fixtureId: number; version: number; effectiveAt: Date; now: Date },
+): Promise<SettlementMove | null> {
+  const { stats, price, position, fixtureId, version, effectiveAt, now } = a;
+  const settled = settledStateFromRow(price, position);
+  const scored = scoreMatch(stats, position);
+  const step = applyMatch(settled, scored.z, stats.minutes);
+  const after = step.state.priceCents;
+  await tx
+    .update(schema.playerPrices)
+    .set({
+      priceCents: after,
+      previousPriceCents: step.played ? settled.priceCents : price.previousPriceCents,
+      settledPriceCents: after,
+      fundamentalCents: step.fundamentalCents,
+      qualityIndex: step.quality,
+      ...stateColumns(step.state),
+      liveFixtureId: price.liveFixtureId === fixtureId ? null : price.liveFixtureId,
+      marketVersion: version,
+      updatedAt: now,
+    })
+    .where(eq(schema.playerPrices.playerId, price.playerId));
+  if (!stats.isFinal || stats.pricingNote) {
+    await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: null }).where(eq(schema.playerMatchStats.id, stats.id));
+  }
+  if (!step.played) return null;
+  await tx.insert(schema.priceTicks).values({
+    playerId: price.playerId,
+    fixtureId,
+    reason: "match_final",
+    priceCents: after,
+    previousPriceCents: settled.priceCents,
+    performanceScore: scored.score,
+    zScore: scored.z,
+    marketVersion: version,
+    statsHash: stats.statsHash,
+    effectiveAt,
+  });
+  return { playerId: price.playerId, before: settled.priceCents, after, ret: step.ret };
+}
+
+/**
+ * One-off repair: price rows an earlier release skipped as "before_listing"
+ * (players whose listing was mis-dated to the sync time). Per player, in kickoff
+ * order, still never out of order. Idempotent: priced rows lose their note.
+ */
+export async function repriceSkippedRows(note = "before_listing", limitPlayers = 200, now = new Date()) {
+  const players = await db
+    .selectDistinct({ playerId: schema.playerMatchStats.playerId })
+    .from(schema.playerMatchStats)
+    .where(eq(schema.playerMatchStats.pricingNote, note))
+    .limit(limitPlayers);
+  let priced = 0;
+  let outOfOrder = 0;
+  for (const { playerId } of players) {
+    await db.transaction(async (tx) => {
+      const version = await lockAndBumpMarketVersion(tx);
+      const rows = await tx
+        .select({ stats: schema.playerMatchStats, fixture: schema.fixtures, position: schema.players.position })
+        .from(schema.playerMatchStats)
+        .innerJoin(schema.fixtures, eq(schema.fixtures.id, schema.playerMatchStats.fixtureId))
+        .innerJoin(schema.players, eq(schema.players.id, schema.playerMatchStats.playerId))
+        .where(and(eq(schema.playerMatchStats.playerId, playerId), eq(schema.playerMatchStats.pricingNote, note), sql`${schema.fixtures.settledAt} IS NOT NULL`))
+        .orderBy(asc(schema.fixtures.kickoffAt), asc(schema.fixtures.id));
+      for (const r of rows) {
+        const [price] = await tx.select().from(schema.playerPrices).where(eq(schema.playerPrices.playerId, playerId)).for("update");
+        const last = (await lastPricedKickoffs(tx, [playerId])).get(playerId);
+        const kickoff = r.fixture.kickoffAt;
+        if (!price || !kickoff || (last !== undefined && last > kickoff.getTime())) {
+          await tx.update(schema.playerMatchStats).set({ pricingNote: "out_of_order" }).where(eq(schema.playerMatchStats.id, r.stats.id));
+          outOfOrder++;
+          continue;
+        }
+        const effectiveAt = new Date(Math.min(kickoff.getTime() + MATCH_LENGTH_MS, now.getTime()));
+        await priceSettledRow(tx, { stats: r.stats, price, position: r.position as Position, fixtureId: r.fixture.id, version, effectiveAt, now });
+        priced++;
+      }
+    });
+  }
+  return { items: priced, status: players.length ? ("success" as const) : ("skipped" as const), details: { players: players.length, priced, outOfOrder } };
 }
 
 /** The stats fingerprint without the minutes component ("m:63|goals:1|…" → "goals:1|…"). */

@@ -126,7 +126,9 @@ moves a Premier League one.
   prices are provisional, like a live match.
 * **Starting prices:** there are no prior-season priors for these leagues, so every
   player lists at the position-average price on season open; this season's matches
-  are replayed in order on first sync, which separates them quickly.
+  are replayed in order on first sync, which separates them quickly. A
+  competition's first listing is dated to season open while none of its matches
+  has been settled; players added later are listed at the time they appear.
 
 ### One player, two feeds
 

@@ -11,7 +11,7 @@ import { and, asc, eq, isNotNull, sql } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { closeDb, db, schema } from "@/db";
 import { syncEspnReference } from "@/server/ingestion/espn-sync";
-import { syncFixtures, syncReference, syncStats } from "@/server/ingestion/pipeline";
+import { ipoMissingPlayers, repriceSkippedRows, syncFixtures, syncReference, syncStats } from "@/server/ingestion/pipeline";
 import { EspnProvider } from "@/server/ingestion/providers/espn";
 import { getMarketState } from "@/server/market/state";
 import { sameClubIds } from "@/server/market/clubs";
@@ -191,5 +191,42 @@ describe("Champions League", () => {
     const same = await db.execute<{ id: number }>(sql`SELECT id FROM ${sameClubIds(fplClubId)} s(id)`);
     const [cupClub] = await db.select({ id: schema.clubs.id }).from(schema.clubs).where(and(eq(schema.clubs.provider, "espn"), eq(schema.clubs.providerRef, "7001")));
     expect(same.rows.map((r) => Number(r.id))).toContain(cupClub.id);
+  });
+});
+
+describe("listing dates and repairs", () => {
+  it("dates a competition's first listing to season open even if one player was listed elsewhere first", async () => {
+    const [comp] = await db.insert(schema.competitions).values({ code: "TST", name: "Test League", season: "2026-27", provider: "espn", providerRef: "espn-test", hasPlayerStats: true }).returning();
+    const [club] = await db.insert(schema.clubs).values({ competitionId: comp.id, provider: "espn", providerRef: "t-club", name: "Test FC", shortName: "Test" }).returning();
+    await db.insert(schema.fixtures).values({ competitionId: comp.id, provider: "espn", providerRef: "t-fx-1", kickoffAt: new Date("2026-08-20T19:00:00Z"), homeName: "Test FC", awayName: "Other", status: "finished" });
+    // A player already listed through another competition moves in (squad overlap).
+    const [moved] = await db.select({ id: schema.players.id }).from(schema.players).where(and(eq(schema.players.provider, "espn"), eq(schema.players.providerRef, "231388")));
+    await db.update(schema.players).set({ competitionId: comp.id }).where(eq(schema.players.id, moved.id));
+    const [fresh] = await db.insert(schema.players).values({ provider: "espn", providerRef: "t-p-1", slug: "test-fresh-player", firstName: "Fresh", lastName: "Player", displayName: "Fresh Player", clubId: club.id, competitionId: comp.id, position: "MID" }).returning();
+    expect(await ipoMissingPlayers(comp.id, "espn")).toBe(1);
+    const [ipo] = await db.select().from(schema.priceTicks).where(and(eq(schema.priceTicks.playerId, fresh.id), eq(schema.priceTicks.reason, "ipo")));
+    expect(ipo.effectiveAt.toISOString()).toBe("2026-08-19T19:00:00.000Z"); // a day before the first fixture
+    await db.update(schema.players).set({ competitionId: (await db.select().from(schema.competitions).where(eq(schema.competitions.code, "PD")))[0].id }).where(eq(schema.players.id, moved.id));
+  });
+
+  it("re-prices rows an earlier release skipped as 'before listing', in order and only once", async () => {
+    const [comp] = await db.select().from(schema.competitions).where(eq(schema.competitions.code, "TST"));
+    const [fresh] = await db.select().from(schema.players).where(eq(schema.players.providerRef, "t-p-1"));
+    const [fx] = await db.select().from(schema.fixtures).where(eq(schema.fixtures.providerRef, "t-fx-1"));
+    await db.update(schema.fixtures).set({ settledAt: new Date(), statsFinal: true, homeScore: 1, awayScore: 0 }).where(eq(schema.fixtures.id, fx.id));
+    await db.insert(schema.playerMatchStats).values({ playerId: fresh.id, fixtureId: fx.id, minutes: 90, goals: 1, assists: 0, shots: 3, shotsOnTarget: 2, goalsConceded: 0, cleanSheet: true, yellowCards: 0, redCards: 0, ownGoals: 0, statsHash: "repair-1", source: "espn", isFinal: true, pricingNote: "before_listing" });
+    const [before] = await db.select().from(schema.playerPrices).where(eq(schema.playerPrices.playerId, fresh.id));
+
+    const r = await repriceSkippedRows("before_listing");
+    expect(r.details).toMatchObject({ priced: 1, outOfOrder: 0 });
+    const [after] = await db.select().from(schema.playerPrices).where(eq(schema.playerPrices.playerId, fresh.id));
+    expect(after.settledPriceCents).toBeGreaterThan(before.settledPriceCents);
+    expect(after.matchesPriced).toBe(1);
+    const ticks = await db.select().from(schema.priceTicks).where(and(eq(schema.priceTicks.playerId, fresh.id), eq(schema.priceTicks.reason, "match_final")));
+    expect(ticks).toHaveLength(1);
+    const [row] = await db.select().from(schema.playerMatchStats).where(and(eq(schema.playerMatchStats.playerId, fresh.id), eq(schema.playerMatchStats.fixtureId, fx.id)));
+    expect(row.pricingNote).toBeNull();
+    expect((await repriceSkippedRows("before_listing")).status).toBe("skipped");
+    void comp;
   });
 });
