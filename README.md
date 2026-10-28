@@ -145,5 +145,5 @@ name "PITCHMARKET" only appears elsewhere in documentation.
   a licensed per-player feed (adapter interface in `src/server/ingestion/providers/types.ts`).
 * Market orders only. Limit orders aren't implemented.
 * Live UI updates poll every 20 s (no websockets), which is suitable for serverless hosting.
-* Vercel Hobby cron runs once a day; use the included GitHub workflow,
-  cron-job.org or the worker for frequent updates.
+* Vercel Hobby cron runs once a day and the included GitHub workflow every 30
+  minutes; use cron-job.org (every minute) or the worker for live match days.

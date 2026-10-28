@@ -1,5 +1,8 @@
 # Free scheduler for the market data pipeline (Vercel Hobby crons run once a day).
-# Calls the idempotent tick endpoint every 5 minutes; jobs decide themselves what is due.
+# Calls the idempotent tick endpoint every 30 minutes; jobs decide themselves what is due.
+# Each run is billed as at least 1 minute: every 30 min ≈ 1,440 min/month, inside the
+# 2,000 free minutes for PRIVATE repos. Public repos have unlimited free minutes, so you
+# can change the schedule to "*/5 * * * *" there.
 # Requires repository secrets: APP_URL (e.g. https://pitchmarket.vercel.app) and CRON_SECRET.
 # For 1-minute polling during matches, use an external cron (e.g. cron-job.org) instead —
 # see docs/DEPLOYMENT.md. GitHub may delay scheduled runs under load.
@@ -7,7 +10,7 @@ name: Market tick
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:

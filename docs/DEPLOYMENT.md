@@ -68,7 +68,7 @@ due. It's lock-protected, so overlapping schedulers are safe. Pick one or combin
 | Option | Frequency | Setup |
 |---|---|---|
 | Vercel Cron (`vercel.json`) | Hobby: once a day (06:10 UTC) | Automatic. Vercel sends the bearer token when `CRON_SECRET` is set. |
-| GitHub Actions (`.github/workflows/market-tick.yml`) | every 5 min (best effort) | Repo → Settings → Secrets and variables → Actions: add `APP_URL` and `CRON_SECRET`. |
+| GitHub Actions (`.github/workflows/market-tick.yml`) | every 30 min (fits the 2,000 free minutes of a private repo; use every 5 min on a public repo) | Repo → Settings → Secrets and variables → Actions: add `APP_URL` and `CRON_SECRET`. |
 | cron-job.org (free) | every 1 min | New cronjob → URL `https://<app>/api/cron/tick` → Advanced → header `Authorization: Bearer <CRON_SECRET>` → every minute. Best for live matches. |
 | `npm run worker` on any always-on host | every 30 s | See below. |
 
