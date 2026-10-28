@@ -92,9 +92,9 @@ Test databases are reset and seeded from a trimmed slice of real 2026-27 data in
 
 Last full run (28 Oct 2026):
 
-* **Unit, 43 passing:** scoring per position, missing-stat handling, pricing
+* **Unit, 45 passing:** scoring per position, missing-stat handling, pricing
   caps, smoothing and replay, live no-compounding, money and rounding, valuation
-  identities, provider normalisers, HTTP retry/backoff/429.
+  identities, provider normalisers, HTTP retry/backoff/429, text helpers.
 * **Integration, 41 passing** against real Postgres: registration, sessions,
   login, reset, deletion; trades, insufficient cash and shares, P/L, idempotency,
   12-way concurrent orders with no overspend, racing duplicate submissions,
