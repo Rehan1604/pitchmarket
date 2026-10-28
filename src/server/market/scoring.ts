@@ -105,6 +105,13 @@ export interface ScoringModel {
   cleanSheetRate: PerPosition<number>;
   /** Standard deviation of (s − e) for ≥60-minute appearances. */
   sigma: PerPosition<number>;
+  /**
+   * σ when only the basic stat set is available (goals, assists, shots, saves,
+   * goals conceded, clean sheet, own goals, cards — no xG/xA or defensive work),
+   * e.g. ESPN-reported matches. Derived from the same season with the richer
+   * stats removed, so a big game moves a price by a comparable amount either way.
+   */
+  sigmaLimited?: PerPosition<number>;
   /** Free-form provenance (dataset, rows, generated date). */
   source?: Record<string, unknown>;
 }
@@ -187,10 +194,19 @@ export function scoreMatch(stats: MatchStats, pos: Position, model: ScoringModel
     excluded.push("cleanSheet");
   }
 
-  const sigma = model.sigma[pos] > 0 ? model.sigma[pos] : 1;
+  const limited = isLimitedProfile(stats) && model.sigmaLimited ? model.sigmaLimited[pos] : null;
+  const sigma = limited && limited > 0 ? limited : model.sigma[pos] > 0 ? model.sigma[pos] : 1;
   const rawZ = (score - expected) / sigma;
   const z = Math.max(Z_CLAMP.min, Math.min(Z_CLAMP.max, rawZ));
   return { score: round4(score), expected: round4(expected), z: round4(z), breakdown, excluded };
+}
+
+/** Stats only richer feeds publish (FPL): xG/xA, chance creation and defensive work. */
+export const RICH_STATS = ["xg", "xa", "keyPasses", "dribbles", "tackles", "interceptions", "clearances", "cbi", "recoveries"] as const;
+
+/** True when a record carries none of the richer stats (basic profile → `sigmaLimited`). */
+export function isLimitedProfile(stats: MatchStats): boolean {
+  return RICH_STATS.every((k) => !present(stats[k]));
 }
 
 /** Deterministic hash of the stats that matter, used for idempotent ingestion. */

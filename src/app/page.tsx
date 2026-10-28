@@ -8,7 +8,7 @@ import { dateTime } from "@/lib/format";
 import { formatCredits, formatPct, changeBps } from "@/lib/money";
 import { getCurrentUser } from "@/server/auth/current-user";
 import { env } from "@/server/env";
-import { dataStatus, topMovers } from "@/server/market/queries";
+import { dataStatus, listTradableCompetitions, topMovers } from "@/server/market/queries";
 
 async function board() {
   return db
@@ -43,8 +43,11 @@ async function example() {
 }
 
 export default async function Landing() {
-  const [user, rows, status, movers, ex] = await Promise.all([getCurrentUser(), board(), dataStatus(), topMovers(3), example()]);
+  const [user, rows, status, movers, ex, comps] = await Promise.all([getCurrentUser(), board(), dataStatus(), topMovers(3), example(), listTradableCompetitions()]);
   const e = env();
+  const names = comps.map((c) => (c.code === "CL" ? "the Champions League" : c.name === "Premier League" ? "the Premier League" : c.name));
+  const multiLeague = names.length > 1;
+  const leagueList = names.length === 0 ? "the Premier League" : names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
   const credits = e.STARTING_BALANCE_CREDITS.toLocaleString("en-GB");
   const live = status.dataMode === "live";
 
@@ -79,7 +82,7 @@ export default async function Landing() {
               Sell the slump.
             </h1>
             <p className="mt-7 max-w-xl text-[17px] leading-relaxed text-chalk-2">
-              A stock market where the stocks are Premier League footballers. Prices move after every match from what players actually did. Start with {credits} virtual Pitch Credits, build a squad of shares, and beat your friends in private leagues.
+              A stock market where the stocks are footballers from {leagueList}. Prices move after every match from what players actually did. Start with {credits} virtual Pitch Credits, build a squad of shares, and beat your friends in private leagues.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href={user ? "/market" : "/signup"} variant="primary" size="lg">
@@ -193,7 +196,8 @@ export default async function Landing() {
         <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-5 py-8 text-[12.5px] text-chalk-4 sm:px-8 md:flex-row md:justify-between">
           <p>{e.APP_NAME} is a free game played with virtual credits. It is not gambling, investment or financial advice.</p>
           <p>
-            Player data: Fantasy Premier League{status.dataProvider === "fpl-archive" ? " via the public FPL archive on GitHub" : ""}. Not affiliated with or endorsed by the Premier League.
+            Player data: Fantasy Premier League{status.dataProvider === "fpl-archive" ? " via the public FPL archive on GitHub" : ""}
+            {multiLeague ? "; other leagues and the Champions League: ESPN (unofficial public feed)" : ""}. Not affiliated with or endorsed by the Premier League{multiLeague ? ", ESPN, the other leagues or UEFA" : ""}.
           </p>
         </div>
       </footer>

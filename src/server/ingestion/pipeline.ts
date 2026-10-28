@@ -20,7 +20,7 @@ import { scoreMatch, statsFingerprint, type Position } from "@/server/market/sco
 import { lockAndBumpMarketVersion, lockMarket, setDataStatus, settledStateFromRow, stateColumns } from "@/server/market/state";
 import { slugify } from "@/lib/text";
 import { ProviderError } from "./http";
-import type { FixtureBundle, FixtureOnlyProvider, MarketDataProvider, NormCompetition, NormFixture, NormPlayerMatch } from "./providers/types";
+import type { FixtureBundle, FixtureOnlyProvider, MarketDataProvider, NormCompetition, NormFixture, NormPlayerMatch, ReferenceBundle } from "./providers/types";
 import priorsFile from "../../../data/priors/fpl-2025-26.json";
 
 const MATCH_LENGTH_MS = 115 * 60_000;
@@ -207,8 +207,8 @@ async function upsertFixtures(tx: Tx, competitionId: number, entityProvider: str
 
 // ------------------------------------------------------------------ jobs
 
-export async function syncFixtures(provider: MarketDataProvider) {
-  const bundle = await provider.fetchFixtures();
+export async function syncFixtures(provider: MarketDataProvider, opts: { window?: "full" | "recent" } = {}) {
+  const bundle = await provider.fetchFixtures(opts);
   const live = provider.mode === "live" && provider.capabilities.live;
   const result = await db.transaction(async (tx) => {
     const comp = await upsertCompetition(tx, bundle.competition, provider.entityProvider, { hasPlayerStats: true, hasLiveData: live });
@@ -216,7 +216,9 @@ export async function syncFixtures(provider: MarketDataProvider) {
     const n = await upsertFixtures(tx, comp.id, provider.entityProvider, clubIds, bundle.fixtures);
     return { competitionId: comp.id, fixtures: n };
   });
-  await setDataStatus({ dataProvider: provider.source, dataMode: provider.mode, ...(bundle.dataAsOf ? { dataAsOf: bundle.dataAsOf } : {}) });
+  if (provider.primary !== false) {
+    await setDataStatus({ dataProvider: provider.source, dataMode: provider.mode, ...(bundle.dataAsOf ? { dataAsOf: bundle.dataAsOf } : {}) });
+  }
   return {
     items: result.fixtures,
     dataAsOf: bundle.dataAsOf,
@@ -248,7 +250,11 @@ async function seasonOpenAt(competitionId: number): Promise<Date | null> {
 }
 
 export async function syncReference(provider: MarketDataProvider) {
-  const bundle = await provider.fetchReference();
+  return applyReferenceBundle(provider, await provider.fetchReference());
+}
+
+/** Upsert a reference bundle; players of this competition missing from it become sell-only. */
+export async function applyReferenceBundle(provider: MarketDataProvider, bundle: ReferenceBundle) {
   const ep = provider.entityProvider;
   const live = provider.mode === "live" && provider.capabilities.live;
 
@@ -256,7 +262,7 @@ export async function syncReference(provider: MarketDataProvider) {
     const comp = await upsertCompetition(tx, bundle.competition, ep, { hasPlayerStats: true, hasLiveData: live });
     const clubIds = await upsertClubs(tx, comp.id, ep, bundle.clubs);
     const existing = await tx
-      .select({ id: schema.players.id, providerRef: schema.players.providerRef, slug: schema.players.slug })
+      .select({ id: schema.players.id, providerRef: schema.players.providerRef, slug: schema.players.slug, competitionId: schema.players.competitionId })
       .from(schema.players)
       .where(eq(schema.players.provider, ep));
     const byRef = new Map(existing.map((p) => [p.providerRef, p]));
@@ -297,10 +303,11 @@ export async function syncReference(provider: MarketDataProvider) {
         ins++;
       }
     }
-    // Players no longer listed by the provider become sell-only.
+    // Players of this competition no longer listed by the provider become sell-only.
+    // (A feed can serve several competitions; each sync only judges its own.)
     let deact = 0;
     for (const p of existing) {
-      if (!seen.has(p.providerRef)) {
+      if (p.competitionId === comp.id && !seen.has(p.providerRef)) {
         await tx.update(schema.players).set({ isTradable: false, updatedAt: new Date() }).where(eq(schema.players.id, p.id));
         deact++;
       }
@@ -309,7 +316,7 @@ export async function syncReference(provider: MarketDataProvider) {
   });
 
   const ipos = await ipoMissingPlayers(competitionId, ep);
-  await setDataStatus({ dataProvider: provider.source, dataMode: provider.mode });
+  if (provider.primary !== false) await setDataStatus({ dataProvider: provider.source, dataMode: provider.mode });
   return { items: inserted + updated, dataAsOf: bundle.dataAsOf, details: { inserted, updated, deactivated, ipos } };
 }
 
@@ -397,15 +404,34 @@ async function toNormFixtures(rows: (typeof schema.fixtures.$inferSelect)[]): Pr
   }));
 }
 
-/** Store stats rows, writing only when the stats fingerprint changed. Returns rows written. */
-async function storeMatchStats(provider: MarketDataProvider, rows: NormPlayerMatch[], fixtureIdByRef: Map<string, number>) {
+type FixtureRef = { id: number; competitionId: number };
+
+/**
+ * Store stats rows, writing only when the stats fingerprint changed.
+ * Players resolve by the feed's own ids, or through entity_links when the feed
+ * reports a player whose market identity lives in another feed (e.g. ESPN's
+ * Champions League sheet for an FPL-listed Premier League player).
+ */
+async function storeMatchStats(provider: MarketDataProvider, rows: NormPlayerMatch[], fixtureByRef: Map<string, FixtureRef>) {
   const ep = provider.entityProvider;
-  const players = await db
+  type P = { id: number; seasonRef: string | null; position: string; clubId: number | null };
+  const own = await db
     .select({ id: schema.players.id, seasonRef: schema.players.providerSeasonRef, position: schema.players.position, clubId: schema.players.clubId })
     .from(schema.players)
     .where(eq(schema.players.provider, ep));
-  const bySeasonRef = new Map(players.filter((p) => p.seasonRef).map((p) => [p.seasonRef!, p]));
-  const fixtureIds = [...new Set([...fixtureIdByRef.values()])];
+  const byRef = new Map<string, P>(own.filter((p) => p.seasonRef).map((p) => [p.seasonRef!, p]));
+  const linked = await db
+    .select({ ref: schema.entityLinks.providerRef, id: schema.players.id, position: schema.players.position, clubId: schema.players.clubId })
+    .from(schema.entityLinks)
+    .innerJoin(schema.players, eq(schema.players.id, schema.entityLinks.localId))
+    .where(and(eq(schema.entityLinks.kind, "player"), eq(schema.entityLinks.provider, ep)));
+  for (const l of linked) if (!byRef.has(l.ref)) byRef.set(l.ref, { id: l.id, seasonRef: l.ref, position: l.position, clubId: l.clubId });
+
+  // A club row exists per competition; the stats row points at the club as it appears in this fixture.
+  const clubRows = await db.select({ id: schema.clubs.id, ref: schema.clubs.providerRef, competitionId: schema.clubs.competitionId }).from(schema.clubs).where(eq(schema.clubs.provider, ep));
+  const clubIn = new Map(clubRows.map((c) => [`${c.competitionId}:${c.ref}`, c.id]));
+
+  const fixtureIds = [...new Set([...fixtureByRef.values()].map((f) => f.id))];
   const existing = fixtureIds.length
     ? await db
         .select({ playerId: schema.playerMatchStats.playerId, fixtureId: schema.playerMatchStats.fixtureId, hash: schema.playerMatchStats.statsHash, isFinal: schema.playerMatchStats.isFinal })
@@ -415,20 +441,24 @@ async function storeMatchStats(provider: MarketDataProvider, rows: NormPlayerMat
   const prior = new Map(existing.map((e) => [`${e.playerId}:${e.fixtureId}`, e]));
   let written = 0;
   let unknownPlayers = 0;
+  const knownByFixture = new Map<number, number>();
   for (const r of rows) {
-    const p = bySeasonRef.get(r.playerSeasonRef);
-    const fixtureId = fixtureIdByRef.get(r.fixtureRef);
-    if (!p || !fixtureId) {
+    const p = byRef.get(r.playerSeasonRef);
+    const fx = fixtureByRef.get(r.fixtureRef);
+    if (!p || !fx) {
       unknownPlayers++;
       continue;
     }
+    knownByFixture.set(fx.id, (knownByFixture.get(fx.id) ?? 0) + 1);
+    const fixtureId = fx.id;
     const hash = statsFingerprint(r.stats);
     const before = prior.get(`${p.id}:${fixtureId}`);
     if (before && before.hash === hash && before.isFinal === r.isFinal) continue;
     const scored = scoreMatch(r.stats, p.position as Position);
     const s = r.stats;
+    const clubId = (r.clubRef ? clubIn.get(`${fx.competitionId}:${r.clubRef}`) : undefined) ?? p.clubId;
     const values = {
-      clubId: p.clubId,
+      clubId,
       minutes: s.minutes,
       started: s.started,
       goals: s.goals ?? null,
@@ -468,7 +498,26 @@ async function storeMatchStats(provider: MarketDataProvider, rows: NormPlayerMat
       .onConflictDoUpdate({ target: [schema.playerMatchStats.playerId, schema.playerMatchStats.fixtureId], set: values });
     written++;
   }
-  return { written, unknownPlayers };
+  return { written, unknownPlayers, knownByFixture };
+}
+
+/**
+ * For feeds that only list the matchday squad: once a match is final, every other
+ * tradable player of both clubs gets a 0-minute row so the minutes-share (role)
+ * model sees the match they missed. Never overwrites a real row.
+ */
+export async function fillSquadZeroRows(fixtureId: number, source: string) {
+  const hash = statsFingerprint({ minutes: 0 });
+  const res = await db.execute(sql`
+    INSERT INTO player_match_stats (player_id, fixture_id, club_id, minutes, started, is_final, stats_hash, source, ingested_at)
+    SELECT DISTINCT p.id, f.id, fc.id, 0, false, true, ${hash}, ${source}, now()
+    FROM fixtures f
+    JOIN clubs fc ON fc.id IN (f.home_club_id, f.away_club_id)
+    JOIN clubs pc ON pc.provider = fc.provider AND pc.provider_ref = fc.provider_ref
+    JOIN players p ON p.club_id = pc.id AND p.provider = fc.provider AND p.is_tradable
+    WHERE f.id = ${fixtureId}
+    ON CONFLICT (player_id, fixture_id) DO NOTHING`);
+  return res.rowCount ?? 0;
 }
 
 export interface SettlementMove {
@@ -503,7 +552,26 @@ export async function settleFixture(fixtureId: number, now = new Date()): Promis
     const effectiveAt = kickoff && kickoff.getTime() + MATCH_LENGTH_MS < now.getTime() ? new Date(kickoff.getTime() + MATCH_LENGTH_MS) : now;
     const moves: SettlementMove[] = [];
 
+    // Price paths are strictly chronological: a match older than the player's
+    // latest priced match (e.g. a backfilled cup tie from another feed) is kept
+    // as stats but not priced, so replaying the path always reproduces the price.
+    const lastPriced = new Map<number, number>();
+    if (kickoff && rows.length) {
+      const res = await tx.execute<{ player_id: number; last: Date }>(sql`
+        SELECT pt.player_id, max(f.kickoff_at) AS last FROM price_ticks pt JOIN fixtures f ON f.id = pt.fixture_id
+        WHERE pt.reason = 'match_final' AND pt.player_id IN (${sql.join(rows.map((r) => sql`${r.price.playerId}`), sql`, `)})
+        GROUP BY pt.player_id`);
+      for (const r of res.rows) if (r.last) lastPriced.set(Number(r.player_id), new Date(r.last).getTime());
+    }
+    let outOfOrder = 0;
+
     for (const { stats, price, position } of rows) {
+      const last = lastPriced.get(price.playerId);
+      if (kickoff && last !== undefined && last > kickoff.getTime()) {
+        outOfOrder++;
+        await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: "out_of_order" }).where(eq(schema.playerMatchStats.id, stats.id));
+        continue;
+      }
       const settled = settledStateFromRow(price, position as Position);
       const scored = scoreMatch(stats, position as Position);
       const step = applyMatch(settled, scored.z, stats.minutes);
@@ -542,9 +610,14 @@ export async function settleFixture(fixtureId: number, now = new Date()): Promis
       }
     }
     await tx.update(schema.fixtures).set({ settledAt: now, updatedAt: now }).where(eq(schema.fixtures.id, fixtureId));
-    await audit({ actor: "system", action: "market.fixture_settled", entityType: "fixture", entityId: fixtureId, metadata: { version, priced: moves.length } }, tx);
+    await audit({ actor: "system", action: "market.fixture_settled", entityType: "fixture", entityId: fixtureId, metadata: { version, priced: moves.length, outOfOrder } }, tx);
     return { version, moves };
   });
+}
+
+/** The stats fingerprint without the minutes component ("m:63|goals:1|…" → "goals:1|…"). */
+export function eventPart(hash: string | null): string {
+  return (hash ?? "").replace(/^m:[^|]*\|?/, "");
 }
 
 /** Provisional prices for players in a live fixture (recomputed from the settled base each time). */
@@ -570,11 +643,21 @@ export async function applyLiveTicks(fixtureId: number, now = new Date()) {
     await tx.update(schema.fixtures).set({ lastStatsSyncAt: now }).where(eq(schema.fixtures.id, fixtureId));
     if (changes.length === 0) return { version: null as number | null, changed: 0 };
     const version = await lockAndBumpMarketVersion(tx);
+    // History rows only when something happened (goal, shot, card, sub…), not for
+    // the per-minute drift of expected output — keeps the append-only tick ledger
+    // small enough for a free database across a whole season of five leagues.
+    const lastTick = new Map<number, string | null>();
+    const prev = await tx.execute<{ player_id: number; stats_hash: string | null }>(sql`
+      SELECT DISTINCT ON (player_id) player_id, stats_hash FROM price_ticks
+      WHERE fixture_id = ${fixtureId} AND reason = 'match_live' ORDER BY player_id, id DESC`);
+    for (const r of prev.rows) lastTick.set(Number(r.player_id), r.stats_hash);
     for (const c of changes) {
       await tx
         .update(schema.playerPrices)
         .set({ priceCents: c.next, previousPriceCents: c.settled.priceCents, liveFixtureId: fixtureId, marketVersion: version, updatedAt: now })
         .where(eq(schema.playerPrices.playerId, c.price.playerId));
+      const before = lastTick.get(c.price.playerId);
+      if (before !== undefined && eventPart(before) === eventPart(c.stats.statsHash)) continue;
       await tx.insert(schema.priceTicks).values({
         playerId: c.price.playerId,
         fixtureId,
@@ -592,21 +675,43 @@ export async function applyLiveTicks(fixtureId: number, now = new Date()) {
   });
 }
 
-export async function syncStats(provider: MarketDataProvider, now = new Date()) {
-  const candidates = await fixturesNeedingStats(provider.entityProvider);
-  if (candidates.length === 0) return { items: 0, status: "skipped" as const, details: { reason: "no live or unsettled fixtures" } };
+export async function syncStats(provider: MarketDataProvider, now = new Date(), opts: { maxFixtures?: number } = {}) {
+  const all = await fixturesNeedingStats(provider.entityProvider);
+  if (all.length === 0) return { items: 0, status: "skipped" as const, details: { reason: "no live or unsettled fixtures" } };
+  // Live matches always; then the oldest unsettled ones (chronological settlement), capped per run.
+  const live = all.filter((c) => c.status === "live");
+  const rest = all.filter((c) => c.status !== "live");
+  const cap = opts.maxFixtures ?? Infinity;
+  const candidates = [...live, ...rest.slice(0, Math.max(0, cap - live.length))].sort(
+    (a, b) => (a.kickoffAt?.getTime() ?? 0) - (b.kickoffAt?.getTime() ?? 0) || a.id - b.id,
+  );
+  const backlog = all.length - candidates.length;
   const norm = await toNormFixtures(candidates);
   const stats = await provider.fetchMatchStats(norm);
-  const fixtureIdByRef = new Map(candidates.map((c) => [c.providerRef, c.id]));
-  const { written, unknownPlayers } = await storeMatchStats(provider, stats, fixtureIdByRef);
+  const fixtureByRef = new Map(candidates.map((c) => [c.providerRef, { id: c.id, competitionId: c.competitionId }]));
+  const { written, unknownPlayers, knownByFixture } = await storeMatchStats(provider, stats, fixtureByRef);
   const withStats = new Set(stats.map((s) => s.fixtureRef));
+  const attemptedFinished = candidates.filter((c) => c.status === "finished").map((c) => c.id);
+  if (attemptedFinished.length) await db.update(schema.fixtures).set({ lastStatsSyncAt: now }).where(inArray(schema.fixtures.id, attemptedFinished));
 
   let settled = 0;
   let liveChanged = 0;
+  let emptySettled = 0;
   const allMoves: { fixtureId: number; moves: SettlementMove[] }[] = [];
   for (const fx of candidates) {
     if (!withStats.has(fx.providerRef)) continue;
     if (fx.status === "finished" && fx.statsFinal) {
+      if ((knownByFixture.get(fx.id) ?? 0) === 0) {
+        // Match sheet fetched but none of its players are listed here (e.g. a qualifier
+        // between clubs that never reached the league phase): nothing to price.
+        const [{ n }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.playerMatchStats).where(eq(schema.playerMatchStats.fixtureId, fx.id));
+        if (n === 0) {
+          await db.update(schema.fixtures).set({ settledAt: now, updatedAt: now }).where(and(eq(schema.fixtures.id, fx.id), isNull(schema.fixtures.settledAt)));
+          emptySettled++;
+          continue;
+        }
+      }
+      if (provider.fillSquadOnFinal) await fillSquadZeroRows(fx.id, provider.source);
       const res = await settleFixture(fx.id, now);
       if (res) {
         settled++;
@@ -622,7 +727,7 @@ export async function syncStats(provider: MarketDataProvider, now = new Date()) 
   return {
     items: written,
     status: missingStats > 0 && settled === 0 && liveChanged === 0 ? ("partial" as const) : ("success" as const),
-    details: { candidates: candidates.length, written, settled, liveChanged, unknownPlayers, awaitingStats: missingStats },
+    details: { candidates: candidates.length, written, settled, emptySettled, liveChanged, unknownPlayers, awaitingStats: missingStats, backlog },
   };
 }
 

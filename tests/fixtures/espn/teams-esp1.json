@@ -1,0 +1,28 @@
+{
+ "sports": [
+  {
+   "leagues": [
+    {
+     "teams": [
+      {
+       "team": {
+        "id": "83",
+        "displayName": "Barcelona",
+        "shortDisplayName": "Barcelona",
+        "abbreviation": "BAR"
+       }
+      },
+      {
+       "team": {
+        "id": "86",
+        "displayName": "Real Madrid",
+        "shortDisplayName": "Real Madrid",
+        "abbreviation": "RMA"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

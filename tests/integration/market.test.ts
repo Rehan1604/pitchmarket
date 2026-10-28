@@ -14,7 +14,7 @@ describe("seeded market from real data", () => {
   it("lists real players with IPO prices and settled real fixtures", async () => {
     const [{ players }] = await db.select({ players: sql<number>`count(*)::int` }).from(schema.playerPrices);
     expect(players).toBeGreaterThan(100);
-    const [{ settled }] = await db.select({ settled: sql<number>`count(*)::int` }).from(schema.fixtures).where(sql`${schema.fixtures.settledAt} IS NOT NULL`);
+    const [{ settled }] = await db.select({ settled: sql<number>`count(*)::int` }).from(schema.fixtures).where(sql`${schema.fixtures.settledAt} IS NOT NULL AND ${schema.fixtures.provider} = 'fpl'`);
     expect(settled).toBe(11);
     const [{ ipos }] = await db.select({ ipos: sql<number>`count(*)::int` }).from(schema.priceTicks).where(eq(schema.priceTicks.reason, "ipo"));
     expect(ipos).toBe(players);
@@ -47,7 +47,7 @@ describe("seeded market from real data", () => {
         .select({ s: schema.playerMatchStats, f: schema.fixtures })
         .from(schema.playerMatchStats)
         .innerJoin(schema.fixtures, eq(schema.fixtures.id, schema.playerMatchStats.fixtureId))
-        .where(and(eq(schema.playerMatchStats.playerId, price.playerId), sql`${schema.fixtures.settledAt} IS NOT NULL`))
+        .where(and(eq(schema.playerMatchStats.playerId, price.playerId), sql`${schema.fixtures.settledAt} IS NOT NULL`, sql`${schema.playerMatchStats.pricingNote} IS NULL`))
         .orderBy(asc(schema.fixtures.kickoffAt), asc(schema.fixtures.id));
       // Rebuild the IPO state from stored priors and replay.
       const start = { ...ipoState(position as Position, null), priceCents: ipo.priceCents, priorQuality: price.priorQuality, priorWeight: price.priorWeight, priorRole: price.priorRole, priorRoleWeight: price.priorRoleWeight };
@@ -128,7 +128,8 @@ describe("operations", () => {
   it("auto-halts trading when live data goes stale and reopens when fresh", async () => {
     await db.update(schema.marketState).set({ dataMode: "live", status: "open", statusSetBy: null }).where(eq(schema.marketState.id, 1));
     const [fx] = await db.select().from(schema.fixtures).where(eq(schema.fixtures.status, "scheduled")).limit(1);
-    await db.update(schema.fixtures).set({ status: "live", lastStatsSyncAt: new Date(Date.now() - 60 * 60_000) }).where(eq(schema.fixtures.id, fx.id));
+    // A match that kicked off 70 minutes ago and has had no data for an hour.
+    await db.update(schema.fixtures).set({ status: "live", kickoffAt: new Date(Date.now() - 70 * 60_000), lastStatsSyncAt: new Date(Date.now() - 60 * 60_000) }).where(eq(schema.fixtures.id, fx.id));
     try {
       expect(await enforceDataFreshness()).toMatchObject({ changed: true, status: "halted" });
       const [m] = await db.select().from(schema.marketState);
@@ -136,7 +137,19 @@ describe("operations", () => {
       await db.update(schema.fixtures).set({ lastStatsSyncAt: new Date() }).where(eq(schema.fixtures.id, fx.id));
       expect(await enforceDataFreshness()).toMatchObject({ changed: true, status: "open" });
     } finally {
-      await db.update(schema.fixtures).set({ status: "scheduled" }).where(eq(schema.fixtures.id, fx.id));
+      await db.update(schema.fixtures).set({ status: "scheduled", kickoffAt: fx.kickoffAt }).where(eq(schema.fixtures.id, fx.id));
+      await db.update(schema.marketState).set({ dataMode: "snapshot", status: "open" }).where(eq(schema.marketState.id, 1));
+    }
+  });
+
+  it("ignores a fixture stuck as live long after kickoff (feed glitch), so it can't freeze the market", async () => {
+    await db.update(schema.marketState).set({ dataMode: "live", status: "open", statusSetBy: null }).where(eq(schema.marketState.id, 1));
+    const [fx] = await db.select().from(schema.fixtures).where(eq(schema.fixtures.status, "scheduled")).limit(1);
+    await db.update(schema.fixtures).set({ status: "live", kickoffAt: new Date(Date.now() - 6 * 3600_000), lastStatsSyncAt: new Date(Date.now() - 5 * 3600_000) }).where(eq(schema.fixtures.id, fx.id));
+    try {
+      expect(await enforceDataFreshness()).toMatchObject({ changed: false });
+    } finally {
+      await db.update(schema.fixtures).set({ status: "scheduled", kickoffAt: fx.kickoffAt }).where(eq(schema.fixtures.id, fx.id));
       await db.update(schema.marketState).set({ dataMode: "snapshot", status: "open" }).where(eq(schema.marketState.id, 1));
     }
   });

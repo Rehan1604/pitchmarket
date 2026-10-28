@@ -18,7 +18,11 @@ type Fx = Awaited<ReturnType<typeof listFixtures>>[number];
 
 export default async function FixturesPage({ searchParams }: { searchParams: Promise<{ c?: string }> }) {
   await requirePageUser();
-  const competitions = await db.select().from(schema.competitions).orderBy(desc(schema.competitions.hasPlayerStats), asc(schema.competitions.name));
+  const order = ["PL", "PD", "BL1", "SA", "FL1", "CL"];
+  const rank = (code: string) => order.indexOf(code) + 1 || 99;
+  const competitions = (await db.select().from(schema.competitions).orderBy(desc(schema.competitions.hasPlayerStats), asc(schema.competitions.name))).sort(
+    (a, b) => Number(b.hasPlayerStats) - Number(a.hasPlayerStats) || rank(a.code) - rank(b.code),
+  );
   const { c } = await searchParams;
   const comp = competitions.find((x) => x.code === c) ?? competitions[0];
   if (!comp) {
@@ -65,7 +69,13 @@ export default async function FixturesPage({ searchParams }: { searchParams: Pro
       <p className="mb-4 text-[13px] text-chalk-3">
         {comp.hasPlayerStats ? "Players in this competition are tradable." : "This competition shows fixtures and results only: its data source has no player statistics, so its players aren’t on the market."}{" "}
         {provider[0]?.lastSuccessAt ? `Last data refresh ${timeAgo(provider[0].lastSuccessAt)}.` : ""} {comp.hasLiveData ? "Live scores update about every minute during matches." : "No live in-play data from this source."} Times are UTC.{" "}
-        <span className="text-chalk-4">{comp.provider === "football-data" ? "Football data provided by the Football-Data.org API." : "Data: Fantasy Premier League. Not affiliated with the Premier League."}</span>
+        <span className="text-chalk-4">
+          {comp.provider === "football-data"
+            ? "Football data provided by the Football-Data.org API."
+            : comp.provider === "espn"
+              ? "Match data: ESPN (unofficial public feed). Not affiliated with ESPN, the league or UEFA."
+              : "Data: Fantasy Premier League. Not affiliated with the Premier League."}
+        </span>
       </p>
 
       <div className="grid gap-4 lg:grid-cols-2">
@@ -85,7 +95,8 @@ export default async function FixturesPage({ searchParams }: { searchParams: Pro
                       {f.homeName} v {f.awayName}
                     </span>
                     <span className="text-chalk-4">
-                      GW{f.round}, {kickoff(f.kickoffAt).replace(" UTC", "")}
+                      {f.round ? `GW${f.round}, ` : ""}
+                      {kickoff(f.kickoffAt).replace(" UTC", "")}
                     </span>
                   </li>
                 ))}

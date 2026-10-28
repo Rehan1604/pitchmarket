@@ -25,7 +25,7 @@ const SORTS = [
   { v: "name:asc", label: "Name, A to Z" },
 ];
 
-export function MarketFilters({ clubs }: { clubs: { id: number; name: string }[] }) {
+export function MarketFilters({ clubs, competitions = [] }: { clubs: { id: number; name: string }[]; competitions?: { code: string; name: string }[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -59,10 +59,29 @@ export function MarketFilters({ clubs }: { clubs: { id: number; name: string }[]
   const club = params.get("club") ?? "";
   const minPrice = params.get("minPrice") ?? "";
   const maxPrice = params.get("maxPrice") ?? "";
-  const active = Boolean(params.get("q") || position || club || watch || minPrice || maxPrice);
+  const competition = (params.get("competition") ?? "").toUpperCase();
+  const active = Boolean(params.get("q") || position || club || watch || minPrice || maxPrice || competition);
 
   return (
     <div className={cn("mb-4 flex flex-col gap-3 transition-opacity", pending && "opacity-70")} role="search" aria-label="Filter players">
+      {competitions.length > 1 ? (
+        <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1" role="group" aria-label="League">
+          {[{ code: "", name: "All leagues" }, ...competitions].map((c) => (
+            <button
+              key={c.code || "all"}
+              type="button"
+              aria-pressed={competition === c.code}
+              onClick={() => update({ competition: c.code || null, club: null })}
+              className={cn(
+                "h-8 shrink-0 rounded-full border px-3 text-[13px] font-medium whitespace-nowrap",
+                competition === c.code ? "border-lime/40 bg-lime/10 text-lime" : "border-line-strong text-chalk-3 hover:text-chalk",
+              )}
+            >
+              {c.name}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="flex flex-col gap-3 md:flex-row md:items-center">
         <div className="relative md:w-72">
           <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-chalk-4" aria-hidden />

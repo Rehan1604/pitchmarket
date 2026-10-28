@@ -21,6 +21,15 @@ Anything that runs Node 20.9+ and can reach Postgres also works (see "Any Node h
 
 Rough monthly usage with a normal Premier League schedule: ~100–150 Render
 instance-hours and ~30–45 Neon CU-hours, plus whatever your players' own visits add.
+With the ESPN leagues enabled there are matches on most days (weekend afternoons
+and evenings, Champions League Tuesdays and Wednesdays): expect roughly
+**200–300 instance-hours and 50–75 Neon CU-hours** a month. That fits Neon's 100
+CU-hours, but if your Render workspace runs other free services, their hours share
+the same 750. To trim, drop competitions from `ESPN_LEAGUES` (e.g. keep `esp.1,uefa.champions`).
+
+Storage: with ~4,200 listed players the database grows by roughly 100–200 MB per
+season (Neon Free has 0.5 GB). Live history is only written when something happens
+in a match, which is what keeps it inside the limit.
 
 ## A. Render + Neon (recommended)
 
@@ -46,6 +55,9 @@ The repo contains a Blueprint (`render.yaml`):
    are applied on every deploy. The start command runs Next directly with a heap cap.
 4. On first boot the in-process scheduler sees an empty market and loads it
    (fixtures, ~670 players, settled matches). That takes 15–30 s, then `/api/ready` turns `200`.
+   With ESPN enabled, the first tick also loads every ESPN fixture and squad
+   (~3,500 players), then replays this season's ESPN matches 40 at a time every 20
+   seconds; expect 10–20 minutes until every league's prices are caught up.
 
 Manual setup instead of the Blueprint: New → Web Service → the repo, runtime
 Node, plan Free, the build and start commands from `render.yaml`, health check
@@ -61,6 +73,8 @@ path `/api/health`, and the same environment variables:
 | `CLIENT_IP_HEADER` | `true-client-ip` (Render's edge sets it; `X-Forwarded-For` can be spoofed there) |
 | `NODE_VERSION` | `22` |
 | `DB_POOL_MAX` | `5` |
+| `ESPN_ENABLED` | `true` to list La Liga, Bundesliga, Serie A, Ligue 1 and Champions League players (unofficial ESPN feed: read docs/DATA_LICENSING.md first) |
+| `ESPN_LEAGUES` | optional subset, default `esp.1,ger.1,ita.1,fra.1,uefa.champions` |
 | `RESEND_API_KEY`, `EMAIL_FROM` | optional: password-reset emails |
 | `FOOTBALL_DATA_API_KEY` | optional: other leagues' fixtures |
 

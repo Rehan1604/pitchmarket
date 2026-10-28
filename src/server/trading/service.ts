@@ -21,6 +21,7 @@ import { env } from "@/server/env";
 import { conflict, HttpError, notFound } from "@/server/http";
 import { addCents, feeForGross, mulCents, releasedBasis } from "@/lib/money";
 import { isUniqueViolation } from "@/server/auth/accounts";
+import { sameClubIds } from "@/server/market/clubs";
 
 export const tradeInputSchema = z.object({
   playerId: z.number().int().positive(),
@@ -86,9 +87,10 @@ function assertSameOrder(t: typeof schema.trades.$inferSelect, input: TradeInput
 async function playerInPlay(tx: Tx, playerId: number, clubId: number | null, liveFixtureId: number | null) {
   if (liveFixtureId) return true;
   if (!clubId) return false;
+  const same = sameClubIds(clubId);
   const res = await tx.execute<{ n: number }>(sql`
     SELECT count(*)::int AS n FROM fixtures
-    WHERE status = 'live' AND (home_club_id = ${clubId} OR away_club_id = ${clubId})`);
+    WHERE status = 'live' AND (home_club_id IN ${same} OR away_club_id IN ${same})`);
   return Number(res.rows[0]?.n ?? 0) > 0;
 }
 
@@ -270,7 +272,8 @@ export async function quote(userId: string | null, playerId: number) {
   if (!row) throw notFound("That player isn't listed on the market.");
   let inPlay = Boolean(row.liveFixtureId);
   if (!inPlay && row.clubId) {
-    const res = await db.execute<{ n: number }>(sql`SELECT count(*)::int AS n FROM fixtures WHERE status = 'live' AND (home_club_id = ${row.clubId} OR away_club_id = ${row.clubId})`);
+    const same = sameClubIds(row.clubId);
+    const res = await db.execute<{ n: number }>(sql`SELECT count(*)::int AS n FROM fixtures WHERE status = 'live' AND (home_club_id IN ${same} OR away_club_id IN ${same})`);
     inPlay = Number(res.rows[0]?.n ?? 0) > 0;
   }
   let block: BlockReason = null;

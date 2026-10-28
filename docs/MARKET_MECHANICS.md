@@ -101,18 +101,61 @@ P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 * All constants live in `PRICING` (`pricing.ts`). Change them, rerun the tests,
   and replay to see the effect.
 
+### Feeds with fewer stats (ESPN leagues)
+
+La Liga, Bundesliga, Serie A, Ligue 1 and Champions League matches (ESPN feed,
+opt-in) report goals, assists, shots, shots on target, saves, goals conceded
+while the player was on the pitch, own goals and cards. There is no xG, no
+defensive work and no injury news. Scoring is unchanged: missing stats are left
+out of both score and expected score. Because fewer stats means less natural
+spread, these matches use **σ for the basic profile** (`sigmaLimited`, derived
+from the same 2025-26 appearances with the richer stats removed: GK 2.43, DEF 2.79,
+MID 2.33, FWD 2.60), so a brace moves a La Liga striker by about as much as it
+moves a Premier League one.
+
+* **Minutes** come from the match sheet: starters from 0′, substitutes from their
+  substitution minute, until they are substituted, sent off, or full time (90′, or
+  120′ after extra time). Stoppage time folds into the base minute (a 90′+4′ cameo
+  is 1 minute), like FPL.
+* **Clean sheet** = 60+ minutes and no goals conceded while on the pitch.
+* **Squad zero-rows:** ESPN only lists the matchday squad. When a match is final,
+  every other listed player of both clubs gets a 0-minute row, so the minutes-share
+  (role) factor sees matches a player missed, as it does with FPL.
+* **Settlement timing:** ESPN has no "stats final" flag, so a match settles 165
+  minutes after kickoff (about 45–55 minutes after full time). Until then its
+  prices are provisional, like a live match.
+* **Starting prices:** there are no prior-season priors for these leagues, so every
+  player lists at the position-average price on season open; this season's matches
+  are replayed in order on first sync, which separates them quickly.
+
+### One player, two feeds
+
+ESPN athlete ids are the same in every ESPN competition, so a Real Madrid
+player's La Liga and Champions League matches move one price. A Premier League
+club playing in the Champions League appears in ESPN's feed with ESPN ids; its
+squad is linked to the FPL-listed players (club recognised by squad birthdays,
+players by birthday then name; ambiguous cases stay unlinked). A linked player's
+Champions League match moves his FPL-listed price.
+
+**Price paths are strictly chronological.** A match older than the player's
+latest priced match (for example a backfilled Champions League tie arriving after
+a later league match was already priced) is stored but not priced, and the player
+page says so ("Recorded, not priced"). Replaying every path from stored stats
+still reproduces every price exactly.
+
 ## 3. When prices change (market integrity)
 
 | Event | What happens |
 |---|---|
 | IPO | Exactly once per player (unique `ipo` tick). Initial listings are dated to season open. |
-| Live match | Each stats refresh recomputes a **provisional** price from the last *settled* state plus the current live stats. Re-polling identical stats changes nothing (no compounding). Recorded as `match_live` ticks. |
+| Live match | Each stats refresh recomputes a **provisional** price from the last *settled* state plus the current live stats. Re-polling identical stats changes nothing (no compounding). A `match_live` tick is recorded when something happens (goal, shot, card, substitution), not for the minute-by-minute drift, which keeps the append-only history small. |
 | Full time, stats final | Exactly one `match_final` step per player per fixture (unique index), applied from the settled base. Becomes the new settled state. Fixtures are locked and marked `settled_at` in the same transaction. |
 | Stat corrections after settlement | Not applied. Settled fixtures aren't re-fetched, so a settled price is final, like a closing price. |
-| Halt | Admin (manual) or automatic when a live match has no fresh data for `STALE_LIVE_DATA_HALT_MINUTES`. Automatic halts lift themselves when data recovers; manual ones never auto-lift. |
+| Halt | Admin (manual) or automatic when a live match (kicked off within the last 4 hours) has no fresh data for `STALE_LIVE_DATA_HALT_MINUTES`. Automatic halts lift themselves when data recovers; manual ones never auto-lift. A fixture stuck as "live" for longer is treated as a feed glitch: its players stay locked, the rest of the market trades. |
 
 * **In-play lock (`LIVE_TRADING_POLICY=halt`, default):** a player can't be traded
-  while their team's match is live. Match feeds arrive after TV, so in-play
+  while their team's match is live, in any competition (the club's league and
+  Champions League rows, and a Premier League club's linked ESPN row, count as one club). Match feeds arrive after TV, so in-play
   trading would reward whoever watches the fastest stream. Portfolio values still
   move live.
 * Every price change bumps `market_state.version`. All price writers lock

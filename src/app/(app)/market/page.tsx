@@ -9,10 +9,11 @@ import { WatchButton } from "@/components/market/watch-button";
 import { EmptyState, PageHeader } from "@/components/ui/misc";
 import { Pagination } from "@/components/ui/pagination";
 import { cn } from "@/lib/cn";
+import { leagueShort } from "@/lib/leagues";
 import { formatCredits } from "@/lib/money";
 import { rating, ratingTone } from "@/lib/rating";
 import { requirePageUser } from "@/server/auth/current-user";
-import { listClubs, listMarket, marketFilterSchema } from "@/server/market/queries";
+import { listClubs, listMarket, listTradableCompetitions, marketFilterSchema } from "@/server/market/queries";
 
 export const metadata: Metadata = { title: "Market" };
 
@@ -22,7 +23,9 @@ export default async function MarketPage({ searchParams }: { searchParams: Promi
   const flat = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]).filter(([, v]) => v !== undefined && v !== ""));
   const parsed = marketFilterSchema.safeParse(flat);
   const filter = parsed.success ? parsed.data : marketFilterSchema.parse({});
-  const [market, clubs] = await Promise.all([listMarket(filter, user.id), listClubs()]);
+  const [market, clubs, competitions] = await Promise.all([listMarket(filter, user.id), listClubs(filter.competition?.toUpperCase()), listTradableCompetitions()]);
+  const multiLeague = competitions.length > 1;
+  const leagueNames = competitions.map((c) => c.name);
   const hrefFor = (page: number) => {
     const p = new URLSearchParams(flat as Record<string, string>);
     p.set("page", String(page));
@@ -32,10 +35,13 @@ export default async function MarketPage({ searchParams }: { searchParams: Promi
 
   return (
     <>
-      <PageHeader title="Market" description="Every Premier League player with a price. Changes are since each player’s last match; ratings are 50 for an average player in that position." />
+      <PageHeader
+        title="Market"
+        description={`Every ${multiLeague ? `${leagueNames.slice(0, -1).join(", ")} and ${leagueNames.at(-1)}` : (leagueNames[0] ?? "Premier League")} player with a price. Changes are since each player’s last match; ratings are 50 for an average player in that position.`}
+      />
       <DataNotice />
       <Suspense>
-        <MarketFilters clubs={clubs.map((c) => ({ id: c.id, name: c.name }))} />
+        <MarketFilters clubs={clubs.map((c) => ({ id: c.id, name: c.name }))} competitions={competitions.map((c) => ({ code: c.code, name: c.name }))} />
       </Suspense>
 
       {market.rows.length === 0 ? (
@@ -81,6 +87,7 @@ export default async function MarketPage({ searchParams }: { searchParams: Promi
                             <span className="flex items-center gap-1.5 text-xs text-chalk-3">
                               <PositionBadge position={p.position} />
                               {p.clubName}
+                              {multiLeague ? <span className="text-chalk-4">· {leagueShort(p.competition)}</span> : null}
                             </span>
                           </span>
                         </Link>
@@ -118,6 +125,7 @@ export default async function MarketPage({ searchParams }: { searchParams: Promi
                     </span>
                     <span className="flex items-center gap-1.5 text-xs text-chalk-3">
                       <PositionBadge position={p.position} /> {p.club}
+                      {multiLeague ? <span className="text-chalk-4">· {leagueShort(p.competition)}</span> : null}
                     </span>
                   </span>
                   <span className="text-right">

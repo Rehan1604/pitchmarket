@@ -348,6 +348,28 @@ export const players = pgTable(
   ],
 );
 
+/**
+ * Cross-provider identity: "this ESPN athlete/team is our player/club N". Used
+ * when one real player appears in two feeds (e.g. a Premier League player, whose
+ * identity comes from FPL, playing a Champions League match reported by ESPN).
+ */
+export const entityLinks = pgTable(
+  "entity_links",
+  {
+    kind: text("kind").notNull(), // 'player' | 'club'
+    provider: text("provider").notNull(),
+    providerRef: text("provider_ref").notNull(),
+    localId: integer("local_id").notNull(),
+    /** How the link was made (e.g. `name+club`), for audits. */
+    method: text("method").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.kind, t.provider, t.providerRef] }),
+    index("entity_links_local_idx").on(t.kind, t.localId),
+  ],
+);
+
 export const fixtures = pgTable(
   "fixtures",
   {
@@ -425,6 +447,11 @@ export const playerMatchStats = pgTable(
     expectedScore: doublePrecision("expected_score"),
     scoreBreakdown: jsonb("score_breakdown").$type<Record<string, number>>(),
     isFinal: boolean("is_final").notNull().default(false),
+    /**
+     * Why a settled row did not move the price, if it didn't: `out_of_order` = the
+     * match is older than the player's latest priced match (backfilled cup tie).
+     */
+    pricingNote: text("pricing_note"),
     statsHash: text("stats_hash").notNull(),
     source: text("source").notNull(),
     sourceUpdatedAt: ts("source_updated_at"),

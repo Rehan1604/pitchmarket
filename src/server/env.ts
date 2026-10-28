@@ -39,6 +39,14 @@ const schema = z.object({
   /** Optional local directory holding the archive CSVs (offline seeding / tests). */
   FPL_ARCHIVE_LOCAL_DIR: z.string().optional(),
   LIVE_POLL_SECONDS: z.coerce.number().int().min(30).default(60),
+  /**
+   * Tradable La Liga, Bundesliga, Serie A, Ligue 1 and Champions League players
+   * from ESPN's public site feed. Unofficial: ESPN/Disney terms forbid automated
+   * access, so this is opt-in and the risk is documented in docs/DATA_LICENSING.md.
+   */
+  ESPN_ENABLED: bool(false),
+  ESPN_LEAGUES: z.string().default("esp.1,ger.1,ita.1,fra.1,uefa.champions"),
+  ESPN_BASE_URL: z.string().url().default("https://site.api.espn.com/apis/site/v2/sports/soccer"),
   FOOTBALL_DATA_API_KEY: z.string().optional(),
   FOOTBALL_DATA_COMPETITIONS: z.string().default("PD,BL1,SA,FL1,CL"),
   API_FOOTBALL_KEY: z.string().optional(),

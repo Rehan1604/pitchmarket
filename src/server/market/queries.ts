@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db, schema } from "@/db";
 import { notFound } from "@/server/http";
 import { getMarketState } from "./state";
+import { sameClubIds } from "./clubs";
 import { roleShare } from "./pricing";
 
 export const marketFilterSchema = z.object({
@@ -131,8 +132,24 @@ export async function sparklines(playerIds: number[], points = 12) {
   return out;
 }
 
+/** Display order for tradable competitions. */
+const COMPETITION_ORDER = ["PL", "PD", "BL1", "SA", "FL1", "CL"];
+
+/** Competitions whose players can be traded (have listed players), in display order. */
+export async function listTradableCompetitions() {
+  const rows = await db
+    .select({ code: schema.competitions.code, name: schema.competitions.name, players: sql<number>`count(${schema.players.id})::int` })
+    .from(schema.competitions)
+    .innerJoin(schema.players, eq(schema.players.competitionId, schema.competitions.id))
+    .where(eq(schema.competitions.hasPlayerStats, true))
+    .groupBy(schema.competitions.code, schema.competitions.name);
+  const rank = (c: string) => (COMPETITION_ORDER.indexOf(c) + 1 || 99);
+  return rows.sort((a, b) => rank(a.code) - rank(b.code) || a.name.localeCompare(b.name));
+}
+
+/** Clubs that have listed players (a club has one row per competition; only the squad row is filterable). */
 export async function listClubs(competitionCode?: string) {
-  const conds = [eq(schema.competitions.hasPlayerStats, true)];
+  const conds = [eq(schema.competitions.hasPlayerStats, true), sql`EXISTS (SELECT 1 FROM players p WHERE p.club_id = ${schema.clubs.id})`];
   if (competitionCode) conds.push(eq(schema.competitions.code, competitionCode));
   return db
     .select({ id: schema.clubs.id, name: schema.clubs.name, shortName: schema.clubs.shortName, competition: schema.competitions.code })
@@ -180,18 +197,21 @@ export async function getPlayerDetail(slug: string, viewerId?: string | null) {
     : [];
 
   const matches = await db
-    .select({ stats: schema.playerMatchStats, fixture: schema.fixtures })
+    .select({ stats: schema.playerMatchStats, fixture: schema.fixtures, competition: schema.competitions.code, competitionName: schema.competitions.name })
     .from(schema.playerMatchStats)
     .innerJoin(schema.fixtures, eq(schema.fixtures.id, schema.playerMatchStats.fixtureId))
+    .innerJoin(schema.competitions, eq(schema.competitions.id, schema.fixtures.competitionId))
     .where(eq(schema.playerMatchStats.playerId, p.id))
     .orderBy(desc(schema.fixtures.kickoffAt));
 
   const priceAfter = new Map(history.filter((h) => h.fixtureId).map((h) => [h.fixtureId!, h]));
-  const matchRows = matches.map(({ stats, fixture }) => {
+  const matchRows = matches.map(({ stats, fixture, competition, competitionName }) => {
     const home = fixture.homeClubId === (stats.clubId ?? p.clubId);
     const tick = priceAfter.get(fixture.id);
     return {
       fixtureId: fixture.id,
+      competition,
+      competitionName,
       round: fixture.round,
       kickoffAt: fixture.kickoffAt,
       opponent: home ? fixture.awayName : fixture.homeName,
@@ -221,6 +241,7 @@ export async function getPlayerDetail(slug: string, viewerId?: string | null) {
       breakdown: stats.scoreBreakdown,
       priceAfterCents: tick?.priceCents ?? null,
       priceBeforeCents: tick?.previousPriceCents ?? null,
+      pricingNote: stats.pricingNote,
       source: stats.source,
     };
   });
@@ -246,19 +267,22 @@ export async function getPlayerDetail(slug: string, viewerId?: string | null) {
   );
 
   const now = new Date();
-  const nextFixtures = p.clubId
+  const sameIds = p.clubId ? new Set((await db.execute<{ id: number }>(sql`SELECT id FROM ${sameClubIds(p.clubId)} s(id)`)).rows.map((r) => Number(r.id))) : new Set<number>();
+  const nextRows = p.clubId
     ? await db
-        .select()
+        .select({ f: schema.fixtures, competition: schema.competitions.code })
         .from(schema.fixtures)
+        .innerJoin(schema.competitions, eq(schema.competitions.id, schema.fixtures.competitionId))
         .where(
           and(
-            or(eq(schema.fixtures.homeClubId, p.clubId), eq(schema.fixtures.awayClubId, p.clubId)),
+            or(sql`${schema.fixtures.homeClubId} IN ${sameClubIds(p.clubId)}`, sql`${schema.fixtures.awayClubId} IN ${sameClubIds(p.clubId)}`),
             or(eq(schema.fixtures.status, "live"), and(eq(schema.fixtures.status, "scheduled"), gte(schema.fixtures.kickoffAt, now))),
           ),
         )
         .orderBy(asc(schema.fixtures.kickoffAt))
         .limit(3)
     : [];
+  const nextFixtures = nextRows.map(({ f, competition }) => ({ ...f, competition, home: f.homeClubId !== null && sameIds.has(f.homeClubId) }));
 
   const [holders] = await db
     .select({ shares: sql<number>`COALESCE(SUM(${schema.positions.quantity}), 0)::int`, managers: sql<number>`count(*) FILTER (WHERE ${schema.positions.quantity} > 0)::int` })

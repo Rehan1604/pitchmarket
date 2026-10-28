@@ -1,0 +1,863 @@
+{
+ "header": {
+  "id": "401882832",
+  "league": {
+   "slug": "esp.1"
+  },
+  "competitions": [
+   {
+    "date": "2026-10-25T20:00Z",
+    "status": {
+     "type": {
+      "name": "STATUS_FULL_TIME",
+      "state": "post",
+      "completed": true,
+      "detail": "FT"
+     }
+    },
+    "competitors": [
+     {
+      "id": "83",
+      "homeAway": "home",
+      "score": "1"
+     },
+     {
+      "id": "86",
+      "homeAway": "away",
+      "score": "2"
+     }
+    ]
+   }
+  ]
+ },
+ "rosters": [
+  {
+   "homeAway": "home",
+   "team": {
+    "id": "83",
+    "displayName": "Barcelona"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "297362",
+      "displayName": "Joan García"
+     },
+     "position": {
+      "abbreviation": "G"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 2
+      },
+      {
+       "name": "saves",
+       "value": 3
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": []
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "250465",
+      "displayName": "Pedri"
+     },
+     "position": {
+      "abbreviation": "LM"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 2
+      },
+      {
+       "name": "goalAssists",
+       "value": 1
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "61'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": true,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": true,
+     "athlete": {
+      "id": "231050",
+      "displayName": "Raphinha"
+     },
+     "position": {
+      "abbreviation": "F"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 1
+      },
+      {
+       "name": "totalGoals",
+       "value": 1
+      },
+      {
+       "name": "totalShots",
+       "value": 6
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "61'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": true,
+       "ownGoal": false
+      },
+      {
+       "clock": {
+        "displayValue": "86'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": true,
+     "athlete": {
+      "id": "403582",
+      "displayName": "Xavi Espart"
+     },
+     "position": {
+      "abbreviation": "RB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "30'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": true,
+     "athlete": {
+      "id": "268782",
+      "displayName": "Anthony Gordon"
+     },
+     "position": {
+      "abbreviation": "LF"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 3
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 3
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "84'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": true,
+       "scoringPlay": false,
+       "ownGoal": false
+      },
+      {
+       "clock": {
+        "displayValue": "85'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "131634",
+      "displayName": "Wojciech Szczesny"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "saves",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": []
+    }
+   ]
+  },
+  {
+   "homeAway": "away",
+   "team": {
+    "id": "86",
+    "displayName": "Real Madrid"
+   },
+   "roster": [
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "257237",
+      "displayName": "Andriy Lunin"
+     },
+     "position": {
+      "abbreviation": "G"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "saves",
+       "value": 5
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": []
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "231388",
+      "displayName": "Kylian Mbappé"
+     },
+     "position": {
+      "abbreviation": "F"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 1
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 2
+      },
+      {
+       "name": "totalGoals",
+       "value": 2
+      },
+      {
+       "name": "totalShots",
+       "value": 3
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "41'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": true,
+       "ownGoal": false
+      },
+      {
+       "clock": {
+        "displayValue": "87'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": true,
+       "ownGoal": false
+      },
+      {
+       "clock": {
+        "displayValue": "90'+4'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": true,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": true,
+     "subbedOut": false,
+     "athlete": {
+      "id": "285150",
+      "displayName": "Eduardo Camavinga"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 1
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 1
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "80'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      },
+      {
+       "clock": {
+        "displayValue": "87'"
+       },
+       "substitution": false,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": true,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": true,
+     "athlete": {
+      "id": "235818",
+      "displayName": "Federico Valverde"
+     },
+     "position": {
+      "abbreviation": "RB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "62'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": true,
+     "subbedIn": false,
+     "subbedOut": true,
+     "athlete": {
+      "id": "402479",
+      "displayName": "Yan Diomande"
+     },
+     "position": {
+      "abbreviation": "AM-L"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 1
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 1
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 1
+      }
+     ],
+     "plays": [
+      {
+       "clock": {
+        "displayValue": "90'+4'"
+       },
+       "substitution": true,
+       "redCard": false,
+       "yellowCard": false,
+       "scoringPlay": false,
+       "ownGoal": false
+      }
+     ]
+    },
+    {
+     "starter": false,
+     "subbedIn": false,
+     "subbedOut": false,
+     "athlete": {
+      "id": "228402",
+      "displayName": "Éder Militão"
+     },
+     "position": {
+      "abbreviation": "SUB"
+     },
+     "stats": [
+      {
+       "name": "appearances",
+       "value": 0
+      },
+      {
+       "name": "ownGoals",
+       "value": 0
+      },
+      {
+       "name": "redCards",
+       "value": 0
+      },
+      {
+       "name": "subIns",
+       "value": 0
+      },
+      {
+       "name": "yellowCards",
+       "value": 0
+      },
+      {
+       "name": "goalsConceded",
+       "value": 0
+      },
+      {
+       "name": "goalAssists",
+       "value": 0
+      },
+      {
+       "name": "shotsOnTarget",
+       "value": 0
+      },
+      {
+       "name": "totalGoals",
+       "value": 0
+      },
+      {
+       "name": "totalShots",
+       "value": 0
+      }
+     ],
+     "plays": []
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "leagues": [
+  {
+   "id": "740",
+   "slug": "esp.1",
+   "name": "Spanish LALIGA",
+   "abbreviation": "LALIGA",
+   "season": {
+    "year": 2026,
+    "startDate": "2026-06-01T04:00Z",
+    "endDate": "2027-06-01T03:59Z",
+    "displayName": "2026-27 Spanish LALIGA"
+   },
+   "calendarType": "day",
+   "calendar": [
+    "2026-08-15T07:00Z",
+    "2026-10-25T07:00Z",
+    "2026-10-31T07:00Z"
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "401882832",
+   "date": "2026-10-25T20:00Z",
+   "name": "Real Madrid at Barcelona",
+   "shortName": "RMA @ BAR",
+   "status": {
+    "displayClock": "90'+8'",
+    "period": 2,
+    "type": {
+     "name": "STATUS_FULL_TIME",
+     "state": "post",
+     "completed": true,
+     "detail": "FT"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "id": "83",
+       "homeAway": "home",
+       "score": "1",
+       "team": {
+        "id": "83",
+        "displayName": "Barcelona",
+        "shortDisplayName": "Barcelona",
+        "abbreviation": "BAR"
+       }
+      },
+      {
+       "id": "86",
+       "homeAway": "away",
+       "score": "2",
+       "team": {
+        "id": "86",
+        "displayName": "Real Madrid",
+        "shortDisplayName": "Real Madrid",
+        "abbreviation": "RMA"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "401882840",
+   "date": "2026-10-31T20:00Z",
+   "name": "Barcelona at Real Madrid",
+   "shortName": "BAR @ RMA",
+   "status": {
+    "displayClock": "0'",
+    "type": {
+     "name": "STATUS_SCHEDULED",
+     "state": "pre",
+     "completed": false,
+     "detail": "Sat, October 31st"
+    }
+   },
+   "competitions": [
+    {
+     "competitors": [
+      {
+       "id": "86",
+       "homeAway": "home",
+       "score": "0",
+       "team": {
+        "id": "86",
+        "displayName": "Real Madrid",
+        "shortDisplayName": "Real Madrid",
+        "abbreviation": "RMA"
+       }
+      },
+      {
+       "id": "83",
+       "homeAway": "away",
+       "score": "0",
+       "team": {
+        "id": "83",
+        "displayName": "Barcelona",
+        "shortDisplayName": "Barcelona",
+        "abbreviation": "BAR"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

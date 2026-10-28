@@ -17,6 +17,7 @@ import { requirePageUser } from "@/server/auth/current-user";
 import { HttpError } from "@/server/http";
 import { getPlayerDetail } from "@/server/market/queries";
 import { quote } from "@/server/trading/service";
+import { leagueShort } from "@/lib/leagues";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -70,6 +71,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                   <PositionBadge position={player.position} />
                   <span>{POSITION_LABEL[player.position]}</span>
                   {player.club ? <span>{player.club.name}</span> : null}
+                  <span>{player.competition.name}</span>
                   {player.squadNumber ? <span className="num">No. {player.squadNumber}</span> : null}
                   {yrs ? <span>Age {yrs}</span> : null}
                   {player.nationality ? <span>{player.nationality}</span> : null}
@@ -129,7 +131,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
               <Stat label="Cards" value={`${d.season.yellow}Y ${d.season.red}R`} />
             </dl>
             <p className="mt-4 text-[12.5px] text-chalk-4">
-              Source: {d.matches[0]?.source === "fpl-api" ? "Fantasy Premier League API" : "FPL public archive"}. “n/a” means the source doesn’t publish that stat; it’s left out of scoring, never counted as zero. Shots, key passes and dribbles aren’t published by FPL.
+              Source: {sourceLabels(d.matches.map((m) => m.source)) || (player.competition.code === "PL" ? "Fantasy Premier League" : "ESPN")}. “n/a” means the source doesn’t publish that stat; it’s left out of scoring, never counted as zero.
+              {d.matches.some((m) => m.source === "espn") ? " ESPN match sheets have goals, assists, shots, saves, goals conceded and cards, but no xG or defensive stats." : " Shots, key passes and dribbles aren’t published by FPL."}
             </p>
           </Panel>
 
@@ -161,7 +164,9 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                           </span>{" "}
                           <span className="num text-chalk-3">{m.score}</span>
                           <span className="block text-xs text-chalk-4">
-                            {m.round ? `GW${m.round}, ` : ""}
+                            {leagueShort(m.competition)}
+                            {m.round ? ` GW${m.round}` : ""}
+                            {", "}
                             {shortDate(m.kickoffAt)}
                             {m.status === "live" ? ", live" : !m.settled ? ", not settled yet" : ""}
                           </span>
@@ -171,7 +176,15 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                         <td className="num px-2 py-2.5 text-right text-chalk-2">{m.assists ?? "n/a"}</td>
                         <td className="num px-2 py-2.5 text-right text-chalk-2">{m.xg === null ? "n/a" : m.xg.toFixed(2)}</td>
                         <td className="num px-2 py-2.5 text-right text-chalk-2">{player.position === "GK" ? (m.saves ?? "n/a") : (m.tackles ?? "n/a")}</td>
-                        <td className="px-3 py-2.5">{m.minutes > 0 && m.z !== null ? <PerfBar z={m.z} score={m.performanceScore} expected={m.expectedScore} /> : <span className="text-[12.5px] text-chalk-4">Didn’t play: price unchanged</span>}</td>
+                        <td className="px-3 py-2.5">
+                          {m.pricingNote === "out_of_order" ? (
+                            <span className="text-[12.5px] text-chalk-4">Recorded, not priced: older than a match already priced</span>
+                          ) : m.minutes > 0 && m.z !== null ? (
+                            <PerfBar z={m.z} score={m.performanceScore} expected={m.expectedScore} />
+                          ) : (
+                            <span className="text-[12.5px] text-chalk-4">Didn’t play: price unchanged</span>
+                          )}
+                        </td>
                         <td className="px-4 py-2.5 text-right sm:px-5">
                           {m.priceAfterCents !== null && m.priceBeforeCents !== null ? (
                             <>
@@ -254,7 +267,8 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                 {d.nextFixtures.map((f) => (
                   <li key={f.id} className="flex justify-between gap-3">
                     <span className="text-chalk">
-                      {f.homeClubId === player.club?.id ? `v ${f.awayName}` : `at ${f.homeName}`}
+                      {f.home ? `v ${f.awayName}` : `at ${f.homeName}`}
+                      <span className="ml-1.5 text-xs text-chalk-4">{leagueShort(f.competition)}</span>
                     </span>
                     <span className="text-chalk-3">{f.status === "live" ? "Live now" : kickoff(f.kickoffAt)}</span>
                   </li>
@@ -308,4 +322,9 @@ function PerfBar({ z, score, expected }: { z: number; score: number | null; expe
       </span>
     </div>
   );
+}
+
+const SOURCE_LABEL: Record<string, string> = { "fpl-api": "Fantasy Premier League API", "fpl-archive": "FPL public archive", espn: "ESPN (unofficial public feed)" };
+function sourceLabels(sources: string[]) {
+  return [...new Set(sources)].map((s) => SOURCE_LABEL[s] ?? s).join(" and ");
 }

@@ -106,8 +106,20 @@ export interface MarketDataProvider {
   mode: "live" | "snapshot";
   attribution: string;
   capabilities: ProviderCapabilities;
+  /**
+   * The primary feed (Premier League via FPL) drives the market-wide data status
+   * shown in the UI. Secondary feeds (ESPN leagues) must not overwrite it.
+   */
+  primary?: boolean;
+  /**
+   * After a match is final, give every listed squad player of both clubs a
+   * 0-minute row if the feed only reports the matchday squad, so the minutes-share
+   * (role) model sees matches a player missed.
+   */
+  fillSquadOnFinal?: boolean;
   fetchReference(): Promise<ReferenceBundle>;
-  fetchFixtures(): Promise<FixtureBundle>;
+  /** `recent` lets feeds with large calendars fetch only the window around now. */
+  fetchFixtures(opts?: { window?: "full" | "recent" }): Promise<FixtureBundle>;
   /** Player stats for the given fixtures (live or finished). */
   fetchMatchStats(fixtures: NormFixture[]): Promise<NormPlayerMatch[]>;
 }

@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { env } from "@/server/env";
 import { log } from "@/server/log";
+import { ESPN_LEAGUES, EspnProvider } from "./providers/espn";
 import { FootballDataProvider } from "./providers/football-data";
 import { FplApiProvider, FplArchiveProvider } from "./providers/fpl";
 import type { FixtureOnlyProvider, MarketDataProvider } from "./providers/types";
@@ -47,13 +48,26 @@ export async function resolveMarketProvider(opts: { forceProbe?: boolean } = {})
   return provider;
 }
 
+let espnCache: { key: string; providers: EspnProvider[] } | null = null;
+
+/** Tradable ESPN competitions (empty unless ESPN_ENABLED=true). Instances are reused across ticks (metadata cache). */
+export function espnProviders(): EspnProvider[] {
+  const e = env();
+  if (!e.ESPN_ENABLED) return [];
+  const slugs = e.ESPN_LEAGUES.split(",").map((x) => x.trim()).filter((x) => x && ESPN_LEAGUES[x]);
+  const key = `${e.ESPN_BASE_URL}|${slugs.join(",")}`;
+  if (!espnCache || espnCache.key !== key) espnCache = { key, providers: slugs.map((slug) => new EspnProvider(slug, e.ESPN_BASE_URL)) };
+  return espnCache.providers;
+}
+
 export function fixtureOnlyProvider(): { provider: FixtureOnlyProvider; competitions: string[] } | null {
   const e = env();
   if (!e.FOOTBALL_DATA_API_KEY) return null;
   const year = Number(e.FPL_SEASON.slice(0, 4));
+  const tradable = new Set(["PL", ...espnProviders().map((p) => p.code)]);
   const competitions = e.FOOTBALL_DATA_COMPETITIONS.split(",")
     .map((c) => c.trim().toUpperCase())
-    .filter((c) => c && c !== "PL"); // PL is served with player data by FPL
+    .filter((c) => c && !tradable.has(c)); // these come with player data from FPL / ESPN
   return { provider: new FootballDataProvider(e.FOOTBALL_DATA_API_KEY, year), competitions };
 }
 

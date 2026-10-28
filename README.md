@@ -1,7 +1,8 @@
 # PITCHMARKET
 
-**A stock market where the stocks are footballers.** Buy and sell Premier League
-players with 100,000 virtual Pitch Credits. Prices move after every match from
+**A stock market where the stocks are footballers.** Buy and sell players from
+the Premier League, and optionally La Liga, the Bundesliga, Serie A, Ligue 1 and
+the Champions League, with 100,000 virtual Pitch Credits. Prices move after every match from
 what players actually did, and you compete with friends in private leagues.
 
 > Virtual money only. There are no deposits, withdrawals, prizes or bets. Prices
@@ -21,6 +22,9 @@ what players actually did, and you compete with friends in private leagues.
   per-player match stats (minutes, goals, assists, xG, xA, saves, clean sheets,
   tackles, recoveries, cards, availability) from the Fantasy Premier League feed.
   It falls back automatically to the public FPL archive, clearly labelled as a delayed snapshot.
+  Optionally (`ESPN_ENABLED=true`) ~3,500 more players from La Liga, the
+  Bundesliga, Serie A, Ligue 1 and the Champions League via ESPN's public feed,
+  live in-play; read the risk in docs/DATA_LICENSING.md first.
 * **A deterministic, documented price engine.** Position-aware match scoring
   against baselines derived from 11,498 real 2025-26 appearances, season quality
   and time-decayed form, a minutes-share (role) factor, mean reversion, and ±8% per-match caps.
@@ -117,9 +121,14 @@ Last full run (28 Oct 2026):
   updates about every minute, final stats about an hour after full time).
   Otherwise from the public archive (delayed by days), shown as "Snapshot data"
   across the app.
-* **Other competitions, results only** (La Liga, Bundesliga, Serie A, Ligue 1,
-  Champions League) with a free football-data.org key. The free tier has no
-  player stats, so those players aren't tradable.
+* **La Liga, Bundesliga, Serie A, Ligue 1 and the Champions League, tradable**
+  with `ESPN_ENABLED=true`: live from ESPN's public site feed (goals, assists,
+  shots, saves, goals conceded, cards; minutes derived from the match sheet).
+  **This feed is unofficial and against ESPN's terms of use**; it is off by
+  default and the trade-off is documented. Premier League clubs' Champions
+  League matches move their FPL-listed players' prices (linked by birthday + name).
+* Without ESPN, those competitions can show **results only** with a free
+  football-data.org key (its free tier has no player stats).
 * See [docs/DATA_LICENSING.md](docs/DATA_LICENSING.md) for the provider
   comparison, terms and risks. The FPL API is unofficial; use a licensed feed
   for anything commercial.
@@ -141,8 +150,10 @@ name "PITCHMARKET" only appears elsewhere in documentation.
 
 * No email verification, so one person can create several accounts (sign-ups are
   rate-limited per IP). Password-reset emails need `RESEND_API_KEY` in production.
-* Free data gives tradable players for the Premier League only. More leagues need
-  a licensed per-player feed (adapter interface in `src/server/ingestion/providers/types.ts`).
+* Terms-compliant free data covers the Premier League only. The other leagues use
+  ESPN's unofficial feed (opt-in, see DATA_LICENSING); a licensed per-player feed
+  can replace it through `src/server/ingestion/providers/types.ts`. ESPN reports no
+  xG, defensive stats or injury news for those leagues.
 * Market orders only. Limit orders aren't implemented.
 * Live UI updates poll every 20 s (no websockets), which is suitable for serverless hosting.
 * On sleep-on-idle free hosts (Render free) the first visit after a quiet spell

@@ -7,7 +7,7 @@ export function generateMetadata(): Metadata {
   const name = env().APP_NAME;
   return {
     title: { default: `${name} — the football player stock market`, template: `%s | ${name}` },
-    description: "Buy and sell Premier League players with virtual credits. Prices move with real match performance. Compete with friends in private leagues. No real money, ever.",
+    description: "Buy and sell players from Europe's top leagues with virtual credits. Prices move with real match performance. Compete with friends in private leagues. No real money, ever.",
     applicationName: name,
     robots: { index: true, follow: true },
   };

@@ -1,8 +1,8 @@
 # Match-aware wake-up for sleep-on-idle hosts (e.g. Render free).
 #
-# Every hour this checks the public FPL fixture list (falling back to the public
-# GitHub archive) and, only when a Premier League match is within ~100 minutes,
-# live, or just finished, wakes the app. A woken server starts its in-process
+# Every hour this checks the fixture lists (FPL for the Premier League, with the
+# GitHub archive as fallback; ESPN scoreboards for the other leagues) and, only
+# when a match is within ~100 minutes, live, or just finished, wakes the app. A woken server starts its in-process
 # scheduler, which polls every minute and keeps itself awake until the match has
 # been settled. The rest of the week the app and the database can sleep, which
 # keeps both inside their free allowances.
@@ -32,6 +32,8 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
           TICK_EVERY_RUN: ${{ vars.TICK_EVERY_RUN }}
           FPL_SEASON: ${{ vars.FPL_SEASON || '2026-27' }}
+          # Repository variable ESPN_LEAGUES=none if the deployment doesn't enable the ESPN leagues.
+          ESPN_LEAGUES: ${{ vars.ESPN_LEAGUES || 'esp.1,ger.1,ita.1,fra.1,uefa.champions' }}
         run: |
           near=$(python3 - <<'PY'
           import csv, io, json, os, urllib.request
@@ -43,6 +45,18 @@ jobs:
               return urllib.request.urlopen(req, timeout=20).read().decode()
           def near(kickoffs):
               return any(lo <= k <= hi for k in kickoffs)
+          # Other leagues and the Champions League (ESPN feed, see docs/DATA_LICENSING.md):
+          # today's and tomorrow's scoreboards, one small request each.
+          for slug in [s.strip() for s in os.environ.get("ESPN_LEAGUES", "").split(",") if s.strip() and s.strip() != "none"]:
+              for day in {lo.strftime("%Y%m%d"), now.strftime("%Y%m%d"), hi.strftime("%Y%m%d")}:
+                  try:
+                      sb = json.loads(get(f"https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={day}"))
+                      ks = [datetime.fromisoformat(e["date"].replace("Z", "+00:00")) for e in sb.get("events", []) if e.get("date")]
+                      if near(ks):
+                          print("yes"); raise SystemExit
+                  except SystemExit: raise
+                  except Exception as e:
+                      print(f"ESPN {slug} unavailable ({e})", file=__import__("sys").stderr)
           try:
               data = json.loads(get("https://fantasy.premierleague.com/api/fixtures/"))
               ks = [datetime.fromisoformat(f["kickoff_time"].replace("Z", "+00:00")) for f in data if f.get("kickoff_time")]

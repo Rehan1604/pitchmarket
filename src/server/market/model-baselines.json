@@ -101,6 +101,12 @@
     "MID": 2.5623,
     "FWD": 3.0198
   },
+  "sigmaLimited": {
+    "GK": 2.4349,
+    "DEF": 2.7887,
+    "MID": 2.3331,
+    "FWD": 2.6021
+  },
   "source": {
     "dataset": "FPL archive 2025-26 (github.com/vaastav/Fantasy-Premier-League, gws/merged_gw.csv)",
     "appearances": 11498,
@@ -118,6 +124,6 @@
       "interceptions",
       "clearances"
     ],
-    "generatedAt": "2026-10-28T16:23:54.638Z"
+    "generatedAt": "2026-10-28T21:53:09.485Z"
   }
 }

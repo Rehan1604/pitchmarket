@@ -30,3 +30,7 @@ services:
         value: true-client-ip
       - key: DB_POOL_MAX
         value: "5"
+      # Unofficial ESPN feed for La Liga, Bundesliga, Serie A, Ligue 1 and the
+      # Champions League — against ESPN's terms; see docs/DATA_LICENSING.md.
+      - key: ESPN_ENABLED
+        value: "true"

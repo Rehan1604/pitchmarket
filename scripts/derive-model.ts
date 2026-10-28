@@ -14,7 +14,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parse } from "csv-parse/sync";
 import { fplToMatchStats, FPL_POSITION, type FplRecord } from "@/server/ingestion/providers/fpl-mapping";
-import { COUNT_STATS, POSITIONS, scoreMatch, type CountStat, type Position, type ScoringModel } from "@/server/market/scoring";
+import { COUNT_STATS, POSITIONS, RICH_STATS, scoreMatch, type CountStat, type Position, type ScoringModel } from "@/server/market/scoring";
 import { minutesWeight } from "@/server/market/pricing";
 
 const SEASON = process.env.PRIOR_SEASON ?? "2025-26";
@@ -107,6 +107,24 @@ async function main() {
     const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
     const variance = xs.reduce((a, b) => a + (b - mean) ** 2, 0) / Math.max(1, xs.length - 1);
     model.sigma[pos] = round(Math.sqrt(variance), 4);
+  }
+
+  // ---- pass 2b: σ for the basic stat profile (feeds without xG/xA/defensive stats, e.g. ESPN)
+  const residLimited: Record<Position, number[]> = { GK: [], DEF: [], MID: [], FWD: [] };
+  const basicModel: ScoringModel = { ...model, sigmaLimited: undefined };
+  for (const { pos, stats } of rows) {
+    if (stats.minutes < 60) continue;
+    const basic = { ...stats };
+    for (const k of RICH_STATS) basic[k] = null;
+    const s = scoreMatch(basic, pos, basicModel);
+    residLimited[pos].push(s.score - s.expected);
+  }
+  model.sigmaLimited = { GK: 1, DEF: 1, MID: 1, FWD: 1 };
+  for (const pos of POSITIONS) {
+    const xs = residLimited[pos];
+    const mean = xs.reduce((a, b) => a + b, 0) / xs.length;
+    const variance = xs.reduce((a, b) => a + (b - mean) ** 2, 0) / Math.max(1, xs.length - 1);
+    model.sigmaLimited[pos] = round(Math.sqrt(variance), 4);
   }
   model.source = {
     dataset: `FPL archive ${SEASON} (github.com/vaastav/Fantasy-Premier-League, gws/merged_gw.csv)`,

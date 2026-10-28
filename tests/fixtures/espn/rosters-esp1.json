@@ -1,0 +1,224 @@
+{
+ "83": {
+  "team": {
+   "id": "83",
+   "displayName": "Barcelona"
+  },
+  "athletes": [
+   {
+    "id": "131634",
+    "firstName": "Wojciech",
+    "displayName": "Wojciech Szczesny",
+    "jersey": "13",
+    "position": {
+     "abbreviation": "G"
+    },
+    "dateOfBirth": "1990-04-18T07:00Z",
+    "citizenship": "Poland",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Szczesny"
+   },
+   {
+    "id": "297362",
+    "firstName": "Joan",
+    "displayName": "Joan García",
+    "jersey": "1",
+    "position": {
+     "abbreviation": "G"
+    },
+    "dateOfBirth": "2001-05-04T07:00Z",
+    "citizenship": "Spain",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "García"
+   },
+   {
+    "id": "403582",
+    "firstName": "Xavi",
+    "displayName": "Xavi Espart",
+    "jersey": "12",
+    "position": {
+     "abbreviation": "D"
+    },
+    "dateOfBirth": "2007-05-21T07:00Z",
+    "citizenship": "Spain",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Espart"
+   },
+   {
+    "id": "250465",
+    "firstName": "Pedri",
+    "displayName": "Pedri",
+    "jersey": "8",
+    "position": {
+     "abbreviation": "M"
+    },
+    "dateOfBirth": "2002-11-25T08:00Z",
+    "citizenship": "Spain",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    }
+   },
+   {
+    "id": "231050",
+    "firstName": "Raphinha",
+    "displayName": "Raphinha",
+    "jersey": "11",
+    "position": {
+     "abbreviation": "F"
+    },
+    "dateOfBirth": "1996-12-14T08:00Z",
+    "citizenship": "Brazil",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    }
+   },
+   {
+    "id": "268782",
+    "firstName": "Anthony",
+    "displayName": "Anthony Gordon",
+    "jersey": "17",
+    "position": {
+     "abbreviation": "F"
+    },
+    "dateOfBirth": "2001-02-24T08:00Z",
+    "citizenship": "England",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Gordon"
+   },
+   {
+    "id": "900001",
+    "firstName": "Unused",
+    "displayName": "Unused Reserve",
+    "jersey": "40",
+    "position": {
+     "abbreviation": "D"
+    },
+    "dateOfBirth": "2008-01-01T08:00Z",
+    "citizenship": "Spain",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Reserve"
+   }
+  ]
+ },
+ "86": {
+  "team": {
+   "id": "86",
+   "displayName": "Real Madrid"
+  },
+  "athletes": [
+   {
+    "id": "257237",
+    "firstName": "Andriy",
+    "displayName": "Andriy Lunin",
+    "jersey": "13",
+    "position": {
+     "abbreviation": "G"
+    },
+    "dateOfBirth": "1999-02-11T08:00Z",
+    "citizenship": "Ukraine",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Lunin"
+   },
+   {
+    "id": "228402",
+    "firstName": "Éder",
+    "displayName": "Éder Militão",
+    "jersey": "3",
+    "position": {
+     "abbreviation": "D"
+    },
+    "dateOfBirth": "1998-01-18T08:00Z",
+    "citizenship": "Brazil",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Militão"
+   },
+   {
+    "id": "235818",
+    "firstName": "Federico",
+    "displayName": "Federico Valverde",
+    "jersey": "8",
+    "position": {
+     "abbreviation": "M"
+    },
+    "dateOfBirth": "1998-07-22T07:00Z",
+    "citizenship": "Uruguay",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Valverde"
+   },
+   {
+    "id": "285150",
+    "firstName": "Eduardo",
+    "displayName": "Eduardo Camavinga",
+    "jersey": "6",
+    "position": {
+     "abbreviation": "M"
+    },
+    "dateOfBirth": "2002-11-10T08:00Z",
+    "citizenship": "France",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Camavinga"
+   },
+   {
+    "id": "231388",
+    "firstName": "Kylian",
+    "displayName": "Kylian Mbappé",
+    "jersey": "10",
+    "position": {
+     "abbreviation": "F"
+    },
+    "dateOfBirth": "1998-12-20T08:00Z",
+    "citizenship": "France",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Mbappé"
+   },
+   {
+    "id": "402479",
+    "firstName": "Yan",
+    "displayName": "Yan Diomande",
+    "jersey": "25",
+    "position": {
+     "abbreviation": "F"
+    },
+    "dateOfBirth": "2006-11-14T08:00Z",
+    "citizenship": "Ivory Coast",
+    "injuries": [],
+    "status": {
+     "type": "active"
+    },
+    "lastName": "Diomande"
+   }
+  ]
+ }
+}

@@ -4,15 +4,17 @@
  * Postgres job locks make concurrent ticks safe — a job runs at most once per
  * interval no matter how many invocations overlap.
  */
-import { and, eq, gt, isNull, lt, or, sql } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { db, schema } from "@/db";
 import { env } from "@/server/env";
 import { log } from "@/server/log";
 import { audit } from "@/server/audit";
 import { getMarketState } from "@/server/market/state";
 import { takeDailySnapshots } from "@/server/portfolio/snapshots";
+import { syncEspnFixtures, syncEspnReference } from "./espn-sync";
 import { syncFixtures, syncFixtureOnlyCompetition, syncReference, syncStats, withRun } from "./pipeline";
-import { fixtureOnlyProvider, resolveMarketProvider } from "./registry";
+import { ESPN_ENTITY } from "./providers/espn";
+import { espnProviders, fixtureOnlyProvider, resolveMarketProvider } from "./registry";
 
 export async function acquireJob(job: string, minIntervalSec: number, ttlSec = 300): Promise<boolean> {
   const res = await db.execute<{ job: string }>(sql`
@@ -30,8 +32,8 @@ export async function releaseJob(job: string, status: string) {
   await db.update(schema.jobLocks).set({ lockedUntil: new Date(), lastStatus: status }).where(eq(schema.jobLocks.job, job));
 }
 
-async function runJob(job: string, minIntervalSec: number, fn: () => Promise<{ status: string }>, results: Record<string, string>) {
-  if (!(await acquireJob(job, minIntervalSec))) return;
+async function runJob(job: string, minIntervalSec: number, fn: () => Promise<{ status: string }>, results: Record<string, string>, ttlSec = 300) {
+  if (!(await acquireJob(job, minIntervalSec, ttlSec))) return;
   let status = "failed";
   try {
     status = (await fn()).status;
@@ -50,11 +52,16 @@ async function liveWindow(entityProvider: string) {
       live: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'live')::int`,
       imminent: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} between ${new Date(now - 3 * 3600_000)} and ${new Date(now + 20 * 60_000)})::int`,
       unsettled: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null)::int`,
+      recentUnsettled: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.kickoffAt} > ${new Date(now - 12 * 3600_000)})::int`,
+      backlog: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.statsFinal} and ${schema.fixtures.lastStatsSyncAt} is null)::int`,
     })
     .from(schema.fixtures)
     .where(eq(schema.fixtures.provider, entityProvider));
-  return row ?? { live: 0, imminent: 0, unsettled: 0 };
+  return row ?? { live: 0, imminent: 0, unsettled: 0, recentUnsettled: 0, backlog: 0 };
 }
+
+/** Max match sheets fetched per ESPN stats run (first-run backfill is spread over a few ticks). */
+const ESPN_STATS_BATCH = 40;
 
 /**
  * Halt trading automatically if a live match has had no successful stats
@@ -72,6 +79,9 @@ export async function enforceDataFreshness(now = new Date()) {
     .where(
       and(
         eq(schema.fixtures.status, "live"),
+        // A fixture still "live" 4 hours after kickoff is a feed glitch, not a delayed match:
+        // it must not freeze the whole market.
+        gt(schema.fixtures.kickoffAt, new Date(now.getTime() - 4 * 3600_000)),
         or(lt(schema.fixtures.lastStatsSyncAt, cutoff), and(isNull(schema.fixtures.lastStatsSyncAt), lt(schema.fixtures.kickoffAt, cutoff))),
       ),
     );
@@ -103,7 +113,7 @@ export interface TickPlan {
   delaySec: number;
   /** True while a match is live, about to start or awaiting settlement (live feed only). */
   keepAwake: boolean;
-  reason: "live" | "kickoff" | "settling" | "upcoming" | "idle" | "snapshot";
+  reason: "live" | "kickoff" | "backfill" | "settling" | "upcoming" | "idle" | "snapshot";
 }
 
 /** Pre-kickoff lead during which a sleep-on-idle host should stay awake. */
@@ -114,26 +124,29 @@ export const KEEP_AWAKE_LEAD_MINUTES = 90;
  * LIVE_POLL_SECONDS; otherwise we wait until shortly before the next kickoff
  * (capped by SCHEDULER_IDLE_SECONDS) so the database can scale to zero.
  */
-export async function planNextTick(entityProvider: string, mode: string, now = Date.now()): Promise<TickPlan> {
+export async function planNextTick(liveProviders: string[], now = Date.now()): Promise<TickPlan> {
   const e = env();
   const opts = { idleSec: e.SCHEDULER_IDLE_SECONDS, liveSec: e.LIVE_POLL_SECONDS };
-  if (mode !== "live") return decideNextTick(null, mode, now, opts);
+  if (liveProviders.length === 0) return decideNextTick(null, "snapshot", now, opts);
   const [row] = await db
     .select({
       live: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'live')::int`,
       kickoff: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} between ${new Date(now - 3 * 3600_000)} and ${new Date(now + 20 * 60_000)})::int`,
       settling: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.kickoffAt} > ${new Date(now - 12 * 3600_000)})::int`,
+      backlog: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.statsFinal} and ${schema.fixtures.lastStatsSyncAt} is null)::int`,
       nextKickoff: sql<string | null>`min(${schema.fixtures.kickoffAt}) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} > ${new Date(now)})`,
     })
     .from(schema.fixtures)
-    .where(eq(schema.fixtures.provider, entityProvider));
-  return decideNextTick(row ?? null, mode, now, opts);
+    .where(inArray(schema.fixtures.provider, liveProviders));
+  return decideNextTick(row ?? null, "live", now, opts);
 }
 
 export interface FixtureWindow {
   live: number;
   kickoff: number;
   settling: number;
+  /** Final, unsettled fixtures whose stats were never fetched (first-run backfill). */
+  backlog?: number;
   nextKickoff: string | Date | null;
 }
 
@@ -143,6 +156,7 @@ export function decideNextTick(w: FixtureWindow | null, mode: string, now: numbe
   if (!w) return { delaySec: o.idleSec, keepAwake: false, reason: "idle" };
   if (w.live > 0) return { delaySec: o.liveSec, keepAwake: true, reason: "live" };
   if (w.kickoff > 0) return { delaySec: o.liveSec, keepAwake: true, reason: "kickoff" };
+  if (w.backlog && w.backlog > 0) return { delaySec: 20, keepAwake: true, reason: "backfill" };
   if (w.settling > 0) return { delaySec: 300, keepAwake: true, reason: "settling" };
   if (w.nextKickoff) {
     const untilSec = (new Date(w.nextKickoff).getTime() - now) / 1000;
@@ -196,12 +210,29 @@ export async function runSchedulerTick(trigger = "schedule", opts: { force?: boo
     );
   }
 
+  const espn = espnProviders();
+  if (espn.length) {
+    const w = await liveWindow(ESPN_ENTITY);
+    const hotEspn = w.live > 0 || w.imminent > 0 || w.recentUnsettled > 0;
+    // Order matters on a fresh database: whole-season fixtures first (they date the
+    // initial listing), then squads, then the recent window, then stats.
+    await runJob("fixtures-full:espn", f * 6 * 3600, () => syncEspnFixtures(espn, "full", trigger), results);
+    await runJob("reference:espn", f * 12 * 3600, () => syncEspnReference(espn, trigger), results, 900);
+    await runJob("fixtures:espn", f * (hotEspn ? 90 : 1800), () => syncEspnFixtures(espn, "recent", trigger), results);
+    const after = await liveWindow(ESPN_ENTITY);
+    if (after.live > 0 || after.unsettled > 0) {
+      const interval = after.live > 0 ? e.LIVE_POLL_SECONDS - 5 : after.backlog > 0 ? 0 : 240;
+      await runJob(`stats:${ESPN_ENTITY}`, f * interval, () => withRun("stats", ESPN_ENTITY, trigger, () => syncStats(espn[0], new Date(), { maxFixtures: ESPN_STATS_BATCH })), results);
+    }
+  }
+
   await runJob("snapshots:daily", f * 1800, async () => withRun("snapshots", "internal", trigger, () => takeDailySnapshots(), { gate: false }), results);
   await runJob("cleanup", f * 6 * 3600, cleanup, results);
   const freshness = await enforceDataFreshness();
   if (freshness.changed) results.freshness = String(freshness.status);
 
-  const next = await planNextTick(provider.entityProvider, provider.mode);
+  const liveProviders = [...(provider.mode === "live" ? [provider.entityProvider] : []), ...(espn.length ? [ESPN_ENTITY] : [])];
+  const next = await planNextTick(liveProviders);
   return { provider: provider.source, mode: provider.mode, jobs: results, next };
 }
 

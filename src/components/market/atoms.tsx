@@ -96,14 +96,15 @@ const AVAIL: Record<string, { label: string; tone: string; Icon: typeof CircleCh
   injured: { label: "Injured", tone: "text-loss", Icon: Cross },
   suspended: { label: "Suspended", tone: "text-loss", Icon: Ban },
   unavailable: { label: "Unavailable", tone: "text-chalk-3", Icon: Ban },
-  unknown: { label: "Status unknown", tone: "text-chalk-4", Icon: CircleHelp },
+  unknown: { label: "No injury news from this feed", tone: "text-chalk-4", Icon: CircleHelp },
 };
 
 export function Availability({ status, chance, note, compact }: { status: string; chance?: number | null; note?: string | null; compact?: boolean }) {
   const a = AVAIL[status] ?? AVAIL.unknown;
   const text = status === "doubtful" && chance !== null && chance !== undefined ? `${chance}% chance` : a.label;
   if (compact) {
-    if (status === "available") return null;
+    // "unknown" = the feed publishes no injury news (ESPN leagues): show nothing rather than a warning on every row.
+    if (status === "available" || status === "unknown") return null;
     return (
       <span title={note ?? text} className={cn("inline-flex items-center", a.tone)}>
         <a.Icon className="size-3.5" aria-hidden />
