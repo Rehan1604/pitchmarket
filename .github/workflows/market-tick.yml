@@ -2,14 +2,16 @@
 #
 # Every hour this checks the public FPL fixture list (falling back to the public
 # GitHub archive) and, only when a Premier League match is within ~100 minutes,
-# live, or just finished, calls the app's idempotent tick endpoint. That wakes
-# the server; its in-process scheduler then polls every minute and keeps itself
-# awake until the match has been settled. The rest of the week the app and the
-# database are allowed to sleep, which keeps both inside their free allowances.
+# live, or just finished, wakes the app. A woken server starts its in-process
+# scheduler, which polls every minute and keeps itself awake until the match has
+# been settled. The rest of the week the app and the database can sleep, which
+# keeps both inside their free allowances.
 #
-# Repository secrets: APP_URL (e.g. https://pitchmarket.onrender.com) and CRON_SECRET.
-# Optional repository variable TICK_EVERY_RUN=true: call the endpoint on every run
-# (for hosts without an in-process scheduler, e.g. Vercel Hobby).
+# Target URL: repository variable APP_URL (or secret APP_URL); defaults to the
+# deployment below. With secret CRON_SECRET set it calls the authenticated
+# /api/cron/tick; without it, a plain GET /api/health is enough to wake the server.
+# Optional repository variable TICK_EVERY_RUN=true: wake/tick on every run
+# (for hosts without an in-process scheduler, e.g. Vercel Hobby + CRON_SECRET).
 # Each run is billed as ~1 minute: 24/day ≈ 720 min/month — free for public repos and
 # inside the 2,000 free minutes for private ones. GitHub may delay scheduled runs.
 name: Market wake-up
@@ -26,12 +28,11 @@ jobs:
     steps:
       - name: Wake the app if a match is near
         env:
-          APP_URL: ${{ secrets.APP_URL }}
+          APP_URL: ${{ vars.APP_URL || secrets.APP_URL || 'https://pitchmarket.onrender.com' }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
           TICK_EVERY_RUN: ${{ vars.TICK_EVERY_RUN }}
           FPL_SEASON: ${{ vars.FPL_SEASON || '2026-27' }}
         run: |
-          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then echo "APP_URL / CRON_SECRET secrets not set; nothing to do."; exit 0; fi
           near=$(python3 - <<'PY'
           import csv, io, json, os, urllib.request
           from datetime import datetime, timedelta, timezone
@@ -61,7 +62,11 @@ jobs:
           if [ "$near" != "yes" ] && [ "$TICK_EVERY_RUN" != "true" ]; then exit 0; fi
           # Cold starts on free hosts can take ~1 minute; retry once.
           for attempt in 1 2; do
-            if curl --fail-with-body -sS -m 150 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/tick"; then echo; exit 0; fi
+            if [ -n "$CRON_SECRET" ]; then
+              curl --fail-with-body -sS -m 150 -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/tick" && { echo; exit 0; }
+            else
+              curl --fail-with-body -sS -m 150 "$APP_URL/api/health" && { echo; exit 0; }
+            fi
             sleep 20
           done
           exit 1

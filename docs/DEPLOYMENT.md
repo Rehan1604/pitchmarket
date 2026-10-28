@@ -28,7 +28,8 @@ instance-hours and ~30–45 Neon CU-hours, plus whatever your players' own visit
 
 1. Create a Neon project (any region; pick the one closest to your Render region).
 2. Copy the **pooled** connection string (Dashboard → Connect → "Connection
-   pooling" on). Keep `?sslmode=require`; remove `&channel_binding=require` if present.
+   pooling" on). Use `?sslmode=verify-full` (node-postgres already treats `require`
+   that way and logs a warning for it); remove `&channel_binding=require` if present.
 3. Branch → Computes → Edit → set autoscaling max to **0.25 CU**.
 4. Optional least-privilege role: see "Least-privilege database role" below.
 
@@ -52,7 +53,7 @@ path `/api/health`, and the same environment variables:
 
 | Variable | Value |
 |---|---|
-| `DATABASE_URL` | Neon pooled connection string |
+| `DATABASE_URL` | Neon pooled connection string (`?sslmode=verify-full`) |
 | `APP_URL` | `https://<service>.onrender.com` (or your domain) |
 | `CRON_SECRET` | `openssl rand -hex 32` |
 | `APP_MODE` | `production` (or `demo` for a public demo) |
@@ -65,10 +66,13 @@ path `/api/health`, and the same environment variables:
 
 ### 3. Wake-up before matches (GitHub Actions)
 
-Repo → Settings → Secrets and variables → Actions → New repository secret:
-`APP_URL` (the Render URL) and `CRON_SECRET` (the same value as on Render; copy it
-from Render → Environment). The "Market wake-up" workflow then runs hourly. Without
-these secrets the workflow exits successfully and does nothing.
+The "Market wake-up" workflow runs hourly and needs no secrets: when a match is
+near it sends a plain `GET /api/health`, which is enough to wake a sleeping server
+(the in-process scheduler starts on boot). Point it at your deployment by setting
+the repository variable `APP_URL` (Settings → Secrets and variables → Actions →
+Variables), or edit the default URL in `.github/workflows/market-tick.yml`. If you
+also add the secret `CRON_SECRET` (same value as on Render), it calls the
+authenticated `/api/cron/tick` instead.
 
 ### 4. Admin account
 
