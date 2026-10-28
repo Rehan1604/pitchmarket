@@ -555,21 +555,30 @@ export async function settleFixture(fixtureId: number, now = new Date()): Promis
     // Price paths are strictly chronological: a match older than the player's
     // latest priced match (e.g. a backfilled cup tie from another feed) is kept
     // as stats but not priced, so replaying the path always reproduces the price.
+    // Likewise a match played before the player was listed (IPO) isn't priced:
+    // the price path starts at the listing.
     const lastPriced = new Map<number, number>();
+    const listedAt = new Map<number, number>();
     if (kickoff && rows.length) {
+      const ids = sql.join(rows.map((r) => sql`${r.price.playerId}`), sql`, `);
       const res = await tx.execute<{ player_id: number; last: Date }>(sql`
         SELECT pt.player_id, max(f.kickoff_at) AS last FROM price_ticks pt JOIN fixtures f ON f.id = pt.fixture_id
-        WHERE pt.reason = 'match_final' AND pt.player_id IN (${sql.join(rows.map((r) => sql`${r.price.playerId}`), sql`, `)})
+        WHERE pt.reason = 'match_final' AND pt.player_id IN (${ids})
         GROUP BY pt.player_id`);
       for (const r of res.rows) if (r.last) lastPriced.set(Number(r.player_id), new Date(r.last).getTime());
+      const ipo = await tx.execute<{ player_id: number; at: Date }>(sql`
+        SELECT player_id, effective_at AS at FROM price_ticks WHERE reason = 'ipo' AND player_id IN (${ids})`);
+      for (const r of ipo.rows) listedAt.set(Number(r.player_id), new Date(r.at).getTime());
     }
     let outOfOrder = 0;
 
     for (const { stats, price, position } of rows) {
       const last = lastPriced.get(price.playerId);
-      if (kickoff && last !== undefined && last > kickoff.getTime()) {
+      const listed = listedAt.get(price.playerId);
+      const note = !kickoff ? null : last !== undefined && last > kickoff.getTime() ? "out_of_order" : listed !== undefined && listed > kickoff.getTime() ? "before_listing" : null;
+      if (note) {
         outOfOrder++;
-        await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: "out_of_order" }).where(eq(schema.playerMatchStats.id, stats.id));
+        await tx.update(schema.playerMatchStats).set({ isFinal: true, pricingNote: note }).where(eq(schema.playerMatchStats.id, stats.id));
         continue;
       }
       const settled = settledStateFromRow(price, position as Position);

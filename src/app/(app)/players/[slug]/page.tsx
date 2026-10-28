@@ -177,8 +177,10 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                         <td className="num px-2 py-2.5 text-right text-chalk-2">{m.xg === null ? "n/a" : m.xg.toFixed(2)}</td>
                         <td className="num px-2 py-2.5 text-right text-chalk-2">{player.position === "GK" ? (m.saves ?? "n/a") : (m.tackles ?? "n/a")}</td>
                         <td className="px-3 py-2.5">
-                          {m.pricingNote === "out_of_order" ? (
-                            <span className="text-[12.5px] text-chalk-4">Recorded, not priced: older than a match already priced</span>
+                          {m.pricingNote === "out_of_order" || m.pricingNote === "before_listing" ? (
+                            <span className="text-[12.5px] text-chalk-4">
+                              Recorded, not priced: {m.pricingNote === "before_listing" ? "played before this player was listed" : "older than a match already priced"}
+                            </span>
                           ) : m.minutes > 0 && m.z !== null ? (
                             <PerfBar z={m.z} score={m.performanceScore} expected={m.expectedScore} />
                           ) : (

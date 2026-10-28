@@ -55,6 +55,9 @@ describe("ESPN normalisation", () => {
     expect(seasonMonths(scoreboard)).toEqual(["202608", "202610"]);
     expect(seasonMonths({ leagues: [{ season: { startDate: "2026-08-01T00:00Z", endDate: "2026-10-15T00:00Z" } }] })).toEqual(["202608", "202609", "202610"]);
     expect(recentMonths(new Date("2026-10-30T12:00:00Z"))).toEqual(["202610", "202611"]);
+    // Cup calendars (ESPN uefa.champions) list stages, not match days.
+    const cup = { leagues: [{ calendar: [{ label: "UEFA Champions League", startDate: "2026-07-01T04:00Z", endDate: "2027-07-01T03:59Z", entries: [{ label: "League Phase", startDate: "2026-08-27T07:00Z", endDate: "2027-02-15T07:59Z" }, { label: "Knockout Round Playoffs", startDate: "2027-02-15T08:00Z", endDate: "2027-03-08T07:59Z" }] }] }] };
+    expect(seasonMonths(cup)).toEqual(["202608", "202609", "202610", "202611", "202612", "202701", "202702", "202703"]);
   });
 
   it("normalises squad players, including mononyms, without inventing availability", () => {

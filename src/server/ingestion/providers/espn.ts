@@ -296,14 +296,23 @@ export function seasonMonths(sb: EspnScoreboard, now: Date = new Date()): string
   const add = (d: Date) => {
     if (!Number.isNaN(d.getTime())) months.add(`${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}`);
   };
+  const addRange = (from?: string, to?: string) => {
+    if (!from) return;
+    const d = new Date(from);
+    const end = new Date(to ?? from);
+    if (Number.isNaN(d.getTime()) || Number.isNaN(end.getTime())) return;
+    d.setUTCDate(1);
+    for (let guard = 0; d <= end && guard < 24; guard++) {
+      add(d);
+      d.setUTCMonth(d.getUTCMonth() + 1);
+    }
+  };
   for (const c of league?.calendar ?? []) {
     if (typeof c === "string") add(new Date(c));
     else if (c && typeof c === "object") {
+      // Cup calendars list stages ("League Phase", Sep–Jan): every month inside each stage.
       const o = c as { startDate?: string; endDate?: string; entries?: { startDate?: string; endDate?: string }[] };
-      for (const e of o.entries ?? [o]) {
-        if (e.startDate) add(new Date(e.startDate));
-        if (e.endDate) add(new Date(e.endDate));
-      }
+      for (const e of o.entries?.length ? o.entries : [o]) addRange(e.startDate, e.endDate);
     }
   }
   if (months.size === 0 && league?.season?.startDate && league.season.endDate) {
