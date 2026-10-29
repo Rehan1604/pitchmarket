@@ -77,6 +77,53 @@ describe("match price steps", () => {
     expect(r.fundamentalCents).toBe(fundamentalCents(r.state));
   });
 
+  it("never raises a price after a below-par match, even far below fair value", () => {
+    // Regression: Yamal, Barcelona 1-2 Real Madrid. Price 2,229.95, fair value ~4,030,
+    // z = -0.73 over 90'. The catch-up term used to outweigh the match and gave +4.55%.
+    const z = -0.7282;
+    const lam = 1 - Math.pow(0.5, 1 / PRICING.formHalfLifeMatches);
+    const lagging = {
+      ...ipoState("FWD", null),
+      priceCents: 222_995,
+      qualitySum: 15.754070110569225 - z,
+      qualityWeight: 10.58810252786467,
+      formIndex: (0.9632820021567514 - z * lam) / (1 - lam),
+      roleSum: 10.58810252786467,
+      roleMatches: 11,
+      matchesPriced: 11,
+    };
+    const bad = applyMatch(lagging, z, 90);
+    expect(bad.fundamentalCents).toBe(402_992); // the stored fair value after that match
+    // Old rule: 0.035·z + 0.12·ln(F/P) = +4.55% → 2,331.47.
+    expect(Math.round(lagging.priceCents * (1 + PRICING.beta * z + PRICING.gamma * Math.log(bad.fundamentalCents / lagging.priceCents)))).toBe(233_147);
+    expect(bad.ret).toBeCloseTo(PRICING.beta * z, 6);
+    expect(bad.state.priceCents).toBe(217_312);
+    // A good match still gets the full catch-up.
+    expect(applyMatch(lagging, 0.9, 90).ret).toBeGreaterThan(PRICING.beta * 0.9);
+  });
+
+  it("never lowers a price after an above-par match, even far above fair value", () => {
+    const overpriced = { ...base, priceCents: base.priceCents * 2 };
+    const good = applyMatch(overpriced, 0.6, 90);
+    expect(good.ret).toBeGreaterThan(0);
+    expect(good.ret).toBeCloseTo(PRICING.beta * 0.6, 6);
+    // A poor match there falls by more than the match alone.
+    expect(applyMatch(overpriced, -0.6, 90).ret).toBeLessThan(PRICING.beta * -0.6);
+  });
+
+  it("always moves in the direction of the match", () => {
+    for (const mult of [0.3, 0.7, 1, 1.6, 3]) {
+      const s = { ...base, priceCents: Math.round(base.priceCents * mult) };
+      for (const z of [-3, -1, -0.2, -0.01, 0.01, 0.2, 1, 4]) {
+        for (const minutes of [5, 45, 90]) {
+          const r = applyMatch(s, z, minutes);
+          if (z > 0) expect(r.state.priceCents).toBeGreaterThanOrEqual(s.priceCents);
+          else expect(r.state.priceCents).toBeLessThanOrEqual(s.priceCents);
+        }
+      }
+    }
+  });
+
   it("clamps prices to configured bounds", () => {
     expect(clampPrice(1)).toBe(PRICING.minPriceCents);
     expect(clampPrice(10 ** 12)).toBe(PRICING.maxPriceCents);

@@ -82,9 +82,20 @@ role       = (priorRole·priorRoleW + Σ m) / (priorRoleW + team matches)   shar
 fundamental F = base[pos] × e^(1.1 · (0.7·quality + 0.3·form)) × (0.6 + 0.8·role)
 
 per match the player appeared in:
-r       = clamp(0.035 · z · m + 0.12 · ln(F_after / P_before), −8%, +8%)
+catch-up = 0.12 · ln(F_after / P_before)                  pull toward fair value
+catch-up = max(0, catch-up) if z > 0,  min(0, catch-up) if z < 0   (match sets direction)
+r       = clamp(0.035 · z · m + catch-up, −8%, +8%)
 P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 ```
+
+* **The match sets the direction.** The catch-up toward fair value only adds to
+  a move that already goes the way the match went. A below-par match (z < 0)
+  can't raise a price, even when the price lags far below fair value, and an
+  above-par match can't lower one. Before 29 Oct 2026 the catch-up applied in
+  either direction. For example, Lamine Yamal rose 4.55% after a 2.5-vs-4.4
+  game against Real Madrid, because his price (2,230) was far below his fair
+  value (4,030). Under this rule that match is −2.55%. Moves settled before the
+  change were not re-priced.
 
 * **Base price (demand assumption):** GK 800, DEF 900, MID 1,050, FWD 1,150 PC.
   Attackers carry a modest premium because they're the most sought-after shares.

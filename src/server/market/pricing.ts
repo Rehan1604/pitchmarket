@@ -13,7 +13,9 @@
  *   m          = √(min(minutes, 90)/90)                               — minutes / sample-size weight
  *
  * Price step for a match the player appeared in
- *   r = clamp(β · z · m + γ · ln(F_after / P_before), ±maxStep)
+ *   r = clamp(β · z · m + align(z, γ · ln(F_after / P_before)), ±maxStep)
+ *   align keeps the catch-up term only when it has the same sign as z, so the
+ *   move always goes the way the match went (see alignedReversion).
  *   P_after = clamp(round(P_before · (1 + r)), minPrice, maxPrice)
  *
  * When prices change (market integrity rules):
@@ -150,6 +152,19 @@ export interface StepResult {
 }
 
 /**
+ * The match sets the direction. Catch-up toward fundamental value only adds to a
+ * move that already points the same way as the performance: a below-par match can
+ * never raise a price (even when the price lags far below fair value), and an
+ * above-par match can never lower one. An exactly average match (z = 0) lets
+ * mean reversion act either way.
+ */
+export function alignedReversion(z: number, reversion: number): number {
+  if (z > 0) return Math.max(0, reversion);
+  if (z < 0) return Math.min(0, reversion);
+  return reversion;
+}
+
+/**
  * Apply one finished (or in-play, for provisional pricing) team match to a
  * player's state. Input state is not mutated. minutes = 0 → no price step.
  */
@@ -170,7 +185,7 @@ export function applyMatch(state: PlayerMarketState, z: number, minutes: number,
     matchesPriced: state.matchesPriced + 1,
   };
   const f = fundamentalCents(next, cfg);
-  const uncapped = cfg.beta * z * m + cfg.gamma * Math.log(f / state.priceCents);
+  const uncapped = cfg.beta * z * m + alignedReversion(z, cfg.gamma * Math.log(f / state.priceCents));
   const ret = Math.max(-cfg.maxStep, Math.min(cfg.maxStep, uncapped));
   next.priceCents = clampPrice(Math.round(state.priceCents * (1 + ret)), cfg);
   return { state: next, ret, uncappedRet: uncapped, fundamentalCents: f, quality: qualityIndex(next, cfg), played: true };
