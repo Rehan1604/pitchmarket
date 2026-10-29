@@ -69,7 +69,7 @@ export function OnboardingFlow(props: {
           </ol>
           {props.livePolicy === "halt" ? (
             <p className="mt-6 rounded-md border border-line p-3 text-[13px] text-chalk-3">
-              Fair-play rule: trading in a player is locked while their match is live, because match data reaches us a minute or two after TV. It reopens at full time.
+              Fair-play rule: trading in a player is locked while their match is live, because match data reaches us a minute or two after TV. It reopens once the match is settled, about an hour after full time.
             </p>
           ) : null}
           <Button variant="primary" size="lg" className="mt-8" onClick={() => setStep(1)}>

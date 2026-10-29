@@ -156,7 +156,9 @@ still reproduces every price exactly.
 | Halt | Admin (manual) or automatic when a live match (kicked off within the last 4 hours) has no fresh data for `STALE_LIVE_DATA_HALT_MINUTES`. Automatic halts lift themselves when data recovers; manual ones never auto-lift. A fixture stuck as "live" for longer is treated as a feed glitch: its players stay locked, the rest of the market trades. |
 
 * **In-play lock (`LIVE_TRADING_POLICY=halt`, default):** a player can't be traded
-  while their team's match is live, in any competition (the club's league and
+  while their team's match is live, in any competition. For players who played it
+  stays locked until the match is settled (~45–60 minutes after full time), because
+  until then their price is still provisional (the club's league and
   Champions League rows, and a Premier League club's linked ESPN row, count as one club). Match feeds arrive after TV, so in-play
   trading would reward whoever watches the fastest stream. Portfolio values still
   move live.

@@ -145,7 +145,7 @@ export async function executeTrade(input: TradeInput): Promise<TradeReceipt> {
         throw new HttpError(409, "PLAYER_NOT_TRADABLE", "This player is no longer listed. You can sell existing shares but not buy more.");
       }
       if (cfg.LIVE_TRADING_POLICY === "halt" && (await playerInPlay(tx, input.playerId, pr.club_id, pr.live_fixture_id))) {
-        throw new HttpError(423, "PLAYER_IN_PLAY", "Trading in this player is locked while their match is live. It reopens at full time.");
+        throw new HttpError(423, "PLAYER_IN_PLAY", "Trading in this player is locked while their match is live. It reopens once the match is settled, about an hour after full time.");
       }
       if (input.expectedPriceCents !== undefined && input.expectedPriceCents !== price) {
         throw conflict("PRICE_CHANGED", "The price moved before your order reached the market. Review the new price.", {
