@@ -83,7 +83,8 @@ fundamental F = base[pos] × e^(1.1 · (0.7·quality + 0.3·form)) × (0.6 + 0.8
 
 per match the player appeared in:
 catch-up = 0.12 · ln(F_after / P_before)                  pull toward fair value
-catch-up = max(0, catch-up) if z > 0,  min(0, catch-up) if z < 0   (match sets direction)
+catch-up = max(0, catch-up) if z > 0,  min(0, catch-up) if z < 0,  0 if z = 0
+catch-up = catch-up · min(1, |z|)                          scaled by how far past par
 r       = clamp(0.035 · z · m + catch-up, −8%, +8%)
 P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 ```
@@ -91,11 +92,18 @@ P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 * **The match sets the direction.** The catch-up toward fair value only adds to
   a move that already goes the way the match went. A below-par match (z < 0)
   can't raise a price, even when the price lags far below fair value, and an
-  above-par match can't lower one. Before 29 Oct 2026 the catch-up applied in
-  either direction. For example, Lamine Yamal rose 4.55% after a 2.5-vs-4.4
-  game against Real Madrid, because his price (2,230) was far below his fair
-  value (4,030). Under this rule that match is −2.55%. Moves settled before the
-  change were not re-priced.
+  above-par match can't lower one.
+* **How far past par sets how much catch-up applies.** The catch-up is full for a
+  clearly good or bad match (|z| ≥ 1, about one goal for a forward), a sliver for
+  one just either side of par, and zero for an exactly average one. The move is
+  continuous and never smaller after a better match, so there is no cliff at par.
+* **History.** Before 29 Oct 2026 the catch-up applied in full and in either
+  direction. Lamine Yamal rose 4.55% after a 2.5-vs-4.4 game against Real
+  Madrid, because his price (2,230) was far below his fair value (4,030). Under
+  the current rule that match is −2.55%. Under the first fix (direction only), a
+  goalless 8-shot, 6-on-target game (4.6 vs 4.4) would still have given him
+  +5.95%; now it gives +0.72%. Moves settled before these changes were not
+  re-priced. Holdings, cash, trades and price history are untouched.
 
 * **Base price (demand assumption):** GK 800, DEF 900, MID 1,050, FWD 1,150 PC.
   Attackers carry a modest premium because they're the most sought-after shares.
@@ -107,7 +115,7 @@ P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
   range from about 460 to 2,330 PC (Haaland and Bruno Fernandes at the top).
 * **Did not play:** no price step. Only the role count advances, so a long
   absence can lower fundamental value, which reaches the price gradually through
-  later mean reversion. Absence never crashes a price.
+  later below-par matches. Absence never crashes a price.
 * **Caps:** at most ±8% per match, plus hard bounds of 50 and 15,000 PC.
 * All constants live in `PRICING` (`pricing.ts`). Change them, rerun the tests,
   and replay to see the effect.

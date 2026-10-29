@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { applyMatch, clampPrice, fundamentalCents, ipoState, livePrice, minutesWeight, PRICING, qualityIndex, replay, roleShare } from "@/server/market/pricing";
+import { scoreMatch } from "@/server/market/scoring";
 
 const star = { quality: 0.8, weight: 34, role: 0.9, roleMatches: 38 };
 const squad = { quality: -0.2, weight: 6, role: 0.2, roleMatches: 30 };
@@ -70,11 +71,60 @@ describe("match price steps", () => {
     expect(cameo).toBeLessThan(full);
   });
 
-  it("mean-reverts toward fundamental value", () => {
+  it("mean-reverts toward fundamental value in the direction of the match", () => {
     const overpriced = { ...base, priceCents: base.priceCents * 2 };
-    const r = applyMatch(overpriced, 0, 90);
-    expect(r.state.priceCents).toBeLessThan(overpriced.priceCents);
+    const r = applyMatch(overpriced, -1, 90);
+    expect(r.ret).toBeLessThan(PRICING.beta * -1);
     expect(r.fundamentalCents).toBe(fundamentalCents(r.state));
+    // An exactly average match leaves the price where it is.
+    expect(applyMatch(overpriced, 0, 90).state.priceCents).toBe(overpriced.priceCents);
+  });
+
+  it("scales the catch-up with how far past par the match was (no cliff at par)", () => {
+    const lagging = { ...base, priceCents: Math.round(base.priceCents / 2) };
+    const justBelow = applyMatch(lagging, -0.05, 90).ret;
+    const justAbove = applyMatch(lagging, 0.05, 90).ret;
+    expect(justBelow).toBeLessThanOrEqual(0);
+    expect(justAbove).toBeGreaterThanOrEqual(0);
+    expect(justAbove - justBelow).toBeLessThan(0.01);
+    // Full catch-up for a clearly good match.
+    const full = applyMatch(lagging, PRICING.reversionFullZ, 90);
+    expect(full.ret).toBe(Math.min(PRICING.maxStep, full.uncappedRet));
+    expect(full.uncappedRet).toBeCloseTo(PRICING.beta + PRICING.gamma * Math.log(full.fundamentalCents / lagging.priceCents), 9);
+  });
+
+  it("gives a goalless game with many shots on target only a small move (Yamal v Alavés case)", () => {
+    // Yamal's stored state on 29 Oct: 2,331.47, fair value ~4,030.
+    const yamal = {
+      ...ipoState("FWD", null),
+      priceCents: 233_147,
+      qualitySum: 15.754070110569225,
+      qualityWeight: 11.58810252786467,
+      formIndex: 0.9632820021567514,
+      roleSum: 11.58810252786467,
+      roleMatches: 12,
+      matchesPriced: 12,
+    };
+    const espn = { minutes: 90, goals: 0, assists: 0, saves: 0, goalsConceded: 1, cleanSheet: false, ownGoals: 0, yellowCards: 0, redCards: 0 };
+    const unlucky = scoreMatch({ ...espn, shots: 8, shotsOnTarget: 6 }, "FWD"); // 4.6 vs 4.4
+    const r = applyMatch(yamal, unlucky.z, 90);
+    expect(unlucky.z).toBeGreaterThan(0);
+    expect(r.ret).toBeGreaterThan(0);
+    expect(r.ret).toBeLessThan(0.015); // was +5.95% before the catch-up was scaled
+    const goal = applyMatch(yamal, scoreMatch({ ...espn, goals: 1, shots: 4, shotsOnTarget: 2 }, "FWD").z, 90);
+    expect(goal.ret).toBeGreaterThan(3 * r.ret);
+  });
+
+  it("never moves less after a better match", () => {
+    for (const mult of [0.4, 1, 2.5]) {
+      const s = { ...base, priceCents: Math.round(base.priceCents * mult) };
+      let prev = -Infinity;
+      for (let z = -3; z <= 4.0001; z += 0.05) {
+        const ret = applyMatch(s, z, 90).ret;
+        expect(ret).toBeGreaterThanOrEqual(prev - 1e-12);
+        prev = ret;
+      }
+    }
   });
 
   it("never raises a price after a below-par match, even far below fair value", () => {
