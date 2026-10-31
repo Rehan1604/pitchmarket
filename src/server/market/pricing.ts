@@ -13,7 +13,9 @@
  *   m          = √(min(minutes, 90)/90)                               — minutes / sample-size weight
  *
  * Price step for a match the player appeared in
- *   r = clamp(β · z · m + align(z, γ · ln(F_after / P_before)), ±maxStep)
+ *   r = soft(β · z · m + align(z, γ · ln(F_after / P_before)))
+ *   soft passes moves up to 8% through and compresses the excess logarithmically,
+ *   so a bigger match always moves more (see softStep); hard safety limit ±15%.
  *   align keeps the catch-up term only when it has the same sign as z, scaled by
  *   min(1, |z|), so the move always goes the way the match went and grows smoothly
  *   with how good or bad it was (see alignedReversion).
@@ -32,7 +34,7 @@
  *     never crashes a price.
  * Completed trades are never re-priced.
  */
-import type { Position } from "./scoring";
+import { Z_CLAMP, type Position } from "./scoring";
 
 export const PRICING = {
   /** Base price (credits) for an average-quality, half-time-role player. Position premium = demand assumption. */
@@ -56,8 +58,16 @@ export const PRICING = {
   gamma: 0.12,
   /** |z| at which the catch-up toward fundamental value applies in full (≈ one goal for a forward). */
   reversionFullZ: 1,
-  /** Maximum move per match (±), applied to both live and settled steps. */
-  maxStep: 0.08,
+  /**
+   * Soft cap on the move per match (±), applied to both live and settled steps.
+   * Up to `stepKnee` the computed move is taken as is; beyond it each extra point of
+   * performance still adds, but less (logarithmic, scale `stepSoftness`), so a bigger
+   * match always moves the price more. `maxStep` is a hard safety limit that real
+   * matches don't reach.
+   */
+  stepKnee: 0.08,
+  stepSoftness: 0.015,
+  maxStep: 0.15,
   /** Recent-form EWMA half-life, in matches played. */
   formHalfLifeMatches: 4,
   formMix: 0.3,
@@ -156,6 +166,18 @@ export interface StepResult {
 }
 
 /**
+ * Soft cap: moves up to stepKnee pass through unchanged; beyond it the excess is
+ * compressed logarithmically, so the move keeps growing (with diminishing returns)
+ * for a bigger match instead of flattening at a hard limit. Continuous, increasing
+ * and symmetric; hard-limited at ±maxStep for safety.
+ */
+export function softStep(u: number, cfg: PricingConfig = PRICING): number {
+  const a = Math.abs(u);
+  const r = a <= cfg.stepKnee ? a : cfg.stepKnee + cfg.stepSoftness * Math.log1p((a - cfg.stepKnee) / cfg.stepSoftness);
+  return Math.sign(u) * Math.min(cfg.maxStep, r);
+}
+
+/**
  * The match sets the direction, and how far past par it was sets how much catch-up applies.
  *  - Catch-up toward fundamental value only adds to a move that already points the
  *    same way as the performance: a below-par match can never raise a price (even
@@ -183,18 +205,21 @@ export function applyMatch(state: PlayerMarketState, z: number, minutes: number,
     return { state: next, ret: 0, uncappedRet: 0, fundamentalCents: fundamentalCents(next, cfg), quality: qualityIndex(next, cfg), played: false };
   }
   const lambda = 1 - Math.pow(0.5, 1 / cfg.formHalfLifeMatches);
+  // Season quality and form use the rating clamped to [−3, 4], so one freak match
+  // can't run away with fair value. The match reaction itself uses the full rating.
+  const zq = Math.max(Z_CLAMP.min, Math.min(Z_CLAMP.max, z));
   const next: PlayerMarketState = {
     ...state,
-    qualitySum: state.qualitySum + z * m,
+    qualitySum: state.qualitySum + zq * m,
     qualityWeight: state.qualityWeight + m,
-    formIndex: state.formIndex * (1 - lambda) + z * m * lambda,
+    formIndex: state.formIndex * (1 - lambda) + zq * m * lambda,
     roleSum: state.roleSum + m,
     roleMatches: state.roleMatches + 1,
     matchesPriced: state.matchesPriced + 1,
   };
   const f = fundamentalCents(next, cfg);
   const uncapped = cfg.beta * z * m + alignedReversion(z, cfg.gamma * Math.log(f / state.priceCents), cfg);
-  const ret = Math.max(-cfg.maxStep, Math.min(cfg.maxStep, uncapped));
+  const ret = softStep(uncapped, cfg);
   next.priceCents = clampPrice(Math.round(state.priceCents * (1 + ret)), cfg);
   return { state: next, ret, uncappedRet: uncapped, fundamentalCents: f, quality: qualityIndex(next, cfg), played: true };
 }

@@ -14,7 +14,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { parse } from "csv-parse/sync";
 import { fplToMatchStats, FPL_POSITION, type FplRecord } from "@/server/ingestion/providers/fpl-mapping";
-import { COUNT_STATS, POSITIONS, RICH_STATS, scoreMatch, type CountStat, type Position, type ScoringModel } from "@/server/market/scoring";
+import { COUNT_STATS, POSITIONS, RICH_STATS, scoreMatch, Z_CLAMP, type CountStat, type Position, type ScoringModel } from "@/server/market/scoring";
 import { minutesWeight } from "@/server/market/pricing";
 
 const SEASON = process.env.PRIOR_SEASON ?? "2025-26";
@@ -148,7 +148,8 @@ async function main() {
     if (stats.minutes > 0) {
       const s = scoreMatch(stats, pos, model);
       const m = minutesWeight(stats.minutes);
-      cur.zm += s.z * m;
+      // Quality uses the same clamped rating as season quality in pricing.
+      cur.zm += Math.max(Z_CLAMP.min, Math.min(Z_CLAMP.max, s.z)) * m;
       cur.m += m;
       cur.apps += 1;
     }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyMatch, clampPrice, fundamentalCents, ipoState, livePrice, minutesWeight, PRICING, qualityIndex, replay, roleShare } from "@/server/market/pricing";
+import { applyMatch, clampPrice, fundamentalCents, ipoState, livePrice, minutesWeight, PRICING, qualityIndex, replay, roleShare, softStep } from "@/server/market/pricing";
 import { scoreMatch } from "@/server/market/scoring";
 
 const star = { quality: 0.8, weight: 34, role: 0.9, roleMatches: 38 };
@@ -36,6 +36,40 @@ describe("match price steps", () => {
   it("rises after a strong performance and falls after a poor one", () => {
     expect(applyMatch(base, 2.5, 90).state.priceCents).toBeGreaterThan(base.priceCents);
     expect(applyMatch(base, -2, 90).state.priceCents).toBeLessThan(base.priceCents);
+  });
+
+  it("soft-caps moves: ordinary matches unchanged, a bigger haul always moves more", () => {
+    const espn = { minutes: 90, saves: 0, goalsConceded: 1, cleanSheet: false, ownGoals: 0, yellowCards: 0, redCards: 0 };
+    let fair = { ...ipoState("FWD", null), qualitySum: 3, qualityWeight: 10, formIndex: 0.3, roleSum: 9, roleMatches: 10, matchesPriced: 10 };
+    fair = { ...fair, priceCents: fundamentalCents(fair) };
+    const move = (goals: number, assists: number, shots: number, sot: number) =>
+      applyMatch(fair, scoreMatch({ ...espn, goals, assists, shots, shotsOnTarget: sot }, "FWD").z, 90);
+    // Below the knee nothing changes: one goal ≈ +4.5%, as before.
+    expect(move(1, 0, 4, 2).ret).toBeCloseTo(move(1, 0, 4, 2).uncappedRet, 12);
+    // Every extra goal involvement adds to the move (2→5 G/A used to all be +8%).
+    const ladder = [move(1, 1, 4, 2), move(2, 1, 5, 3), move(2, 2, 5, 3), move(3, 2, 6, 4), move(3, 3, 6, 4), move(4, 3, 7, 5)].map((r) => r.ret);
+    for (let i = 1; i < ladder.length; i++) expect(ladder[i]).toBeGreaterThan(ladder[i - 1] + 0.002);
+    expect(ladder[2]).toBeGreaterThan(0.1); // 2G 2A clears 10%
+    expect(ladder[ladder.length - 1]).toBeLessThan(PRICING.maxStep);
+    // Fair value uses the clamped rating, so a freak haul can't run away with it.
+    expect(move(3, 2, 6, 4).fundamentalCents).toBe(move(2, 2, 5, 3).fundamentalCents);
+  });
+
+  it("rates the same goal involvements higher for defenders, and docks them for conceding", () => {
+    const at = (pos: "GK" | "DEF" | "MID" | "FWD") => {
+      const s = { ...ipoState(pos, null), qualitySum: 3, qualityWeight: 10, formIndex: 0.3, roleSum: 9, roleMatches: 10, matchesPriced: 10 };
+      return { ...s, priceCents: fundamentalCents(s) };
+    };
+    const ret = (pos: "GK" | "DEF" | "MID" | "FWD", goals: number, assists: number, conceded: number) =>
+      applyMatch(at(pos), scoreMatch({ minutes: 90, goals, assists, shots: 1 + goals * 2, shotsOnTarget: goals + 1, saves: 0, goalsConceded: conceded, cleanSheet: conceded === 0, ownGoals: 0, yellowCards: 0, redCards: 0 }, pos).z, 90).ret;
+    // 2 goals: defender with a clean sheet > defender who conceded twice > forward.
+    expect(ret("DEF", 2, 0, 0)).toBeGreaterThan(ret("DEF", 2, 0, 2) + 0.002);
+    expect(ret("DEF", 2, 0, 2)).toBeGreaterThan(ret("FWD", 2, 0, 2) + 0.005);
+    expect(ret("MID", 2, 0, 0)).toBeGreaterThan(ret("FWD", 2, 0, 0));
+    // Forwards aren't docked for the defence conceding.
+    expect(ret("FWD", 2, 0, 4)).toBe(ret("FWD", 2, 0, 0));
+    // All of these used to be a flat +8%.
+    for (const pos of ["GK", "DEF", "MID", "FWD"] as const) expect(ret(pos, 2, 2, 0)).toBeGreaterThan(0.1);
   });
 
   it("caps any single move at ±maxStep", () => {
@@ -89,7 +123,7 @@ describe("match price steps", () => {
     expect(justAbove - justBelow).toBeLessThan(0.01);
     // Full catch-up for a clearly good match.
     const full = applyMatch(lagging, PRICING.reversionFullZ, 90);
-    expect(full.ret).toBe(Math.min(PRICING.maxStep, full.uncappedRet));
+    expect(full.ret).toBe(softStep(full.uncappedRet));
     expect(full.uncappedRet).toBeCloseTo(PRICING.beta + PRICING.gamma * Math.log(full.fundamentalCents / lagging.priceCents), 9);
   });
 
@@ -119,7 +153,7 @@ describe("match price steps", () => {
     for (const mult of [0.4, 1, 2.5]) {
       const s = { ...base, priceCents: Math.round(base.priceCents * mult) };
       let prev = -Infinity;
-      for (let z = -3; z <= 4.0001; z += 0.05) {
+      for (let z = -6; z <= 12.0001; z += 0.05) {
         const ret = applyMatch(s, z, 90).ret;
         expect(ret).toBeGreaterThanOrEqual(prev - 1e-12);
         prev = ret;

@@ -131,7 +131,7 @@ export default async function Landing() {
               {[
                 ["The match is played", "Minutes, goals, assists, expected goals and assists, saves, clean sheets, tackles and recoveries come in from the data feed."],
                 ["Performance is judged by position", "A defender’s clean sheet counts like a striker’s goal. Each stat is compared with what’s normal for that position over the minutes played. Stats the feed doesn’t publish are left out, never counted as zero."],
-                ["The price steps, within limits", "Strong games lift the price, poor ones lower it, and long-term quality pulls it back toward fair value. One match moves a price by at most 8%. Sitting out never costs a player anything."],
+                ["The price steps, within limits", "Strong games lift the price, poor ones lower it, and long-term quality pulls it back toward fair value. Most matches move a price by up to 8%; a bigger game keeps adding, with diminishing returns, never more than 15%. Sitting out never costs a player anything."],
               ].map(([title, body], i) => (
                 <li key={title}>
                   <span className="scoreboard text-5xl text-lime">{i + 1}</span>

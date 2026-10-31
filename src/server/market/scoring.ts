@@ -149,7 +149,10 @@ export interface ScoreResult {
   excluded: string[];
 }
 
+/** Range used for season quality and form in pricing (one freak match can't dominate fair value). */
 export const Z_CLAMP = { min: -3, max: 4 } as const;
+/** Safety range for the match rating itself; wide enough that a bigger haul always rates higher. */
+export const Z_RANGE = { min: -6, max: 12 } as const;
 
 const round4 = (n: number) => Math.round(n * 10_000) / 10_000;
 
@@ -197,7 +200,7 @@ export function scoreMatch(stats: MatchStats, pos: Position, model: ScoringModel
   const limited = isLimitedProfile(stats) && model.sigmaLimited ? model.sigmaLimited[pos] : null;
   const sigma = limited && limited > 0 ? limited : model.sigma[pos] > 0 ? model.sigma[pos] : 1;
   const rawZ = (score - expected) / sigma;
-  const z = Math.max(Z_CLAMP.min, Math.min(Z_CLAMP.max, rawZ));
+  const z = Math.max(Z_RANGE.min, Math.min(Z_RANGE.max, rawZ));
   return { score: round4(score), expected: round4(expected), z: round4(z), breakdown, excluded };
 }
 

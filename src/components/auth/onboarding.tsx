@@ -55,7 +55,7 @@ export function OnboardingFlow(props: {
           <ol className="mt-8 space-y-5">
             {[
               ["Buy shares in players", "Every player has a share price in credits. You buy and sell whole shares at the current market price" + (props.feeBps ? `, plus a ${(props.feeBps / 100).toFixed(2)}% trading fee.` : ", with no trading fee.")],
-              ["Prices move with real matches", "After each match a player’s price is updated from what they actually did: goals and assists, chances, clean sheets, saves, tackles and recoveries, judged against what’s normal for their position. One match can move a price by at most 8%. Players who don’t play don’t lose value for sitting out."],
+              ["Prices move with real matches", "After each match a player’s price is updated from what they actually did: goals and assists, chances, clean sheets, saves, tackles and recoveries, judged against what’s normal for their position. Most matches move a price by up to 8%; a bigger game keeps adding, each extra goal or assist a little less, never more than 15%. Players who don’t play don’t lose value for sitting out."],
               ["Climb the leaderboards", "Your rank is your portfolio value: cash plus shares at today’s prices. Create a private league and send the invite link to your friends."],
             ].map(([title, body], i) => (
               <li key={title} className="flex gap-4">

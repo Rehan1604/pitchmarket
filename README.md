@@ -27,7 +27,7 @@ what players actually did, and you compete with friends in private leagues.
   live in-play; read the risk in docs/DATA_LICENSING.md first.
 * **A deterministic, documented price engine.** Position-aware match scoring
   against baselines derived from 11,498 real 2025-26 appearances, season quality
-  and time-decayed form, a minutes-share (role) factor, mean reversion, and ±8% per-match caps.
+  and time-decayed form, a minutes-share (role) factor, direction-aligned mean reversion, and a soft per-match cap (full up to 8%, diminishing beyond, hard limit 15%).
   Initial prices come from last season. Every price path replays exactly.
 * **A server-authoritative trading engine.** Integer-cent money, row-locked
   atomic transactions, idempotent orders, append-only ledgers enforced by

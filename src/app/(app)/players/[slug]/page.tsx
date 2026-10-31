@@ -202,10 +202,11 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
                   </tbody>
                 </table>
                 <p className="px-4 pt-3 text-[12.5px] text-chalk-4 sm:px-5">
-                  Each move combines the match rating with a pull toward fair value (season quality, form and minutes share), capped at ±8%. From
-                  29 Oct the match sets the direction and the size of that pull: a below-par game can’t raise a price, an above-par game can’t
-                  lower one, and a game just either side of par only moves it a little. Earlier moves were settled under the old rule, where a
-                  price far below fair value could still rise after a weak game.
+                  Each move combines the match rating with a pull toward fair value (season quality, form and minutes share). The match sets the
+                  direction and the size of that pull: a below-par game can’t raise a price, an above-par game can’t lower one, and a game just
+                  either side of par only moves it a little. Moves up to 8% count in full; beyond that each extra goal or assist adds a little less,
+                  never more than 15%. These rules apply from 29–31 Oct 2026; earlier moves were settled under a hard 8% cap, where a price far below
+                  fair value could still rise after a weak game.
                 </p>
               </div>
             )}
@@ -255,7 +256,7 @@ export default async function PlayerPage({ params }: { params: Promise<{ slug: s
               <Line label="Season rating" value={<span className="num">{seasonRating}</span>} hint="Quality this season, blended with last season and shrunk toward average when the sample is small." />
               <Line label="Form rating" value={<span className="num">{price.matchesPriced ? formRating : "—"}</span>} hint="Recent matches, older ones fading with a 4-match half-life." />
               <Line label="Minutes share" value={<span className="num">{Math.round(price.role * 100)}%</span>} hint="How much of the team’s football this player plays." />
-              <Line label="Engine value" value={<Credits cents={price.fundamentalCents} decimals={0} />} hint="What the numbers above support. Each match the price closes 12% of the gap, never moving more than 8% in one go." />
+              <Line label="Engine value" value={<Credits cents={price.fundamentalCents} decimals={0} />} hint="What the numbers above support. A match pulls the price toward it only when the game points the same way, fully after a clearly good or poor game. Moves up to 8% count in full, bigger ones are softened, never more than 15%." />
               <Line label="Matches priced" value={<span className="num">{price.matchesPriced}</span>} />
             </dl>
             <p className="mt-3 text-[12px] text-chalk-4">Game prices for a virtual market, not real-world transfer values. Last update {timeAgo(price.updatedAt)}.</p>

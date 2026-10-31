@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_MODEL, scoreMatch, scoredStats, statsFingerprint, type MatchStats } from "@/server/market/scoring";
+import { DEFAULT_MODEL, scoreMatch, scoredStats, statsFingerprint, Z_RANGE, type MatchStats } from "@/server/market/scoring";
 
 const full = (over: Partial<MatchStats> = {}): MatchStats => ({
   minutes: 90,
@@ -88,7 +88,7 @@ describe("match performance scoring", () => {
     const cameo = scoreMatch(full({ minutes: 30, cleanSheet: true, goalsConceded: 0 }), "DEF");
     expect(cameo.breakdown.cleanSheet).toBeUndefined();
     const absurd = scoreMatch(full({ goals: 9, assists: 5, xg: 6 }), "FWD");
-    expect(absurd.z).toBe(4);
+    expect(absurd.z).toBe(Z_RANGE.max); // safety range; pricing clamps fair value to Z_CLAMP separately
   });
 
   it("fingerprints are stable and sensitive to stat changes", () => {

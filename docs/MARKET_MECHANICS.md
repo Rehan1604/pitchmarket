@@ -85,7 +85,9 @@ per match the player appeared in:
 catch-up = 0.12 · ln(F_after / P_before)                  pull toward fair value
 catch-up = max(0, catch-up) if z > 0,  min(0, catch-up) if z < 0,  0 if z = 0
 catch-up = catch-up · min(1, |z|)                          scaled by how far past par
-r       = clamp(0.035 · z · m + catch-up, −8%, +8%)
+u       = 0.035 · z · m + catch-up
+r       = u                                   if |u| ≤ 8%
+r       = ±(8% + 1.5% · ln(1 + (|u| − 8%) / 1.5%))   otherwise, hard limit ±15%
 P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 ```
 
@@ -116,7 +118,29 @@ P_after = clamp(round(P_before · (1 + r)), 50 PC, 15,000 PC)
 * **Did not play:** no price step. Only the role count advances, so a long
   absence can lower fundamental value, which reaches the price gradually through
   later below-par matches. Absence never crashes a price.
-* **Caps:** at most ±8% per match, plus hard bounds of 50 and 15,000 PC.
+* **Soft cap:** a move of up to 8% counts in full. Beyond 8% the excess is compressed
+  logarithmically, so a bigger match always moves the price more, with diminishing
+  returns, never more than ±15%. Hard price bounds are 50 and 15,000 PC. Before
+  31 Oct 2026 this was a hard ±8% cap, which made 2, 3, 4 or 5 goal involvements
+  (and a defender's brace versus a forward's) all the same +8%.
+* **Match rating range:** the rating (z) runs from −6 to 12 so a bigger haul always
+  rates higher. Season quality and form, which set fair value, still use z clamped
+  to [−3, 4], so one freak match can't run away with a player's fair value.
+* **Positions:** the same goal involvements rate higher for defenders and goalkeepers
+  (a goal is 6 points, against 5 for midfielders and 4 for forwards, and they are
+  expected to score less), clean sheets add for GK/DEF (and 1 point for MID), and
+  goals conceded subtract for GK/DEF. Forwards aren't docked when the defence
+  concedes. For a player at fair value, 90 minutes, basic (ESPN) stats:
+
+  | Match | GK | DEF | MID | FWD |
+  |---|---|---|---|---|
+  | 1 goal, 1 assist, clean sheet | +11.7% | +11.4% | +10.8% | +9.1% |
+  | 1 goal, 1 assist, conceded 2 | +10.9% | +10.3% | +10.5% | +9.1% |
+  | 2 goals, clean sheet | +12.1% | +11.8% | +11.4% | +10.1% |
+  | 2 goals, conceded 2 | +11.5% | +11.2% | +11.2% | +10.1% |
+  | 2 goals, 2 assists, conceded 2 | +12.2% | +11.9% | +12.0% | +11.5% |
+
+  Every one of these was +8% under the old hard cap.
 * All constants live in `PRICING` (`pricing.ts`). Change them, rerun the tests,
   and replay to see the effect.
 
