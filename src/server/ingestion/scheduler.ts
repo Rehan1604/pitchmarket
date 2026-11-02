@@ -132,7 +132,9 @@ export async function planNextTick(liveProviders: string[], now = Date.now()): P
     .select({
       live: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'live')::int`,
       kickoff: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} between ${new Date(now - 3 * 3600_000)} and ${new Date(now + 20 * 60_000)})::int`,
-      settling: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.kickoffAt} > ${new Date(now - 12 * 3600_000)})::int`,
+      // Recently finished matches, plus any match already final but not yet settled (up to a
+      // week old): those must settle on the next run, not wait for the idle timer or a visit.
+      settling: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and (${schema.fixtures.kickoffAt} > ${new Date(now - 12 * 3600_000)} or (${schema.fixtures.statsFinal} and ${schema.fixtures.kickoffAt} > ${new Date(now - 7 * 24 * 3600_000)})))::int`,
       backlog: sql<number>`count(*) filter (where ${schema.fixtures.status} = 'finished' and ${schema.fixtures.settledAt} is null and ${schema.fixtures.statsFinal} and ${schema.fixtures.lastStatsSyncAt} is null)::int`,
       nextKickoff: sql<string | null>`min(${schema.fixtures.kickoffAt}) filter (where ${schema.fixtures.status} = 'scheduled' and ${schema.fixtures.kickoffAt} > ${new Date(now)})`,
     })

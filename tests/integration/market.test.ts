@@ -2,7 +2,7 @@ import { and, asc, eq, sql } from "drizzle-orm";
 import { afterAll, describe, expect, it } from "vitest";
 import { closeDb, db, schema } from "@/db";
 import { applyLiveTicks, settleFixture } from "@/server/ingestion/pipeline";
-import { enforceDataFreshness, acquireJob, releaseJob } from "@/server/ingestion/scheduler";
+import { enforceDataFreshness, acquireJob, releaseJob, planNextTick } from "@/server/ingestion/scheduler";
 import { applyMatch, ipoState, replay } from "@/server/market/pricing";
 import { scoreMatch, type Position } from "@/server/market/scoring";
 import { getPlayerDetail, listMarket, marketFilterSchema } from "@/server/market/queries";
@@ -151,6 +151,24 @@ describe("operations", () => {
     } finally {
       await db.update(schema.fixtures).set({ status: "scheduled", kickoffAt: fx.kickoffAt }).where(eq(schema.fixtures.id, fx.id));
       await db.update(schema.marketState).set({ dataMode: "snapshot", status: "open" }).where(eq(schema.marketState.id, 1));
+    }
+  });
+
+  it("keeps settling a match that is final but unsettled, however long ago it kicked off", async () => {
+    // Regression (GW9): FPL's late `finished` flag left matches final-but-unsettled 40h after
+    // kickoff; the scheduler treated that as idle and waited an hour (or for a visit).
+    const [fx] = await db.select().from(schema.fixtures).where(eq(schema.fixtures.status, "scheduled")).limit(1);
+    await db
+      .update(schema.fixtures)
+      .set({ status: "finished", statsFinal: true, settledAt: null, kickoffAt: new Date(Date.now() - 40 * 3600_000), lastStatsSyncAt: new Date() })
+      .where(eq(schema.fixtures.id, fx.id));
+    try {
+      expect(await planNextTick([fx.provider])).toMatchObject({ reason: "settling", keepAwake: true });
+      // Not yet final and older than 12h (e.g. abandoned): no reason to stay awake for it.
+      await db.update(schema.fixtures).set({ statsFinal: false }).where(eq(schema.fixtures.id, fx.id));
+      expect((await planNextTick([fx.provider])).reason).not.toBe("settling");
+    } finally {
+      await db.update(schema.fixtures).set({ status: "scheduled", statsFinal: false, kickoffAt: fx.kickoffAt, lastStatsSyncAt: fx.lastStatsSyncAt }).where(eq(schema.fixtures.id, fx.id));
     }
   });
 
