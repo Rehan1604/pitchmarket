@@ -14,7 +14,13 @@ describe("FPL normalisation", () => {
   it("maps fixture states, including postponed and provisional finishes", () => {
     const name = (r: string) => `Club ${r}`;
     expect(normaliseFplFixture({ id: 1, event: 1, kickoff_time: "2026-08-21T19:00:00Z", team_h: 1, team_a: 2, started: true, finished: false, finished_provisional: false, minutes: 63, team_h_score: 1, team_a_score: 0 }, name)).toMatchObject({ status: "live", minute: 63, homeScore: 1, statsFinal: false });
-    expect(normaliseFplFixture({ id: 2, event: 1, kickoff_time: "2026-08-21T19:00:00Z", team_h: 1, team_a: 2, started: true, finished: false, finished_provisional: true, minutes: 90, team_h_score: 2, team_a_score: 2 }, name)).toMatchObject({ status: "finished", statsFinal: false });
+    const ft = { id: 2, event: 1, kickoff_time: "2026-08-21T19:00:00Z", team_h: 1, team_a: 2, started: true, finished: false, finished_provisional: true, minutes: 90, team_h_score: 2, team_a_score: 2 };
+    // Full time flagged, but not yet 165 minutes after kickoff: provisional.
+    expect(normaliseFplFixture(ft, name, new Date("2026-08-21T21:00:00Z"))).toMatchObject({ status: "finished", statsFinal: false });
+    // 165 minutes after kickoff it settles even though FPL hasn't flipped `finished` (it can take days).
+    expect(normaliseFplFixture(ft, name, new Date("2026-08-21T21:45:00Z"))).toMatchObject({ status: "finished", statsFinal: true });
+    // Never settles without FPL's full-time flag (e.g. a suspended match), however late.
+    expect(normaliseFplFixture({ ...ft, finished_provisional: false, minutes: 60 }, name, new Date("2026-08-25T00:00:00Z")).statsFinal).toBe(false);
     expect(normaliseFplFixture({ id: 3, event: null, kickoff_time: null, team_h: 1, team_a: 2, started: false, finished: false }, name)).toMatchObject({ status: "postponed", homeScore: null });
     expect(normaliseFplFixture({ id: 4, event: 2, kickoff_time: "2026-08-28T19:00:00Z", team_h: 1, team_a: 2, started: "True", finished: "True", finished_provisional: "True", team_h_score: "3.0", team_a_score: "0.0" }, name)).toMatchObject({ status: "finished", statsFinal: true, homeScore: 3 });
   });

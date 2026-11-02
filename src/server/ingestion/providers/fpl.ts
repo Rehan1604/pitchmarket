@@ -29,6 +29,14 @@ import type {
 
 export const FPL_ENTITY = "fpl";
 const MATCH_LENGTH_MS = 115 * 60_000;
+/**
+ * FPL only flips a fixture's `finished` once the gameweek's data has been checked,
+ * which can be days after the match (all of GW9's Saturday games were still not
+ * `finished` ~40 hours later). Once FPL has flagged full time (`finished_provisional`),
+ * treat the stats as final this long after kickoff (≈45–55 minutes after full time),
+ * the same rule as ESPN. Later FPL corrections to a settled match are not re-priced.
+ */
+export const FPL_FINAL_AFTER_MIN = 165;
 
 export function plCompetition(season: string): NormCompetition {
   return { code: "PL", name: "Premier League", country: "England", season, providerRef: "fpl-PL" };
@@ -77,7 +85,7 @@ export function normaliseFplPlayer(e: FplRecord): NormPlayer | null {
   };
 }
 
-export function normaliseFplFixture(f: FplRecord, clubName: (ref: string) => string): NormFixture {
+export function normaliseFplFixture(f: FplRecord, clubName: (ref: string) => string, now: Date = new Date()): NormFixture {
   const kickoff = dateOrNull(f.kickoff_time);
   const started = bool(f.started);
   const finished = bool(f.finished);
@@ -100,7 +108,7 @@ export function normaliseFplFixture(f: FplRecord, clubName: (ref: string) => str
     awayScore: status === "scheduled" || status === "postponed" ? null : numOrNull(f.team_a_score),
     status,
     minute: status === "live" ? numOrNull(f.minutes) : null,
-    statsFinal: finished,
+    statsFinal: finished || (finishedProvisional && kickoff !== null && now.getTime() >= kickoff.getTime() + FPL_FINAL_AFTER_MIN * 60_000),
     sourceUpdatedAt: null,
   };
 }
